@@ -14,3 +14,119 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+/*
+$SIDEMENU_TRANSPARENCY: rgba(255, 255, 255, 0.4);
+
+.profile-image {
+  img {
+    border-radius: 50%;
+    margin: 10px;
+    border: 4px solid $SIDEMENU_TRANSPARENCY;
+  }
+
+}
+*/
+
+
+.image-underline {
+  border: 0px;
+  border-bottom: 1px solid;
+  border-color: gray;
+  height: 0.25%;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.white-underline {
+  border: 0px;
+  border-bottom: 1px solid;
+  border-color: white;
+  height: 0.25%;
+  width: 90%;
+  margin: -5px auto;
+}
+
+.list-item {
+  border: none;
+}
+
+.input-field {
+  border-radius: 5px;
+}
+
+.element-width-one {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.entry-container {
+  background: white;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.line {
+  border: 0px;
+  height: 1%;
+  width: 90%;
+  margin: 0 auto;
+  border-bottom: 1px solid;
+  border-color: gray;
+}
+
+.range-bar {
+  border: none;
+}
+
+.no-border {
+  border: none;
+}
+
+.range-bar-top {
+  border-radius: 5px 5px 0 0;
+}
+
+.right-button {
+  width: 47%;
+  float: right;
+}
+
+.left-button {
+  width: 47%;
+  color: none;
+}
+
+.pain-input {
+  display: block;
+}
+
+.add-button {
+  float: right;
+  border: 0px;
+  font-size: 400px;
+}
+
+.top-icon {
+  float: right;
+}
+
+.border-bottom {
+  border-bottom: 1px solid;
+  border-color: gray;
+}
+
+.prednisolone-container {
+  margin: 0 5% 5% 5%;
+}
+
+.prednisolone-container button {
+  float: right;
+}
+
+.prednisolone-container h5 {
+  display: inline;
+  margin-top: 10%;
+}
+
+
