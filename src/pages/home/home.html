@@ -13,27 +13,39 @@
   </ion-navbar>
 
 </ion-header>
+<ion-content padding="true" style="background: url(../../assets/img/background.png) no-repeat center;background-size:cover;"
+  class="manual-ios-statusbar-padding">
 
+  <ion-card>
+    <!-- Change between diffrent graphs  -->
+    <ion-item>
+      <button ion-button color="light" round>Graph 1</button>
+      <button ion-button color="light" round>Graph 2</button>
+      <button ion-button color="light" round>Graph 3</button>
+    </ion-item>
 
-<ion-content padding="true" style="background: url(../../assets/img/background.png) no-repeat center;background-size:cover;" class="manual-ios-statusbar-padding">
-    <div class="spacer" style="width: 300px; height: 89px;"></div>
-    <h2 style="color:#FFFFFF;font-weight:400;text-align:center;">Rheuma Online</h2>
-    <div class="spacer" style="width: 300px; height: 32px;"></div>
-    <form class="list">
-      <ion-list>
-        <label class="item item-input">
-          <span class="input-label">Username:</span>
-          <input type="email" placeholder="Username">
-        </label>
-        <label class="item item-input">
-          <span class="input-label">Password:</span>
-          <input type="password" placeholder="Password">
-        </label>
-      </ion-list>
-      <a ui-sref="forgottenPassword" style="color:#FFFFFF;" class="button button-light button-small button-clear forgotten-password">Forgotten Password?</a>
-      <div class="spacer" style="width: 300px; height: 66px;"></div>
-      <button ion-button id="mybutton">Log in </button>
-      <a ui-sref="menu.home" class="button button-stable  button-block element-width-one">Log in</a>
-      <a ui-sref="signup" class="button button-stable  button-block element-width-one">Register new user</a>
-    </form>
-  </ion-content>
+    <!-- Show the selected graph -->
+    <ion-item>
+      <ion-card-content>
+        *graph*
+      </ion-card-content>
+    </ion-item>
+  </ion-card>
+
+  <ion-card>
+    <ion-row>
+      <ion-col class="status">
+        <h2> Status </h2>
+         <img src="../../assets/img/flag-green.png"/>
+      </ion-col>
+      <ion-col class="appointment">
+          <h2 c>  Next appointment </h2>
+        <p>Laboratory: <br> 22.04.2017 (Suggestion)<br>
+          <br> Rheimatologist: <br> 20.05.2017 (Suggestion) </p>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+
+  <button ion-button color="light" block class="actionbutton" (click)="painDiary()">Pain diary </button>
+  <button ion-button color="light" block class="actionbutton" (click)="generateReport()">Generate new report </button>
+</ion-content>

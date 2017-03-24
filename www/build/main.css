@@ -24624,6 +24624,20 @@ $SIDEMENU_TRANSPARENCY: rgba(255, 255, 255, 0.4);
   margin-top: 10%;
 }
 
+page-home h2 {
+  text-align: center;
+  font-size: 90%;
+}
+
+page-home .status {
+  position: left;
+  size: 30%;
+}
+
+page-home .appointment {
+  position: right;
+}
+
 page-login .container {
   padding-top: 40%;
 }
