@@ -18,9 +18,10 @@
       <button ion-button clear small color="light" class="linkbutton" (click)="navForgotten()">Forgotten Password?</button>
       <div class="spacer"></div>
 
-      <button ion-button color="light" block class="actionbutton" (click)="login()">Log in </button>
-      <button ion-button color="light" block class="actionbutton" (click)="navSignup()">Register new user </button>
-
+      <div class="actionbuttoncontainer">
+        <button ion-button color="light" block class="actionbutton" (click)="login()">Log in </button>
+        <button ion-button color="light" block class="actionbutton" (click)="navSignup()">Register new user </button>
+      </div>
     </form>
   </div>
 </ion-content>

@@ -14,6 +14,9 @@ import { SettingsPage } from '../pages/settings/settings';
 import { UserGuidePage } from '../pages/user-guide/user-guide';
 import { Page2 } from '../pages/page2/page2';
 
+import { ForgottenPasswordPage } from '../pages/forgotten-password/forgotten-password';
+import { SignupPage } from '../pages/signup/signup';
+
 
 @Component({
   templateUrl: 'app.html'
@@ -21,7 +24,7 @@ import { Page2 } from '../pages/page2/page2';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = LoginPage;
+  rootPage: any = ForgottenPasswordPage;
 
   pages: Array<{title: string, component: any}>;
 
