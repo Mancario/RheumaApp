@@ -24624,6 +24624,42 @@ $SIDEMENU_TRANSPARENCY: rgba(255, 255, 255, 0.4);
   margin-top: 10%;
 }
 
+page-forgotten-password .container {
+  padding-top: 40%;
+  width: 80%;
+  margin: 0 auto;
+}
+
+page-forgotten-password h1 {
+  color: #FFFFFF;
+  font-weight: 500;
+  font-size: 1.6em;
+  text-align: center;
+  margin-bottom: 4%;
+}
+
+page-forgotten-password p {
+  color: #FFFFFF;
+  text-align: center;
+  margin-top: 7%;
+  margin-bottom: 17%;
+}
+
+page-forgotten-password .form {
+  margin: 0 auto;
+}
+
+page-forgotten-password .item {
+  border-radius: 5px;
+  margin-bottom: 20%;
+}
+
+page-forgotten-password .actionbuttoncontainer {
+  position: absolute;
+  width: 80%;
+  bottom: 15%;
+}
+
 page-login .container {
   padding-top: 40%;
 }
