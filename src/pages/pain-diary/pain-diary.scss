@@ -1,3 +1,49 @@
 page-pain-diary {
 
+  .card{
+    width: 95%;
+    margin: 0 auto;
+  }
+
+  .cardheader{
+    padding-top: 0;
+  }
+
+  .header-left-button{
+    display: inline;
+    float: left;
+  }
+
+  .header-right-button{
+    float: right;
+  }
+
+  .headerbutton{
+    margin-top: 0;
+    padding-left: 0;
+    padding-right: 10%;
+  }
+
+  .gray-line{
+    border: 0px;
+    border-bottom: 1px solid;
+    border-color: gray;
+    height: 1%;
+    width: 100%;
+    margin: -5px auto;
+  }
+
+  .addbutton{
+    position: fixed;
+    z-index: 1;
+    bottom: 4%;
+    right: 4%;
+    width:18%;
+
+  }
+
+  .addicon{
+    font-size: 3.4em;
+  }
+
 }

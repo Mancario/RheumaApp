@@ -24515,11 +24515,6 @@ $SIDEMENU_TRANSPARENCY: rgba(255, 255, 255, 0.4);
   background-size: cover;
 }
 
-.navbar {
-  height: 30%;
-  font-size: 20px;
-}
-
 .actionbutton {
   margin-bottom: 3%;
 }
@@ -24701,4 +24696,49 @@ page-login .actionbuttoncontainer {
   position: absolute;
   width: 80%;
   bottom: 15%;
+}
+
+page-pain-diary .card {
+  width: 95%;
+  margin: 0 auto;
+}
+
+page-pain-diary .cardheader {
+  padding-top: 0;
+}
+
+page-pain-diary .header-left-button {
+  display: inline;
+  float: left;
+}
+
+page-pain-diary .header-right-button {
+  float: right;
+}
+
+page-pain-diary .headerbutton {
+  margin-top: 0;
+  padding-left: 0;
+  padding-right: 10%;
+}
+
+page-pain-diary .gray-line {
+  border: 0px;
+  border-bottom: 1px solid;
+  border-color: gray;
+  height: 1%;
+  width: 100%;
+  margin: -5px auto;
+}
+
+page-pain-diary .addbutton {
+  position: fixed;
+  z-index: 1;
+  bottom: 4%;
+  right: 4%;
+  width: 18%;
+}
+
+page-pain-diary .addicon {
+  font-size: 3.4em;
 }

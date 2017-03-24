@@ -6,20 +6,51 @@
 -->
 
 
-<ion-header>
-
-  <ion-navbar>
-
+<ion-header class="header">
+  <ion-navbar class="navbar">
     <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
+      <ion-icon color="dark" name="menu"></ion-icon>
     </button>
     <ion-title>Pain Diary</ion-title>
   </ion-navbar>
-
 </ion-header>
 
+<ion-content padding class="content">
 
-<ion-content padding="true" style="background: url(../../assets/img/background.png) no-repeat center;background-size:cover;" class="has-header">
+  <ion-card class="card">
+    <ion-card-header class="cardheader">
+
+
+        <div class="header-left-button">
+          <button ion-button large clear icon-left color="dark" class="headerbutton">
+            <ion-icon name="calendar"></ion-icon>
+            04.03.17
+          </button>
+        </div>
+
+        <div class="header-right-button">
+          <button ion-button large clear color="dark" class="headerbutton">
+            <ion-icon ios="md-create" md="md-create"> </ion-icon>
+          </button>
+
+          <button ion-button large clear color="dark" class="headerbutton">
+            <ion-icon name="trash"> </ion-icon>
+          </button>
+        </div>
+
+    </ion-card-header>
+
+    <ion-card-content>
+
+    </ion-card-content>
+
+  </ion-card>
+
+  <button ion-button large color="light" icon-only clear class="addbutton" (click)="navNewEntry()">
+    <ion-icon class="addicon" ios="ios-add-circle" md="ios-add-circle"></ion-icon>
+  </button>
+
+
   <div class="list card" id="painDiary-card23">
     <div id="painDiary-container11" class="border-bottom">
       <button id="painDiary-button30" class="button button-dark  button-clear icon-left ion-ios-calendar-outline">04.03.17</button>
