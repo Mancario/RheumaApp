@@ -27,7 +27,25 @@ $SIDEMENU_TRANSPARENCY: rgba(255, 255, 255, 0.4);
 
 }
 */
+.content{
+  background: url(../../assets/img/background.png) center;
+  background-size: cover;
+}
 
+
+.navbar{
+  height: 30%;
+  font-size: 20px;
+}
+
+.title{
+
+}
+
+.actionbutton{
+  margin-bottom: 3%;
+
+}
 
 .image-underline {
   border: 0px;
@@ -128,5 +146,3 @@ $SIDEMENU_TRANSPARENCY: rgba(255, 255, 255, 0.4);
   display: inline;
   margin-top: 10%;
 }
-
-
