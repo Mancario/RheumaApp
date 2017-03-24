@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
+import { LoginPage } from '../login/login';
+
+
 /*
   Generated class for the ForgottenPassword page.
 
@@ -17,6 +20,14 @@ export class ForgottenPasswordPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ForgottenPasswordPage');
+  }
+
+  reset(){
+    this.navCtrl.setRoot(LoginPage);
+  }
+
+  back(){
+    this.navCtrl.setRoot(LoginPage);
   }
 
 }
