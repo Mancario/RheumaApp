@@ -24510,6 +24510,20 @@ $SIDEMENU_TRANSPARENCY: rgba(255, 255, 255, 0.4);
 
 }
 */
+.content {
+  background: url(../../assets/img/background.png) center;
+  background-size: cover;
+}
+
+.navbar {
+  height: 30%;
+  font-size: 20px;
+}
+
+.actionbutton {
+  margin-bottom: 3%;
+}
+
 .image-underline {
   border: 0px;
   border-bottom: 1px solid;
@@ -24608,4 +24622,50 @@ $SIDEMENU_TRANSPARENCY: rgba(255, 255, 255, 0.4);
 .prednisolone-container h5 {
   display: inline;
   margin-top: 10%;
+}
+
+page-login .container {
+  padding-top: 40%;
+}
+
+page-login h1 {
+  color: #FFFFFF;
+  font-weight: 400;
+  font-size: 2.6em;
+  text-align: center;
+  margin-bottom: 13%;
+}
+
+page-login .scroll-content {
+  padding: 0;
+  margin: 0;
+}
+
+page-login .loginform {
+  width: 80%;
+  margin: 0 auto;
+}
+
+page-login .list {
+  margin-bottom: 1%;
+}
+
+page-login #itemtop {
+  border-radius: 5px 5px 0 0;
+  border-bottom: 1px solid;
+  border-color: gray;
+}
+
+page-login #itembottom {
+  border-radius: 0 0 5px 5px;
+}
+
+page-login .linkbutton {
+  margin-top: 0;
+  margin-bottom: 25%;
+}
+
+page-login .spacer {
+  height: 30%;
+  width: 100%;
 }
