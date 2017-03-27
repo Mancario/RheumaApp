@@ -1,6 +1,7 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
+import { ChartsModule } from 'ng2-charts';
 
 import { HomePage } from '../pages/home/home';
 import { BloodTestPage } from '../pages/blood-test/blood-test';
@@ -34,7 +35,8 @@ import { Page2 } from '../pages/page2/page2';
     Page2
   ],
   imports: [
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp), 
+    ChartsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
