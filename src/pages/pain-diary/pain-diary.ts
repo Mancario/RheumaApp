@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
+import { NewEntryPage } from '../new-entry/new-entry';
+
+
 /*
   Generated class for the PainDiary page.
 
@@ -13,10 +16,18 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class PainDiaryPage {
 
+  private painValue = 3;
+  private diseaseValue = 4;
+  private fatigueValue = 5;
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PainDiaryPage');
+  }
+
+  navNewEntry(){
+    this.navCtrl.setRoot(NewEntryPage);
   }
 
 }
