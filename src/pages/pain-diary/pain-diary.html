@@ -40,72 +40,58 @@
 
     <ion-card-content>
       <ion-list>
+
+        <div class="labelcontainer">
+          <ion-label>Pain</ion-label>
+          <button ion-button small color="primary">3</button>
+        </div>
         <ion-item>
-          <ion-label class="rangelabel">Pain</ion-label>
           <ion-range max="10" mode="wp" [(ngModel)]="painValue"
-              color="primary" pin="true" snaps="true"></ion-range>
+              color="primary" pin="false" snaps="true" disabled="true"></ion-range>
         </ion-item>
 
+        <div class="labelcontainer">
+          <ion-label>Disease Activity</ion-label>
+          <button ion-button small color="primary">4</button>
+        </div>
         <ion-item>
-          <ion-range min="-200" max="200" [(ngModel)]="saturation" color="secondary">
-            <ion-label range-left>-200</ion-label>
-            <ion-label range-right>200</ion-label>
-          </ion-range>
+          <ion-range max="10" mode="wp" [(ngModel)]="diseaseValue"
+              color="primary" pin="false" snaps="true" disabled="true"></ion-range>
         </ion-item>
 
-       <ion-item>
-         <ion-range min="20" max="80" step="2" [(ngModel)]="brightness">
-           <ion-icon small range-left name="sunny"></ion-icon>
-           <ion-icon range-right name="sunny"></ion-icon>
-         </ion-range>
-       </ion-item>
-
+        <div class="labelcontainer">
+          <ion-label>Fatigue</ion-label>
+          <button ion-button small color="primary">5</button>
+        </div>
         <ion-item>
-          <ion-label>step=100, snaps, </ion-label>
-          <ion-range min="1000" max="2000" step="100" snaps="true" color="secondary" [(ngModel)]="singleValue4"></ion-range>
+          <ion-range max="10" mode="wp" [(ngModel)]="fatigueValue"
+              color="primary" pin="false" snaps="true" disabled="true"></ion-range>
         </ion-item>
 
-        <ion-item>
-          <ion-label>dual, step=3, snaps, </ion-label>
-          <ion-range dualKnobs="true" [(ngModel)]="dualValue2" min="21" max="72" step="3" snaps="true"></ion-range>
-        </ion-item>
+
+      <div class="labelcontainer">
+        <ion-label>Prednisolone taken</ion-label>
+        <button ion-button small color="primary">100.0 mg</button>
+      </div>
       </ion-list>
+
 
 
     </ion-card-content>
 
+    <div class="line"></div>
+
+    <button ion-button icon-right clear color="dark" class="extendbutton">
+      Extend report
+      <ion-icon ios="ios-expand" md="ios-expand"></ion-icon>
+    </button>
+
   </ion-card>
 
-  <button ion-button large color="light" icon-only clear class="addbutton" (click)="navNewEntry()">
-    <ion-icon class="addicon" ios="ios-add-circle" md="ios-add-circle"></ion-icon>
+
+  <button ion-button large color="light" icon-only class="addbutton" (click)="navNewEntry()">
+    <ion-icon class="addicon" ios="ios-add" md="ios-add"></ion-icon>
   </button>
 
 
-  <div class="list card" id="painDiary-card23">
-    <!--div id="painDiary-container11" class="border-bottom">
-      <button id="painDiary-button30" class="button button-dark  button-clear icon-left ion-ios-calendar-outline">04.03.17</button>
-      <button id="painDiary-button27" class="button button-dark  button-clear icon ion-edit top-icon"></button>
-      <button id="painDiary-button28" class="button button-dark  button-clear icon ion-android-delete top-icon"></button>
-    </div-->
-    <div id="painDiary-container12">
-      <form id="painDiary-form8" class="list">
-        <ion-item class="range range-positive no-border" id="painDiary-range5">Range
-          <input type="range" value="50" min="0" max="100" step="1">
-        </ion-item>
-        <ion-item class="range range-positive no-border" id="painDiary-range6">Range
-          <input type="range" value="50" min="0" max="100" step="1">
-        </ion-item>
-        <ion-item class="range range-positive no-border" id="painDiary-range7">Range
-          <input type="range" value="50" min="0" max="100" step="1">
-        </ion-item>
-        <div id="painDiary-container14" class="prednisolone-container">
-          <h5 id="painDiary-heading6" style="color:#000000;">Prednisolone taken</h5>
-          <button id="painDiary-button31" class="button button-positive button-small prednisolone">100.0 mg</button>
-        </div>
-      </form>
-    </div>
-    <div id="painDiary-container13" class="line creator-container"></div>
-    <button id="painDiary-button29" class="button button-dark  button-block button-clear icon-right ion-arrow-down-b">Extended report</button>
-  </div>
-  <a ui-sref="menu.newEntry" id="painDiary-button20" style="border-radius:28px 28px 28px 28px;" class="button button-light button-large button-clear icon ion-ios-plus add-button"></a>
 </ion-content>

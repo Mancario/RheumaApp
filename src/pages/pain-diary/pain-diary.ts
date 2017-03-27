@@ -17,6 +17,8 @@ import { NewEntryPage } from '../new-entry/new-entry';
 export class PainDiaryPage {
 
   private painValue = 3;
+  private diseaseValue = 4;
+  private fatigueValue = 5;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
