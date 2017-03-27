@@ -23,22 +23,22 @@ export class MyApp {
 
   rootPage: any = LoginPage;
 
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{icon: string, title: string, component: any}>;
 
   constructor(public platform: Platform) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'Generate Report', component: GenerateReportPage },
-      { title: 'Pain Diary', component: PainDiaryPage },
-      { title: 'eHAQ', component: EHAQPage },
-      { title: 'eDAS', component: EDASPage },
-      { title: 'Blood Test', component: BloodTestPage },
-      { title: 'User Guide', component: UserGuidePage },
-      { title: 'Settings', component: SettingsPage },
-      { title: 'Page Two', component: Page2 }
+      {icon: "home",  title: 'Home', component: HomePage },
+      {icon: "print", title: 'Generate Report', component: GenerateReportPage },
+      { icon: "pulse",title: 'Pain Diary', component: PainDiaryPage },
+      { icon: "man",title: 'eHAQ', component: EHAQPage },
+      { icon: "body",title: 'eDAS', component: EDASPage },
+      { icon: "medkit",title: 'Blood Test', component: BloodTestPage },
+      { icon: "help-circle",title: 'User Guide', component: UserGuidePage },
+      { icon: "settings",title: 'Settings', component: SettingsPage },
+      { icon: "heart",title: 'Page Two', component: Page2 }
     ];
 
   }

@@ -4,36 +4,78 @@
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
 -->
+
+<script src="node_modules/chart.js/src/chart.js"></script>
 <ion-header>
   <ion-navbar>
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Home</ion-title>
+    <ion-item>
+      <ion-title item-left>Home </ion-title>
+      <button ion-button clear item-right icon-left (click)="logout()" color="dark">  
+        <ion-icon  name="log-out" ></ion-icon> logout
+      </button>
+    </ion-item>
   </ion-navbar>
 
 </ion-header>
 
+<ion-content padding="true" style="background: url(../../assets/img/background.png) no-repeat center;background-size:cover;"
+  class="manual-ios-statusbar-padding">
 
-<ion-content padding="true" style="background: url(../../assets/img/background.png) no-repeat center;background-size:cover;" class="manual-ios-statusbar-padding">
-    <div class="spacer" style="width: 300px; height: 89px;"></div>
-    <h2 style="color:#FFFFFF;font-weight:400;text-align:center;">Rheuma Online</h2>
-    <div class="spacer" style="width: 300px; height: 32px;"></div>
-    <form class="list">
-      <ion-list>
-        <label class="item item-input">
-          <span class="input-label">Username:</span>
-          <input type="email" placeholder="Username">
-        </label>
-        <label class="item item-input">
-          <span class="input-label">Password:</span>
-          <input type="password" placeholder="Password">
-        </label>
-      </ion-list>
-      <a ui-sref="forgottenPassword" style="color:#FFFFFF;" class="button button-light button-small button-clear forgotten-password">Forgotten Password?</a>
-      <div class="spacer" style="width: 300px; height: 66px;"></div>
-      <button ion-button id="mybutton">Log in </button>
-      <a ui-sref="menu.home" class="button button-stable  button-block element-width-one">Log in</a>
-      <a ui-sref="signup" class="button button-stable  button-block element-width-one">Register new user</a>
-    </form>
-  </ion-content>
+ 
+    <ion-card>
+      <!-- Change between diffrent graphs  -->
+      <ion-card-content>
+        <ion-segment [(ngModel)]="graphs" color="dark">
+          <ion-segment-button value="1" (ionSelect)="selectedgraph()">
+            Medicine
+          </ion-segment-button>
+          <ion-segment-button value="2" (ionSelect)="selectedgraph()">
+            eDAS/eHAQ
+          </ion-segment-button>
+          <ion-segment-button value="3" (ionSelect)="selectedgraph()">
+            Pain Diary
+          </ion-segment-button>
+          <ion-segment-button value="4" (ionSelect)="selectedgraph()">
+            Others
+          </ion-segment-button>
+        </ion-segment>
+
+        <!-- Show the selected graph -->
+        <ion-item>
+          <img src={{graph}} class="graph" />
+          <!--
+        <div class="col-md-6">
+          <div style="display: block;">
+            <canvas baseChart width="400" height="400" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+              [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType" (chartHover)="chartHovered($event)"
+              (chartClick)="chartClicked($event)">
+            </canvas>
+          </div>
+        </div>
+        -->
+        </ion-item>
+      </ion-card-content>
+
+    </ion-card>
+
+    <ion-card>
+      <ion-row>
+        <ion-col class="status">
+          <h2> Status </h2>
+          <img src={{flag}} class="flag" />
+        </ion-col>
+        <ion-col class="appointment">
+          <h2> Next appointment </h2>
+          <p>Laboratory: <br> {{laboratoryDate}} <br>
+            <br> Rheumatologist: <br>{{rheumatologistDate}}</p>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+    <div class="bottombutttons">
+      <button ion-button color="light" block class="actionbutton" (click)="painDiary()">Pain diary </button>
+      <button ion-button color="light" block class="actionbutton" (click)="generateReport()">Generate report </button>
+    </div>
+</ion-content>
