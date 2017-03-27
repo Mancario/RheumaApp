@@ -1,3 +1,35 @@
 page-home {
+    .graph-buttons{
+          text-align: center;         
+    }
 
+    h2{
+      font-weight: bold;
+    }
+
+    .graph{  
+        text-align: center;    
+        display: block;
+    }
+    
+    .status{
+    text-align: center;
+    position: left;
+   }
+    .appointment{
+        position: right; 
+         margin:  auto;
+    }
+    .flag{
+        width: 50%;
+        height: auto;
+        display: block;
+        margin: auto;
+    }
+        
+    .bottombutttons{
+         margin: 0 auto;
+         width: 97%;        /* need to make this same size as the cards */
+        height: auto;
+    }
 }
