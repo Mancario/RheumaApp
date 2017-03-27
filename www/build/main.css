@@ -29557,6 +29557,8 @@ page-home .bottombutttons {
 
 page-login .container {
   padding-top: 40%;
+  width: 80%;
+  margin: 0 auto;
 }
 
 page-login h1 {
@@ -29567,13 +29569,7 @@ page-login h1 {
   margin-bottom: 13%;
 }
 
-page-login .scroll-content {
-  padding: 0;
-  margin: 0;
-}
-
 page-login .loginform {
-  width: 80%;
   margin: 0 auto;
 }
 
@@ -29596,7 +29592,8 @@ page-login .linkbutton {
   margin-bottom: 25%;
 }
 
-page-login .spacer {
-  height: 30%;
-  width: 100%;
+page-login .actionbuttoncontainer {
+  position: absolute;
+  width: 80%;
+  bottom: 15%;
 }
