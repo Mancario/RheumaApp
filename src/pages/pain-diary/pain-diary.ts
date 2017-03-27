@@ -16,6 +16,8 @@ import { NewEntryPage } from '../new-entry/new-entry';
 })
 export class PainDiaryPage {
 
+  private painValue = 3;
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
   ionViewDidLoad() {
