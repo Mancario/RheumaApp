@@ -1,3 +1,119 @@
 page-new-entry {
 
+  .card{
+    width: 95%;
+    margin: 0 auto;
+  }
+
+  .cardheader{
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .header-left-button{
+    display: inline;
+    float: left;
+  }
+
+  .header-right-button{
+    float: right;
+  }
+
+  .headerbutton{
+    margin-top: 0;
+    padding-left: 0;
+    padding-right: 10%;
+  }
+
+  .gray-line{
+    border: 0px;
+    border-bottom: 1px solid;
+    border-color: gray;
+    height: 1%;
+    width: 100%;
+    margin: -5px auto;
+  }
+
+
+  .rangelabel{
+    position: relative;
+    //float: left;
+    //margin-bottom: 0;
+  }
+
+  .range{
+    padding: 0;
+    margin: 0
+
+  }
+
+  .range-wp.range-has-pin {
+    padding-top: 0;
+  }
+
+  .list{
+    border: 0;
+  }
+
+  .item{
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+  }
+
+  .labelcontainer {
+    margin: 0 0 0 0;
+  }
+
+  .labelcontainer button {
+    float: right;
+    border-radius: 30px;
+    height: 25px;
+    margin: 0;
+  }
+
+  .labelcontainer ion-label {
+    display: inline;
+    font-weight: bold;
+
+  }
+
+
+  .addbutton{
+    position: fixed;
+    z-index: 1;
+    bottom: 4%;
+    right: 4%;
+    width:65px;
+    height: 65px;
+    border: 2px solid;
+    border-radius: 50%;
+  }
+
+
+
+
+  .addicon{
+    font-size: 3.4em;
+    color: #64A2CC;
+  }
+
+  .line {
+    border: 0px;
+    height: 1%;
+    width: 100%;
+    margin: 0 auto;
+    border-bottom: 1px solid;
+    border-color: gray;
+  }
+
+
+  .extendbutton{
+    width: 100%;
+    margin: 0 auto;
+  }
+
+
+
+
 }

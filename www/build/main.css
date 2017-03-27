@@ -29593,6 +29593,109 @@ page-login .actionbuttoncontainer {
   bottom: 15%;
 }
 
+page-new-entry .card {
+  width: 95%;
+  margin: 0 auto;
+}
+
+page-new-entry .cardheader {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+page-new-entry .header-left-button {
+  display: inline;
+  float: left;
+}
+
+page-new-entry .header-right-button {
+  float: right;
+}
+
+page-new-entry .headerbutton {
+  margin-top: 0;
+  padding-left: 0;
+  padding-right: 10%;
+}
+
+page-new-entry .gray-line {
+  border: 0px;
+  border-bottom: 1px solid;
+  border-color: gray;
+  height: 1%;
+  width: 100%;
+  margin: -5px auto;
+}
+
+page-new-entry .rangelabel {
+  position: relative;
+}
+
+page-new-entry .range {
+  padding: 0;
+  margin: 0;
+}
+
+page-new-entry .range-wp.range-has-pin {
+  padding-top: 0;
+}
+
+page-new-entry .list {
+  border: 0;
+}
+
+page-new-entry .item {
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+}
+
+page-new-entry .labelcontainer {
+  margin: 0 0 0 0;
+}
+
+page-new-entry .labelcontainer button {
+  float: right;
+  border-radius: 30px;
+  height: 25px;
+  margin: 0;
+}
+
+page-new-entry .labelcontainer ion-label {
+  display: inline;
+  font-weight: bold;
+}
+
+page-new-entry .addbutton {
+  position: fixed;
+  z-index: 1;
+  bottom: 4%;
+  right: 4%;
+  width: 65px;
+  height: 65px;
+  border: 2px solid;
+  border-radius: 50%;
+}
+
+page-new-entry .addicon {
+  font-size: 3.4em;
+  color: #64A2CC;
+}
+
+page-new-entry .line {
+  border: 0px;
+  height: 1%;
+  width: 100%;
+  margin: 0 auto;
+  border-bottom: 1px solid;
+  border-color: gray;
+}
+
+page-new-entry .extendbutton {
+  width: 100%;
+  margin: 0 auto;
+}
+
 page-pain-diary .card {
   width: 95%;
   margin: 0 auto;
