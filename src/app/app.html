@@ -5,14 +5,21 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-content>
+  <ion-content class="menu">
     <ion-list>
-      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-        <ion-icon name={{p.icon}}>
-        </ion-icon>
+      <!--button class="menubutton" menuClose icon-left ion-item *ngFor="let p of pages" (click)="openPage(p)">
+        <ion-icon color="gray" name={{p.icon}}> </ion-icon>
 
         {{p.title}}
-      </button>
+      </button-->
+
+      <ion-item class="menuitem" *ngFor="let p of pages">
+        <button ion-button clear color="dark" menuClose icon-left class="menubutton" (click)="openPage(p)">
+          <ion-icon color="gray" name={{p.icon}}> </ion-icon>
+
+          <p>{{p.title}}</p>
+        </button>
+      </ion-item>
     </ion-list>
   </ion-content>
 

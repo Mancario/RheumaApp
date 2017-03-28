@@ -12,7 +12,6 @@ import { NewEntryPage } from '../pages/new-entry/new-entry';
 import { PainDiaryPage } from '../pages/pain-diary/pain-diary';
 import { SettingsPage } from '../pages/settings/settings';
 import { UserGuidePage } from '../pages/user-guide/user-guide';
-import { Page2 } from '../pages/page2/page2';
 
 
 @Component({
@@ -37,8 +36,7 @@ export class MyApp {
       { icon: "body",title: 'eDAS', component: EDASPage },
       { icon: "medkit",title: 'Blood Test', component: BloodTestPage },
       { icon: "help-circle",title: 'User Guide', component: UserGuidePage },
-      { icon: "settings",title: 'Settings', component: SettingsPage },
-      { icon: "heart",title: 'Page Two', component: Page2 }
+      { icon: "settings",title: 'Settings', component: SettingsPage }
     ];
 
   }
