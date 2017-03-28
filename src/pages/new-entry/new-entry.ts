@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
+import { PainDiaryPage} from '../pain-diary/pain-diary'
+
 /*
   Generated class for the NewEntry page.
 
@@ -12,11 +14,30 @@ import { NavController, NavParams } from 'ionic-angular';
   templateUrl: 'new-entry.html'
 })
 export class NewEntryPage {
+  private painValue = 0;
+  private diseaseValue = 0;
+  private fatigueValue = 0;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  public date = {
+  today: '2017-03-28'
+  }
+
+
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
+    //this.date.today = new Date();
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad NewEntryPage');
+  }
+
+  cancel(){
+    this.navCtrl.setRoot(PainDiaryPage);
+  }
+
+  submit(){
+    this.navCtrl.setRoot(PainDiaryPage);
+
   }
 
 }
