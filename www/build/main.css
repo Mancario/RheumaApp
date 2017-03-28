@@ -35430,7 +35430,7 @@ page-forgotten-password .item {
 page-forgotten-password .actionbuttoncontainer {
   position: absolute;
   width: 80%;
-  bottom: 15%;
+  bottom: 10%;
 }
 
 page-home .graph-buttons {
@@ -35510,7 +35510,7 @@ page-login .linkbutton {
 page-login .actionbuttoncontainer {
   position: absolute;
   width: 80%;
-  bottom: 15%;
+  bottom: 10%;
 }
 
 page-new-entry {
@@ -35747,4 +35747,74 @@ page-pain-diary .line {
 page-pain-diary .extendbutton {
   width: 100%;
   margin: 0 auto;
+}
+
+page-signup .container {
+  padding-top: 20%;
+  width: 80%;
+  margin: 0 auto;
+}
+
+page-signup h1 {
+  color: #FFFFFF;
+  font-weight: 500;
+  font-size: 1.6em;
+  text-align: center;
+  margin-bottom: 4%;
+}
+
+page-signup .signupform {
+  margin: 10% auto;
+}
+
+page-signup .list {
+  margin-bottom: 1%;
+}
+
+page-signup #itemtop {
+  border-radius: 5px 5px 0 0;
+  border-color: gray;
+}
+
+page-signup #itembottom {
+  border-radius: 0 0 5px 5px;
+}
+
+page-signup .terms {
+  width: 100%;
+  overflow: auto;
+}
+
+page-signup .terms p {
+  color: #FFFFFF;
+  display: inline;
+}
+
+page-signup .terms p a {
+  color: #FFFFFF;
+  font-style: oblique;
+}
+
+page-signup .actionbuttoncontainer {
+  position: absolute;
+  width: 80%;
+  bottom: 10%;
+}
+
+page-signup .submitbuttons {
+  width: 100%;
+  margin: 0 auto;
+}
+
+page-signup .submitbuttons button {
+  width: 48%;
+  margin: 8% 0 0 0;
+}
+
+page-signup .submitbuttons #ok {
+  float: left;
+}
+
+page-signup .submitbuttons #cancel {
+  float: right;
 }
