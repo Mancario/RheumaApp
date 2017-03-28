@@ -15,7 +15,6 @@ import { PainDiaryPage } from '../pages/pain-diary/pain-diary';
 import { SettingsPage } from '../pages/settings/settings';
 import { SignupPage } from '../pages/signup/signup';
 import { UserGuidePage } from '../pages/user-guide/user-guide';
-import { Page2 } from '../pages/page2/page2';
 
 @NgModule({
   declarations: [
@@ -31,11 +30,10 @@ import { Page2 } from '../pages/page2/page2';
     PainDiaryPage,
     SettingsPage,
     SignupPage,
-    UserGuidePage,
-    Page2
+    UserGuidePage
   ],
   imports: [
-    IonicModule.forRoot(MyApp), 
+    IonicModule.forRoot(MyApp),
     ChartsModule
   ],
   bootstrap: [IonicApp],
@@ -52,8 +50,7 @@ import { Page2 } from '../pages/page2/page2';
     PainDiaryPage,
     SettingsPage,
     SignupPage,
-    UserGuidePage,
-    Page2
+    UserGuidePage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })
