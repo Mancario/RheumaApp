@@ -14,4 +14,4 @@ plugins
 *.DS_Store
 www/build/main.css
 www/build/main.js.map
-www/build/main.js.map
+www/build/main.js
