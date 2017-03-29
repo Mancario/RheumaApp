@@ -1,5 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NavController, NavParams} from 'ionic-angular';
+import {FormGroup, Validators, FormControl, FormBuilder} from '@angular/forms';
+import {MdlTextFieldComponent, MdlDialogReference} from "angular2-mdl";
+import {Router} from "@angular/router";
+import {AuthService} from "../../security/auth.service";
 
 import { ForgottenPasswordPage } from '../forgotten-password/forgotten-password';
 import { SignupPage } from '../signup/signup';
@@ -18,7 +22,19 @@ import { HomePage } from '../home/home';
 })
 export class LoginPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  public loading: boolean = false;
+  public errorMessage: string = null;
+  public form: FormGroup;
+  public username = "";
+  public password = "";
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private _authService: AuthService) {
+/*
+      private _authService = AuthService;
+      private _router = Router;
+      private fb = FormBuilder;
+*/
+
   }
 
   ionViewDidLoad() {
@@ -29,7 +45,23 @@ export class LoginPage {
 
   */
   login(){
-    this.navCtrl.setRoot(HomePage);
+    this.errorMessage = null;
+    this.loading = true;
+
+    this._authService.login(this.username, this.password)
+        .subscribe(
+            res => {
+                if (res) {
+                    this.navCtrl.setRoot(HomePage);
+                }
+                //this.setError("Fehler: Benutzername oder Passwort falsch.");
+                //this.inputElement.setFocus();
+            },
+            //err => this.setError("Serverfehler beim Einloggen: " + err)
+          );
+
+    //this.navCtrl.setRoot(HomePage);
+
   }
 
   navForgotten(){

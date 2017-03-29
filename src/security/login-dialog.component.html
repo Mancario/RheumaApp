@@ -1,0 +1,42 @@
+<!--
+<form [formGroup]="form">
+
+    <h3 class="mdl-dialog__title">Login</h3>
+
+    <div class="mdl-dialog__content">
+        <mdl-textfield #firstElement type="text" label="Benutzername" formControlName="username"
+                       floating-label></mdl-textfield>
+        <mdl-textfield type="password" label="Passwort" formControlName="password" floating-label></mdl-textfield>
+    </div>
+
+    <div class="status-bar">
+        <p class="mdl-color-text--accent">{{errorMessage}}</p>
+        <mdl-spinner [active]="loading"></mdl-spinner>
+    </div>
+
+    <div class="mdl-dialog__actions">
+        <button mdl-button mdl-ripple
+                mdl-colored="primary"
+                (click)="login()"
+                [disabled]="!form.valid || loading"
+                mdl-button-type="raised">
+            Login
+        </button>
+
+        <div class="mdl-layout-spacer"></div>
+
+        <button mdl-button #btn1="mdlButton"
+                (click)="m1.toggle($event, btn1)" mdl-button-type="icon" mdl-ripple>
+            <mdl-icon>help</mdl-icon>
+        </button>
+
+        <mdl-menu #m1="mdlMenu" mdl-menu-position="bottom-left">
+            <mdl-menu-item (click)="register()">Registrieren</mdl-menu-item>
+            <mdl-menu-item (click)="lostpw()">Passwort vergessen</mdl-menu-item>
+        </mdl-menu>
+
+
+    </div>
+</form>
+
+-->

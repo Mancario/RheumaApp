@@ -35522,7 +35522,6 @@ page-login .list {
 
 page-login #itemtop {
   border-radius: 5px 5px 0 0;
-  border-bottom: 1px solid;
   border-color: gray;
 }
 
@@ -35846,3 +35845,10 @@ page-signup .submitbuttons #ok {
 page-signup .submitbuttons #cancel {
   float: right;
 }
+
+/*
+.error {
+    color: red;
+}
+
+*/

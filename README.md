@@ -7,3 +7,6 @@ https://ionicframework.com/getting-started/
 After downloading the project you need to run the following commands inside your project folder:
 >npm install
 >npm install ng2-charts -save
+
+>npm install jwt-decode?
+>ionic generate provider AuthService?

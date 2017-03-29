@@ -7,10 +7,10 @@
 
       <ion-list class="list">
         <ion-item id="itemtop" class="item">
-          <ion-input type="email" value="" placeholder="Username"></ion-input>
+          <ion-input name="username" type="email" value="" placeholder="Username" [(ngModel)]="username"></ion-input>
         </ion-item>
         <ion-item id="itembottom" class="item">
-          <ion-input type="password" value="" placeholder="Password"></ion-input>
+          <ion-input name="password" type="password" value="" placeholder="Password" [(ngModel)]="password"></ion-input>
         </ion-item>
       </ion-list>
 

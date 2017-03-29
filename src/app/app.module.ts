@@ -15,6 +15,7 @@ import { PainDiaryPage } from '../pages/pain-diary/pain-diary';
 import { SettingsPage } from '../pages/settings/settings';
 import { SignupPage } from '../pages/signup/signup';
 import { UserGuidePage } from '../pages/user-guide/user-guide';
+import { AuthService } from '../security/auth.service';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,6 @@ import { UserGuidePage } from '../pages/user-guide/user-guide';
     SignupPage,
     UserGuidePage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, AuthService]
 })
 export class AppModule {}
