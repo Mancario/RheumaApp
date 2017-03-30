@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams} from 'ionic-angular';
-//import {FormGroup, Validators, FormControl, FormBuilder} from '@angular/forms';
+import {FormGroup, Validators, FormControl, FormBuilder} from '@angular/forms';
 import {AuthService} from "../../security/auth.service";
 
 //import { ForgottenPasswordPage } from '../forgotten-password/forgotten-password';
@@ -8,12 +8,6 @@ import {AuthService} from "../../security/auth.service";
 import { HomePage } from '../home/home';
 
 
-/*
-  Generated class for the Login page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html'
@@ -22,13 +16,18 @@ export class LoginPage {
 
   public loading: boolean = false;
   public errorMessage: string = "";
-  //public form: FormGroup;
-  public username = "";
-  public password = "";
+  public form: FormGroup;
+  public username = new FormControl("", Validators.required);
+  public password = new FormControl("", Validators.required);
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private _authService: AuthService) {
-    //this.inputElement.setFocus();
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    private _authService: AuthService, fb: FormBuilder) {
+
+      this.form = fb.group({
+          'username': this.username,
+          'password': this.password,
+      });
   }
 
   ionViewDidLoad() {
@@ -41,8 +40,9 @@ export class LoginPage {
   login(){
     this.errorMessage = "";
     this.loading = true;
+    const formValue = this.form.value;
 
-    this._authService.login(this.username, this.password)
+    this._authService.login(formValue.username, formValue.password)
         .subscribe(
             res => {
                 if (res) {

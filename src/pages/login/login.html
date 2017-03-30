@@ -7,14 +7,14 @@
       <p class="error">{{errorMessage}}</p>
     </div>
 
-    <form class="loginform">
+    <form [formGroup]="form" class="loginform">
 
       <ion-list class="list">
         <ion-item id="itemtop" class="item">
-          <ion-input id="firstElement" name="username" type="email" value="" placeholder="Username" [(ngModel)]="username"></ion-input>
+          <ion-input id="firstElement" name="username" type="email" value="" placeholder="Username" formControlName="username" ></ion-input>
         </ion-item>
         <ion-item id="itembottom" class="item">
-          <ion-input name="password" type="password" value="" placeholder="Password" [(ngModel)]="password"></ion-input>
+          <ion-input name="password" type="password" value="" placeholder="Password" formControlName="password"></ion-input>
         </ion-item>
       </ion-list>
 
