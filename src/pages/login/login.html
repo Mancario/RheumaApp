@@ -3,14 +3,18 @@
   <div class="container">
     <h1>Rheuma Online</h1>
 
-    <form class="loginform">
+    <div class="statusMessage">
+      <p class="error">{{errorMessage}}</p>
+    </div>
+
+    <form [formGroup]="form" class="loginform">
 
       <ion-list class="list">
         <ion-item id="itemtop" class="item">
-          <ion-input type="email" value="" placeholder="Username"></ion-input>
+          <ion-input id="firstElement" name="username" type="email" value="" placeholder="Username" formControlName="username" ></ion-input>
         </ion-item>
         <ion-item id="itembottom" class="item">
-          <ion-input type="password" value="" placeholder="Password"></ion-input>
+          <ion-input name="password" type="password" value="" placeholder="Password" formControlName="password"></ion-input>
         </ion-item>
       </ion-list>
 

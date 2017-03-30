@@ -8,6 +8,7 @@ import { EDASPage } from '../pages/e-das/e-das';
 import { EHAQPage } from '../pages/e-haq/e-haq';
 import { GenerateReportPage } from '../pages/generate-report/generate-report';
 import { LoginPage } from '../pages/login/login';
+import { LogoutPage } from '../pages/logout/logout';
 import { NewEntryPage } from '../pages/new-entry/new-entry';
 import { PainDiaryPage } from '../pages/pain-diary/pain-diary';
 import { SettingsPage } from '../pages/settings/settings';
@@ -36,7 +37,9 @@ export class MyApp {
       { icon: "body",title: 'eDAS', component: EDASPage },
       { icon: "medkit",title: 'Blood Test', component: BloodTestPage },
       { icon: "help-circle",title: 'User Guide', component: UserGuidePage },
-      { icon: "settings",title: 'Settings', component: SettingsPage }
+      { icon: "settings",title: 'Settings', component: SettingsPage },
+      { icon: "exit",title: 'Log Out', component: LogoutPage }
+
     ];
 
   }
