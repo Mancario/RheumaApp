@@ -35555,6 +35555,20 @@ page-login .actionbuttoncontainer {
   }
 }
 
+page-logout .container {
+  padding-top: 40%;
+  width: 80%;
+  margin: 0 auto;
+}
+
+page-logout h1 {
+  color: #FFFFFF;
+  font-weight: 500;
+  font-size: 1.6em;
+  text-align: center;
+  margin-bottom: 4%;
+}
+
 page-new-entry {
   /*
   .card-wrapper {
