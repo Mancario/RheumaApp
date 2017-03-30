@@ -1,12 +1,10 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController, NavParams} from 'ionic-angular';
-import {FormGroup, Validators, FormControl, FormBuilder} from '@angular/forms';
-import {MdlTextFieldComponent, MdlDialogReference} from "angular2-mdl";
-import {Router} from "@angular/router";
+//import {FormGroup, Validators, FormControl, FormBuilder} from '@angular/forms';
 import {AuthService} from "../../security/auth.service";
 
-import { ForgottenPasswordPage } from '../forgotten-password/forgotten-password';
-import { SignupPage } from '../signup/signup';
+//import { ForgottenPasswordPage } from '../forgotten-password/forgotten-password';
+//import { SignupPage } from '../signup/signup';
 import { HomePage } from '../home/home';
 
 
@@ -23,18 +21,14 @@ import { HomePage } from '../home/home';
 export class LoginPage {
 
   public loading: boolean = false;
-  public errorMessage: string = null;
-  public form: FormGroup;
+  public errorMessage: string = "";
+  //public form: FormGroup;
   public username = "";
   public password = "";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private _authService: AuthService) {
-/*
-      private _authService = AuthService;
-      private _router = Router;
-      private fb = FormBuilder;
-*/
 
+  constructor(public navCtrl: NavController, public navParams: NavParams, private _authService: AuthService) {
+    //this.inputElement.setFocus();
   }
 
   ionViewDidLoad() {
@@ -45,7 +39,7 @@ export class LoginPage {
 
   */
   login(){
-    this.errorMessage = null;
+    this.errorMessage = "";
     this.loading = true;
 
     this._authService.login(this.username, this.password)
@@ -54,23 +48,27 @@ export class LoginPage {
                 if (res) {
                     this.navCtrl.setRoot(HomePage);
                 }
-                //this.setError("Fehler: Benutzername oder Passwort falsch.");
-                //this.inputElement.setFocus();
+                this.setError("Wrong username or password");
             },
-            //err => this.setError("Serverfehler beim Einloggen: " + err)
+            err => this.setError("Server error logging in: " + err)
           );
-
-    //this.navCtrl.setRoot(HomePage);
-
   }
 
   navForgotten(){
-    this.navCtrl.setRoot(ForgottenPasswordPage);
+    //this.navCtrl.setRoot(ForgottenPasswordPage);
+    window.location.href = "http://www.rheuma-online.de/forum/login.php?do=lostpw";
 
   }
 
   navSignup(){
-    this.navCtrl.setRoot(SignupPage);
+    //this.navCtrl.setRoot(SignupPage);
+    window.location.href = "http://www.rheuma-online.de/forum/register.php";
+
+  }
+
+  private setError(error: string): void {
+      this.loading = false;
+      this.errorMessage = error;
   }
 
 }
