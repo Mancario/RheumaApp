@@ -1,21 +1,37 @@
 import {Injectable} from "@angular/core";
 
-const PREFIX = "OMORA::";
+//import { Storage } from '@ionic/storage';
+
+const KEY = "CREDS";
 
 @Injectable()
 export class StoreCredentialsService {
-    private _ls: Storage = window.localStorage;
+  private _ls: Storage = window.localStorage;
+  //private _storage : Storage = new Storage();
 
-    public store(key: string, val: string): void {
-        this._ls.setItem(this.keyFor(key), val);
-    }
 
-    public retrieve(key: string): any {
-        const s = this._ls.getItem(this.keyFor(key));
+  public store(creds: string) : void{
+    console.log("Inside storingclass");
+/*
+    this._storage.ready().then(() => {
+
+       this._storage.set(KEY, creds);
+     });
+     */
+
+    const s = this._ls.setItem(KEY, creds);
+  }
+
+    public retrieve(): any {
+/*
+      this._storage.ready().then(() => {
+
+        this._storage.get('age').then((val) => {
+          return val;
+        })
+       });
+       */
+        const s = this._ls.getItem(KEY);
         return s;
-    }
-
-    private keyFor(key: string): string {
-        return PREFIX + key;
     }
 }

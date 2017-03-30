@@ -62,7 +62,8 @@ export class LoginPage {
 
   navSignup(){
     //this.navCtrl.setRoot(SignupPage);
-    window.location.href = "http://www.rheuma-online.de/forum/register.php";
+    //window.location.href = "http://www.rheuma-online.de/forum/register.php";
+    this._authService.logInByStoredCredentials();
 
   }
 

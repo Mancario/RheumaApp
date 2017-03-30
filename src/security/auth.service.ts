@@ -3,6 +3,7 @@ import {Observable} from 'rxjs/Observable';
 
 
 import {AuthUser, AuthUserImpl} from "./auth-user";
+import {LocalStorageService} from "./local-storage.service";
 import {StoreCredentialsService} from "./store-credentials.service";
 import {Http, Response, Headers} from "@angular/http";
 import {LoginPage} from '../pages/login/login';
@@ -19,9 +20,11 @@ type LoginResult =
 @Injectable()
 export class AuthService {
     private static _key: string = "JWTToken";
+    private static _keyCreds: string = "CREDS";
     private _cached: AuthUser = null;
 
-    public constructor(private _storeCredentialsService: StoreCredentialsService,
+    public constructor(private _localStorageService: LocalStorageService,
+                       private _storeCredentialsService: StoreCredentialsService,
                        private _http: Http) {
         //setInterval(() => this.refreshToken(), 300 * 1000);
     }
@@ -60,30 +63,52 @@ export class AuthService {
             password,
         });
 
+        console.log(JSON.parse(credentials).username);
+
         return this._http
             .post(LOGIN_API_URL, credentials, {
                 headers,
             })
             .map(res => this.convert(<LoginResult>res.json(), username))
             .do(user => this.storeUser(user))
+            .do(user => this.storeCredentials(credentials))
             .catch(this.handleError);
     }
 
     private storeUser(user: AuthUser): void {
         if (user) {
             this._cached = user;
-            this._storeCredentialsService.store(AuthService._key, user.serialize());
+            this._localStorageService.store(AuthService._key, user.serialize());
         } else {
             this._cached = null;
-            this._storeCredentialsService.store(AuthService._key, null);
+            this._localStorageService.store(AuthService._key, null);
+        }
+    }
+
+    private storeCredentials(credentials): void {
+
+        console.log("Storing creds");
+        if (credentials) {
+          this._storeCredentialsService.store(credentials);
+        } else {
+          this._storeCredentialsService.store(null);
         }
     }
 
 
     private retrieveFromStore(): AuthUser {
-        const serialized = this._storeCredentialsService.retrieve(AuthService._key);
+        const serialized = this._localStorageService.retrieve(AuthService._key);
         return serialized ? AuthUserImpl.fromSerialization(serialized) : null;
     }
+
+    public logInByStoredCredentials(){
+      const creds = this._storeCredentialsService.retrieve();
+      if(creds){
+        console.log("logging in with: " + creds);
+        this.login(JSON.parse(creds).username, JSON.parse(creds).password);
+      }
+    }
+
 /*
     private verifyStoredToken(): void {
         const user = this.retrieveFromStore();
@@ -107,7 +132,17 @@ export class AuthService {
         this.verifyStoredToken();
 
         const user = this.retrieveFromStore();
-        if (!user) return;
+        if (!user){ // It was expired
+          // First try to log in by stored credentials
+          this.logInByStoredCredentials();
+
+          user = this.retrieveFromStore();
+
+          if(!user){
+            return;
+          }
+
+        }
 
         const headers: Headers = new Headers();
         headers.append('Content-Type', 'application/json');
