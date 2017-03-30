@@ -1,10 +1,11 @@
 import {Injectable} from "@angular/core";
 import {Observable} from 'rxjs/Observable';
 
+
 import {AuthUser, AuthUserImpl} from "./auth-user";
-import {LocalStorageService} from "../storage/local-storage.service";
-import {Router} from "@angular/router";
+import {StoreCredentialsService} from "./store-credentials.service";
 import {Http, Response, Headers} from "@angular/http";
+import {LoginPage} from '../pages/login/login';
 
 import {API_URL} from '../environments/environment';
 import {JWTToken} from "./jwt-token";
@@ -20,28 +21,28 @@ export class AuthService {
     private static _key: string = "JWTToken";
     private _cached: AuthUser = null;
 
-    public constructor(//private _localStorageService: LocalStorageService,
+    public constructor(private _storeCredentialsService: StoreCredentialsService,
                        private _http: Http) {
         //setInterval(() => this.refreshToken(), 300 * 1000);
     }
-/*
+
     public isLoggedIn(): boolean {
         return !!this.loggedInUser();
     }
-/*
+
     public loggedInUser(): AuthUser {
         if (!this._cached) {
-            this.verifyStoredToken();
+            //this.verifyStoredToken();
             this._cached = this.retrieveFromStore();
         }
         return this._cached;
     }
-/*
+
     public logout(): void {
         this.storeUser(null);
-        this._router.navigate(['/']);
+        //this.navCtrl.setRoot(LoginPage);
     }
-    */
+
 
     public login(username: string, password: string): Observable<AuthUser> {
 /*
@@ -63,26 +64,27 @@ export class AuthService {
             .post(LOGIN_API_URL, credentials, {
                 headers,
             })
-            .map(res => this.convert2(<LoginResult>res.json(), username))
-            //.do(user => this.storeUser(user))
+            .map(res => this.convert(<LoginResult>res.json(), username))
+            .do(user => this.storeUser(user))
             .catch(this.handleError);
     }
-/*
+
     private storeUser(user: AuthUser): void {
         if (user) {
             this._cached = user;
-            this._localStorageService.store(AuthService._key, user.serialize());
+            this._storeCredentialsService.store(AuthService._key, user.serialize());
         } else {
             this._cached = null;
-            this._localStorageService.store(AuthService._key, null);
+            this._storeCredentialsService.store(AuthService._key, null);
         }
     }
 
+
     private retrieveFromStore(): AuthUser {
-        const serialized = this._localStorageService.retrieve(AuthService._key);
+        const serialized = this._storeCredentialsService.retrieve(AuthService._key);
         return serialized ? AuthUserImpl.fromSerialization(serialized) : null;
     }
-
+/*
     private verifyStoredToken(): void {
         const user = this.retrieveFromStore();
         if (!user) return;
@@ -116,12 +118,14 @@ export class AuthService {
             .map(res => this.convert(<LoginResult>res.json()))
             .subscribe(user => this.storeUser(user));
     }
+
     */
 
-    private convert2(result: LoginResult, username: string): AuthUser {
+
+    private convert(result: LoginResult, username: string): AuthUser {
         if (!result) return null;
         if (!result.success) return null;
-        return new AuthUserImpl(username, null /*token.toBase64()*/);
+        return new AuthUserImpl(username, null/*, token.toBase64()*/);
     }
 /*
     private convert(result: LoginResult): AuthUser {
