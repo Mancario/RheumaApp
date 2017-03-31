@@ -64,7 +64,7 @@ export class AuthService {
             username,
             password,
         });
-
+        this.isLoggedIn();
         console.log("Logging in with: " + JSON.parse(credentials).username + " : " + JSON.parse(credentials).password);
 
         return this._http
