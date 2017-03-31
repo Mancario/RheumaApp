@@ -8,6 +8,7 @@ import { HomePage } from '../pages/home/home';
 import { BloodTestPage } from '../pages/blood-test/blood-test';
 import { EDASPage } from '../pages/e-das/e-das';
 import { EHAQPage } from '../pages/e-haq/e-haq';
+import { EHaqNewEntryPage } from '../pages/e-haq-new-entry/e-haq-new-entry';
 import { ForgottenPasswordPage } from '../pages/forgotten-password/forgotten-password';
 import { GenerateReportPage } from '../pages/generate-report/generate-report';
 import { LoginPage } from '../pages/login/login';
@@ -35,7 +36,8 @@ import { StoreCredentialsService } from '../security/store-credentials.service';
     PainDiaryPage,
     SettingsPage,
     SignupPage,
-    UserGuidePage
+    UserGuidePage,
+    EHaqNewEntryPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -57,7 +59,8 @@ import { StoreCredentialsService } from '../security/store-credentials.service';
     PainDiaryPage,
     SettingsPage,
     SignupPage,
-    UserGuidePage
+    UserGuidePage,
+    EHaqNewEntryPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, AuthService, StoreCredentialsService]
 })
