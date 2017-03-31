@@ -6,7 +6,6 @@ import {AuthUser, AuthUserImpl} from "./auth-user";
 import {LocalStorageService} from "./local-storage.service";
 import {StoreCredentialsService} from "./store-credentials.service";
 import {Http, Response, Headers} from "@angular/http";
-import {LoginPage} from '../pages/login/login';
 
 import {API_URL} from '../environments/environment';
 import {JWTToken} from "./jwt-token";
@@ -20,7 +19,6 @@ type LoginResult =
 @Injectable()
 export class AuthService {
     private static _key: string = "JWTToken";
-    private static _keyCreds: string = "CREDS";
     private _cached: AuthUser = null;
 
     public constructor(private _localStorageService: LocalStorageService,
@@ -30,6 +28,8 @@ export class AuthService {
     }
 
     public isLoggedIn(): boolean {
+      // TODO: Remove this log.
+        console.log("Logged in: " + !!this.loggedInUser());
         return !!this.loggedInUser();
     }
 
@@ -43,6 +43,8 @@ export class AuthService {
 
     public logout(): void {
         this.storeUser(null);
+        // TODO: Uncomment the following line
+        //this.storeCredentials(null);
         //this.navCtrl.setRoot(LoginPage);
     }
 
@@ -63,7 +65,7 @@ export class AuthService {
             password,
         });
 
-        console.log(JSON.parse(credentials).username);
+        console.log("Logging in with: " + JSON.parse(credentials).username + " : " + JSON.parse(credentials).password);
 
         return this._http
             .post(LOGIN_API_URL, credentials, {
@@ -72,6 +74,7 @@ export class AuthService {
             .map(res => this.convert(<LoginResult>res.json(), username))
             .do(user => this.storeUser(user))
             .do(user => this.storeCredentials(credentials))
+            .do(user => this.isLoggedIn())
             .catch(this.handleError);
     }
 
@@ -102,9 +105,23 @@ export class AuthService {
     }
 
     public logInByStoredCredentials(){
+/*
+      this._storeCredentialsService.retrieve().then((creds) =>{
+        console.log("Creds received: " + creds);
+
+        if(creds != null){
+          console.log("Re-logging in with: " + creds);
+          this.login(JSON.parse(creds).username, JSON.parse(creds).password);
+        }
+      });
+*/
+
+
       const creds = this._storeCredentialsService.retrieve();
-      if(creds){
-        console.log("logging in with: " + creds);
+      console.log("Creds received: " + creds);
+
+      if(creds != null){
+        console.log("Re-logging in with: " + creds);
         this.login(JSON.parse(creds).username, JSON.parse(creds).password);
       }
     }
@@ -131,7 +148,7 @@ export class AuthService {
         // first check if it is expired
         this.verifyStoredToken();
 
-        const user = this.retrieveFromStore();
+        let user = this.retrieveFromStore();
         if (!user){ // It was expired
           // First try to log in by stored credentials
           this.logInByStoredCredentials();
