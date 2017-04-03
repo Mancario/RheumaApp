@@ -47,8 +47,10 @@ export class LoginPage {
             res => {
                 if (res) {
                     this.navCtrl.setRoot(HomePage);
+                }else{
+                  this.setError("Wrong username or password");
                 }
-                this.setError("Wrong username or password");
+
             },
             err => this.setError("Server error logging in: " + err)
           );
