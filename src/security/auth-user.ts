@@ -1,14 +1,14 @@
 export interface AuthUser {
     username: string;
     uid: string;
-    //authToken: string;
+    authToken: string;
     serialize(): string;
 }
 
 interface AuthUserData {
     username: string;
     uid: string;
-    //authToken: string;
+    authToken: string;
 }
 
 export class AuthUserImpl implements AuthUser {
@@ -18,7 +18,7 @@ export class AuthUserImpl implements AuthUser {
         try {
             const data: AuthUserData = JSON.parse(s);
             if (!data) return null;
-            return new AuthUserImpl(data.username, data.uid/*, data.authToken*/);
+            return new AuthUserImpl(data.username, data.uid, data.authToken);
         } catch (e) {
             console.error("Cannot deserialize user", s, e);
             return null;
@@ -26,15 +26,15 @@ export class AuthUserImpl implements AuthUser {
     }
 
     public constructor(public username: string,
-                       public uid: string
-                     /*public authToken: string*/) {
+                       public uid: string,
+                       public authToken: string) {
     }
 
     public serialize(): string {
         return JSON.stringify({
             username: this.username,
             uid: this.uid,
-            //authToken: this.authToken
+            authToken: this.authToken
         });
     }
 }

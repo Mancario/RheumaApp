@@ -65,7 +65,18 @@ export class LoginPage {
   navSignup(){
     //this.navCtrl.setRoot(SignupPage);
     //window.location.href = "http://www.rheuma-online.de/forum/register.php";
-    this._authService.logInByStoredCredentials();
+    this._authService.logInByStoredCredentials()
+      .subscribe(
+        res => {
+            if (res) {
+                this.navCtrl.setRoot(HomePage);
+            }else{
+              this.setError("Wrong username or password");
+            }
+
+        },
+        err => this.setError("Server error logging in: " + err)
+      );
 
   }
 

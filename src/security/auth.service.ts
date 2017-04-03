@@ -10,11 +10,13 @@ import {Http, Response, Headers} from "@angular/http";
 import {API_URL} from '../environments/environment';
 import {JWTToken} from "./jwt-token";
 
+import * as jwtDecode from "jwt-decode";
+
 const LOGIN_API_URL = API_URL + '/auth/login';
 const TOKEN_API_URL = API_URL + '/auth/token';
 
 type LoginResult =
-    {success: true;/*token: string*/} | {success: false;};
+    {success: true; token: string} | {success: false;};
 
 @Injectable()
 export class AuthService {
@@ -24,7 +26,7 @@ export class AuthService {
     public constructor(private _localStorageService: LocalStorageService,
                        private _storeCredentialsService: StoreCredentialsService,
                        private _http: Http) {
-        //setInterval(() => this.refreshToken(), 300 * 1000);
+        setInterval(() => this.refreshToken(), 300 * 1000);
     }
 
     public isLoggedIn(): boolean {
@@ -35,7 +37,7 @@ export class AuthService {
 
     public loggedInUser(): AuthUser {
         if (!this._cached) {
-            //this.verifyStoredToken();
+            this.verifyStoredToken();
             this._cached = this.retrieveFromStore();
         }
         return this._cached;
@@ -65,13 +67,14 @@ export class AuthService {
             password,
         });
         this.isLoggedIn();
-        console.log("Logging in with: " + JSON.parse(credentials).username + " : " + JSON.parse(credentials).password);
+        //console.log("Logging in with: " + JSON.parse(credentials).username + " : " + JSON.parse(credentials).password);
+        console.log("Logging in with: " + credentials);
 
         return this._http
             .post(LOGIN_API_URL, credentials, {
                 headers,
             })
-            .map(res => this.convert(<LoginResult>res.json(), username))
+            .map(res => this.convert(<LoginResult>res.json()))
             .do(user => this.storeUser(user))
             .do(user => this.storeCredentials(credentials))
             .do(user => this.isLoggedIn())
@@ -88,6 +91,7 @@ export class AuthService {
         }
     }
 
+    // TODO: Make this method work...
     private storeCredentials(credentials): void {
 
         console.log("Storing creds");
@@ -104,34 +108,47 @@ export class AuthService {
         return serialized ? AuthUserImpl.fromSerialization(serialized) : null;
     }
 
-    public logInByStoredCredentials(){
-/*
-      this._storeCredentialsService.retrieve().then((creds) =>{
-        console.log("Creds received: " + creds);
+    /*
+          this._storeCredentialsService.retrieve().then((creds) =>{
+            console.log("Creds received: " + creds);
 
-        if(creds != null){
-          console.log("Re-logging in with: " + creds);
-          this.login(JSON.parse(creds).username, JSON.parse(creds).password);
-        }
+            if(creds != null){
+              console.log("Re-logging in with: " + creds);
+              this.login(JSON.parse(creds).username, JSON.parse(creds).password);
+            }
+          });
+    */
+
+    public logInByStoredCredentials() : Observable<AuthUser>{
+      let creds = this._storeCredentialsService.retrieve();
+/*
+      let promise = new Promise(resolve => {
+        setTimeout(() =>{
+          resolve(this._storeCredentialsService.retrieve());
+        }, 2000);
+
+      });
+
+      promise.then(value => {
+        console.log("Promise received: " + value);
       });
 */
 
-
-      const creds = this._storeCredentialsService.retrieve();
       console.log("Creds received: " + creds);
 
       if(creds != null){
         console.log("Re-logging in with: " + creds);
-        this.login(JSON.parse(creds).username, JSON.parse(creds).password);
+        return this.login(JSON.parse(creds).username, JSON.parse(creds).password);
       }
+
     }
 
-/*
+
     private verifyStoredToken(): void {
         const user = this.retrieveFromStore();
         if (!user) return;
         const token = user.authToken;
-        var jwtDecode = require('jwt-decode');
+        //var jwtDecode = require('jwt-decode');
         const decoded = jwtDecode(token);
         const now = Math.round(new Date().getTime() / 1000);
         const diffExp = decoded.exp - now;
@@ -171,22 +188,23 @@ export class AuthService {
             .subscribe(user => this.storeUser(user));
     }
 
-    */
 
 
+/*
     private convert(result: LoginResult, username: string): AuthUser {
         if (!result) return null;
         if (!result.success) return null;
-        return new AuthUserImpl(username, null/*, token.toBase64()*/);
+        return new AuthUserImpl(username, null, token.toBase64());
     }
-/*
+    */
+
     private convert(result: LoginResult): AuthUser {
         if (!result) return null;
         if (!result.success) return null;
         const token = new JWTToken(result.token);
         return new AuthUserImpl(token.username, token.uid, token.toBase64());
     }
-    */
+
 
     private handleError(error: Response) {
         // in a real world app, we may send the error to some remote logging infrastructure

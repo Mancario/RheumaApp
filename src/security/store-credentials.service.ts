@@ -1,4 +1,5 @@
 import {Injectable} from "@angular/core";
+//import {Observable} from 'rxjs/Observable';
 
 //import { Storage } from '@ionic/storage';
 
@@ -21,6 +22,7 @@ export class StoreCredentialsService {
      });
      */
 
+
      const s = this._ls.setItem(KEY, creds);
   }
 
@@ -29,20 +31,22 @@ export class StoreCredentialsService {
   // Why will it not work?????
     public retrieve(): any {
 /*
-      var creds = null;
+      //var creds = null;
       this._storage.ready().then(() => {
 
         this._storage.get(KEY).then((val) => {
 
-          creds = val;
-          console.log("Retrieved: " + creds);
+          console.log("Retrieved: " + val);
 
-          return creds;
-
+          return val;
 
         })
        });
-*/
+
+       //return creds;
+
+       */
+
       const s = this._ls.getItem(KEY);
       return s;
 
