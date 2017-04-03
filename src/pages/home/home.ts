@@ -17,17 +17,33 @@ import { Chart } from 'chart.js';
   templateUrl: 'home.html'
 })
 export class HomePage {
-  flag; 
-  laboratoryDate; 
-  rheumatologistDate; 
-  graph; 
-  graphs: string = "1";
+  flag;
+  laboratoryDate;
+  rheumatologistDate;
+  graph;
+  public lineChartData1: Array<any> = [ // medicine graph
+      { data: [6, 5, 6, 8, 6, 5, 4, 6, 5, 6, 8, 6, 5, 4, 6, 5, 6], label: 'BSG' },
+      { data: [5, 2, 7, 6, 6, 7, 5, 5, 2, 7, 6, 6, 7, 5, 5, 2, 7], label: 'CRP' } 
+    ];
+  public lineChartData2: Array<any> = [ // eHAQ and eDAS graph
+      { data: [1.6, 1.2, 1.1, 1.3, 1.7, 1.8, 1.9, 2, 1.8, 1.7, 1.6, 1.9, 2, 2.1, 2.2, 2, 1.9], label: 'eHAQ' },
+      { data: [5, 2, 7, 6, 6, 7, 5, 5, 2, 7, 6, 6, 7, 5, 5, 2, 7], label: 'eDAS' },  
+    ];
+    public lineChartData3: Array<any> = [ // Pain diary graph
+      { data: [6, 5, 6, 8, 6, 5, 4, 6, 5, 6, 8, 9, 9, 8, 10, 10, 8], label: 'pain' },
+      { data: [5, 4, 3, 6, 4, 4, 3, 4, 4, 5, 6, 8, 8, 8, 7, 7, 7], label: 'disease activity' },  
+      { data: [0, 1, 2, 3, 2, 3, 1, 2, 2, 4, 2, 7, 6, 6, 6, 5, 4], label: 'fatigue'}  
+    ];
+    public lineChartData4: Array<any> = [ // BSG and CRP graph
+      { data: [8, 7, 8, 9, 10, 9, 9, 10, 9, 8, 9, 9, 8, 9, 10, 10, 9], label: 'BSG' },
+      { data: [1, 2, 3, 2, 3, 3, 3, 2.5, 2.2, 2.3, 2.0, 1.8, 3, 2.9, 2.5, 2.2, 2.7], label: 'CRP' },    
+    ];
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.flag = "../../assets/img/flag-green.png"; 
-    this.laboratoryDate = "22.04.2017 (Suggestion)"; 
-    this.rheumatologistDate = "20.05.2017 (Suggestion)"; 
-    this.graph = "../../assets/img/ionic-graph.jpg"; 
+    this.flag = "../../assets/img/flag-green.png";
+    this.laboratoryDate = "22.04.2017 (Suggestion)";
+    this.rheumatologistDate = "20.05.2017";
+    this.graph = "3"; // shows segment 3 (graph 3)
   }
 
   ionViewDidLoad() {
@@ -35,34 +51,29 @@ export class HomePage {
   }
 
   // buttons for side navigation
-  painDiary(){
+  painDiary() {
     this.navCtrl.setRoot(PainDiaryPage);
   }
 
-  generateReport(){
+  generateReport() {
     this.navCtrl.setRoot(GenerateReportPage);
   }
 
-  logout(){
+  logout() {
     this.navCtrl.setRoot(LoginPage);
   }
 
-  // graph buttons
-  selectedgraph(){
-   
-  }
-
-  // lineChart
-  public lineChartData:Array<any> = [
-    {data: [6, 5, 8, 8, 6, 5, 4], label: 'eDAS'},
-    {data: [5, 5, 7, 6, 6, 7, 5], label: 'eHAQ'},
-    {data: [0, 0, 0, 3, 1, 2, 2], label: 'pain diary'}
-  ];
-  public lineChartLabels:Array<any> = ['January', 'February', 'March'];
-  public lineChartOptions:any = {
-    responsive: true
+  // ------ lineChart -----
+ 
+  public lineChartLabels: Array<any> = ['21-feb', '', '', '', '28-feb', '', '', '', '07-mar', '', '', '', '14-mar', '', '', '', '21-mar'];
+  public lineChartOptions: any = {
+    pointDot : false,
+    responsive: true,
+    innerHeight:100,
+    pointDotRadius : 3
   };
-  public lineChartColors:Array<any> = [
+  public maxTextLines: number = 3;
+  public lineChartColors: Array<any> = [
     { // grey
       backgroundColor: 'rgba(148,159,177,0.2)',
       borderColor: 'rgba(148,159,177,1)',
@@ -88,26 +99,16 @@ export class HomePage {
       pointHoverBorderColor: 'rgba(148,159,177,0.8)'
     }
   ];
-  public lineChartLegend:boolean = true;
-  public lineChartType:string = 'line';
- 
-  public randomize():void {
-    let _lineChartData:Array<any> = new Array(this.lineChartData.length);
-    for (let i = 0; i < this.lineChartData.length; i++) {
-      _lineChartData[i] = {data: new Array(this.lineChartData[i].data.length), label: this.lineChartData[i].label};
-      for (let j = 0; j < this.lineChartData[i].data.length; j++) {
-        _lineChartData[i].data[j] = Math.floor((Math.random() * 100) + 1);
-      }
-    }
-    this.lineChartData = _lineChartData;
-  }
- 
+  public lineChartLegend: boolean = true;
+  public lineChartType: string = 'line';
+
+
   // events
-  public chartClicked(e:any):void {
+  public chartClicked(e: any): void {
     console.log(e);
   }
- 
-  public chartHovered(e:any):void {
+
+  public chartHovered(e: any): void {
     console.log(e);
   }
 
