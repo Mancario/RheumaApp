@@ -11,53 +11,51 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-item>
-      <ion-title>Home </ion-title>
-
-    </ion-item>
+    <ion-title>Home </ion-title>
   </ion-navbar>
-
 </ion-header>
 
-<ion-content  padding style="background: url(../../assets/img/background.png) no-repeat center;background-size:cover;"
-  class="manual-ios-statusbar-padding" class="content">
-
+<ion-content padding style="background: url(../../assets/img/background.png) no-repeat center;background-size:cover;" class="manual-ios-statusbar-padding"
+  class="content">
 
   <ion-card class="card">
     <!-- Change between diffrent graphs  -->
     <ion-card-content>
       <ion-segment [(ngModel)]="graph" color="dark">
-        <ion-segment-button value="1" >
-          graph 1
+        <ion-segment-button value="1">
+          Pain Diary
         </ion-segment-button>
-        <ion-segment-button value="2" >
-          graph 2
+        <ion-segment-button value="2">
+          eHAQ
         </ion-segment-button>
+        <!--
         <ion-segment-button value="3" >
           graph 3
         </ion-segment-button>
         <ion-segment-button value="4" >
           graph 4
         </ion-segment-button>
-      </ion-segment>
-
-      <!-- Show the selected graph -->
-
-      <div class="col-md-6" [ngSwitch]="graph">
-        <div *ngSwitchCase="'1'">
-          <canvas baseChart height="250px" [datasets]="lineChartData1" [labels]="lineChartLabels" [options]="lineChartOptions" [colors]="lineChartColors"
-            [legend]="lineChartLegend" [chartType]="lineChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
-          </canvas>
-        </div>
-      
+         -->
+      </ion-segment> 
      
-        <div *ngSwitchCase="'2'">
-          <canvas baseChart height="250px"  [datasets]="lineChartData2" [labels]="lineChartLabels" [options]="lineChartOptions" [colors]="lineChartColors"
-            [legend]="lineChartLegend" [chartType]="lineChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
-          </canvas>
-        </div>
-     
-      
+
+        <!-- Show the selected graph -->
+
+        <div class="col-md-6" [ngSwitch]="graph">
+          <div *ngSwitchCase="'1'">
+            <canvas baseChart height="250px" [datasets]="lineChartData1" [labels]="lineChartLabels1" [options]="lineChartOptions" [colors]="lineChartColors"
+              [legend]="lineChartLegend" [chartType]="lineChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+            </canvas>
+          </div>
+
+
+          <div *ngSwitchCase="'2'">
+            <canvas baseChart height="250px" [datasets]="lineChartData2" [labels]="lineChartLabels2" [options]="lineChartOptions" [colors]="lineChartColors"
+              [legend]="lineChartLegend" [chartType]="lineChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+            </canvas>
+          </div>
+
+          <!--
         <div  *ngSwitchCase="'3'">
           <canvas baseChart  height="250px"  [datasets]="lineChartData3" [labels]="lineChartLabels" [options]="lineChartOptions" [colors]="lineChartColors"
             [legend]="lineChartLegend" [chartType]="lineChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
@@ -70,8 +68,8 @@
             [legend]="lineChartLegend" [chartType]="lineChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
           </canvas>
         </div>
-      </div>
-
+        -->
+        </div>
     </ion-card-content>
   </ion-card>
 
@@ -89,7 +87,7 @@
       </ion-col>
     </ion-row>
   </ion-card>
-  <div class="bottombutttons"> 
+  <div class="bottombutttons">
     <button ion-button color="light" class="actionbutton" (click)="painDiary()">Pain diary </button>
     <button ion-button color="light" class="actionbutton" (click)="generateReport()">Generate report </button>
   </div>
