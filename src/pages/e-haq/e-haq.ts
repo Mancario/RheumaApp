@@ -37,7 +37,8 @@ this.diaries = [
   }
 
    navNewEntry(){
-   this.navCtrl.setRoot(EHaqNewEntryPage);
+   this.navCtrl.setRoot(EHaqNewEntryPage)
+    .catch(() => this.authService.logout())
   }
 
 }
