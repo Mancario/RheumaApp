@@ -35492,6 +35492,42 @@ page-e-haq .extendbutton {
   margin: 0 auto;
 }
 
+page-e-haq-new-entry .card {
+  position: absolute;
+  top: 1%;
+  height: 90%;
+  width: 95%;
+}
+
+page-e-haq-new-entry .slider {
+  height: 100%;
+  position: top;
+}
+
+page-e-haq-new-entry .question {
+  font-size: 1em;
+  font-weight: bold;
+}
+
+page-e-haq-new-entry ion-label {
+  font-size: 0.8em !important;
+}
+
+page-e-haq-new-entry ion-item {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+page-e-haq-new-entry ion-avatar {
+  width: auto;
+  height: 70% !important;
+  font-size: 0.8em !important;
+}
+
+page-e-haq-new-entry image {
+  height: 3em;
+}
+
 page-forgotten-password .container {
   padding-top: 40%;
   width: 80%;

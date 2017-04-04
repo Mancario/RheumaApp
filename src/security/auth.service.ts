@@ -26,7 +26,7 @@ export class AuthService {
     public constructor(private _localStorageService: LocalStorageService,
                        private _storeCredentialsService: StoreCredentialsService,
                        private _http: Http) {
-        //setInterval(() => this.refreshToken(), 300 * 1000);
+        //setInterval(() => this.refreshToken(), 10 * 1000);
     }
 
     public isLoggedIn(): boolean {
@@ -45,9 +45,7 @@ export class AuthService {
 
     public logout(): void {
         this.storeUser(null);
-        // TODO: Uncomment the following line
-        //this.storeCredentials(null);
-        //this.navCtrl.setRoot(LoginPage);
+        this.storeCredentials(null);
     }
 
 
@@ -90,7 +88,7 @@ export class AuthService {
             this._localStorageService.store(AuthService._key, null);
         }
 
-        console.log("Stored user exp: " + (jwtDecode(this.retrieveFromStore().authToken)/*.exp - Math.round(new Date().getTime() / 1000)*/));
+        //console.log("Stored user exp: " + (jwtDecode(this.retrieveFromStore().authToken)/*.exp - Math.round(new Date().getTime() / 1000)*/));
     }
 
     // TODO: Make this method work...
@@ -157,10 +155,7 @@ export class AuthService {
         const now = Math.round(new Date().getTime() / 1000);
         const diffExp = decoded.exp - now;
 
-        setTimeout(() =>{
-          console.log("Time to exp: " + diffExp);
-        }, 2000);
-
+        console.log("Time to exp: " + diffExp);
 
         if (diffExp < 1) {
             // token is expired
@@ -180,9 +175,9 @@ export class AuthService {
         if (!user){ // It was expired
           console.log("Expired token...");
           // First try to log in by stored credentials
-          //this.logInByStoredCredentials();
+          this.logInByStoredCredentials();
 
-          //user = this.retrieveFromStore();
+          user = this.retrieveFromStore();
 
           if(!user){
             return;
