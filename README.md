@@ -10,3 +10,8 @@ After downloading the project you need to run the following commands inside your
 
 >npm install jwt-decode?
 >ionic generate provider AuthService?
+>cordova plugin add cordova-sqlite-storage --save?
+
+
+To run the project in a browser, use the following command:
+>ionic serve

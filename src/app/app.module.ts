@@ -19,7 +19,9 @@ import { SettingsPage } from '../pages/settings/settings';
 import { SignupPage } from '../pages/signup/signup';
 import { UserGuidePage } from '../pages/user-guide/user-guide';
 import { AuthService } from '../security/auth.service';
+import { LocalStorageService } from '../security/local-storage.service';
 import { StoreCredentialsService } from '../security/store-credentials.service';
+import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,8 @@ import { StoreCredentialsService } from '../security/store-credentials.service';
   imports: [
     IonicModule.forRoot(MyApp),
     ChartsModule,
-    FormsModule
+    FormsModule,
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -62,6 +65,10 @@ import { StoreCredentialsService } from '../security/store-credentials.service';
     UserGuidePage,
     EHaqNewEntryPage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, AuthService, StoreCredentialsService]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},
+    AuthService,
+    LocalStorageService,
+    StoreCredentialsService
+  ]
 })
 export class AppModule {}

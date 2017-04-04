@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { AuthService } from "../../security/auth.service";
+
 
 /*
   Generated class for the GenerateReport page.
@@ -13,7 +15,12 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class GenerateReportPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    private authService: AuthService) {}
+
+  ionViewCanEnter(): boolean{
+    return this.authService.isLoggedIn();
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad GenerateReportPage');
