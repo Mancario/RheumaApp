@@ -35390,39 +35390,106 @@ $SIDEMENU_TRANSPARENCY: rgba(255, 255, 255, 0.4);
 }
 
 page-e-haq .card {
-  position: absolute;
-  top: 1%;
-  height: 90%;
-  width: 95%;
+  width: 97%;
+  margin: 4% auto;
 }
 
-page-e-haq .slider {
-  height: 100%;
-  position: top;
+page-e-haq .cardheader {
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
-page-e-haq .question {
-  font-size: 1em;
+page-e-haq .header-left-button {
+  display: inline;
+  float: left;
+}
+
+page-e-haq .header-right-button {
+  float: right;
+}
+
+page-e-haq .headerbutton {
+  margin-top: 0;
+  padding-left: 0;
+  padding-right: 10%;
+}
+
+page-e-haq .gray-line {
+  border: 0px;
+  border-bottom: 1px solid;
+  border-color: gray;
+  height: 1%;
+  width: 100%;
+  margin: -5px auto;
+}
+
+page-e-haq .rangelabel {
+  position: relative;
+}
+
+page-e-haq .range {
+  padding: 0;
+  margin: 0;
+}
+
+page-e-haq .range-wp.range-has-pin {
+  padding-top: 0;
+}
+
+page-e-haq .list {
+  border: 0;
+}
+
+page-e-haq .item {
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+}
+
+page-e-haq .labelcontainer {
+  margin: 0 0 0 0;
+}
+
+page-e-haq .labelcontainer button {
+  float: right;
+  border-radius: 30px;
+  height: 25px;
+  margin: 0;
+}
+
+page-e-haq .labelcontainer ion-label {
+  display: inline;
   font-weight: bold;
 }
 
-page-e-haq ion-label {
-  font-size: 0.8em !important;
+page-e-haq .addbutton {
+  position: fixed;
+  z-index: 1;
+  bottom: 4%;
+  right: 4%;
+  width: 65px;
+  height: 65px;
+  border: 2px solid;
+  border-radius: 50%;
 }
 
-page-e-haq ion-item {
-  width: 100% !important;
-  height: 100% !important;
+page-e-haq .addicon {
+  font-size: 3.4em;
+  color: #64A2CC;
 }
 
-page-e-haq ion-avatar {
-  width: auto;
-  height: 70% !important;
-  font-size: 0.8em !important;
+page-e-haq .line {
+  border: 0px;
+  height: 1%;
+  width: 100%;
+  margin: 0 auto;
+  border-bottom: 1px solid;
+  border-color: gray;
 }
 
-page-e-haq image {
-  height: 3em;
+page-e-haq .extendbutton {
+  width: 100%;
+  margin: 0 auto;
 }
 
 page-forgotten-password .container {
@@ -35465,37 +35532,75 @@ page-home .graph-buttons {
   text-align: center;
 }
 
-page-home h2 {
-  font-weight: bold;
+page-home canvas {
+  max-height: 400px;
+  min-height: 150px;
+}
+
+page-home .card {
+  padding: 0%;
+  margin-top: 0%;
+  border-top: 0%;
+  width: 98%;
+  margin: 2% auto;
+}
+
+page-home .logoutButton {
+  margin: 0;
+  padding: 0;
+  position: right;
 }
 
 page-home .graph {
   text-align: center;
   display: block;
+  width: 100%;
+  height: 100%;
 }
 
-page-home .status {
+page-home .col {
+  position: center;
+}
+
+page-home .statusheader {
   text-align: center;
   position: left;
+  font-weight: bold;
+  font-size: 1.1em;
 }
 
-page-home .appointment {
-  position: right;
-  margin: auto;
+page-home .flagdiv {
+  margin: 0 auto;
 }
 
 page-home .flag {
-  width: 50%;
-  height: auto;
+  width: 70%;
+  height: 70%;
+  max-height: 100px;
+  max-width: 100px;
   display: block;
-  margin: auto;
+  position: center;
+  margin: 0 auto;
 }
 
-page-home .bottombutttons {
+page-home .appointmentheader {
+  position: top;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+page-home .appointmenttext {
+  font-size: 0.85 em;
+  position: left !important;
   margin: 0 auto;
-  width: 97%;
-  /* need to make this same size as the cards */
-  height: auto;
+  padding-top: 1%;
+}
+
+page-home .bottombutttons button {
+  width: 98%;
+  margin: 3% auto;
+  text-align: center;
+  display: block;
 }
 
 page-login .container {

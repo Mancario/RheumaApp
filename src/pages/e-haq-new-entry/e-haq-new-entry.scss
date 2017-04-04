@@ -1,0 +1,36 @@
+page-e-haq-new-entry {
+  .card{
+        position: absolute;
+        top: 1%;
+        height: 90%; 
+        width: 95%; 
+
+    }
+    .slider{     
+        height: 100%; 
+        position: top; 
+    }
+
+    .question{
+        font-size: 1em; 
+        font-weight: bold;
+    }
+     
+    ion-label{
+        font-size: 0.8em !important;  
+    }
+    ion-item{  
+    width:100% !important;  
+    height : 100% !important;  
+    
+    }
+
+    ion-avatar{
+    width:auto;  
+    height : 70% !important;  
+    font-size: 0.8em !important;  
+    }
+    image{
+        height: 3em; 
+    }
+}
