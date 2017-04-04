@@ -46,7 +46,8 @@ export class LoginPage {
         .subscribe(
             res => {
                 if (res) {
-                    this.navCtrl.setRoot(HomePage);
+                    this.navCtrl.setRoot(HomePage)
+                      .catch(() => this.setError("Error logging in"))
                 }else{
                   this.setError("Wrong username or password");
                 }
@@ -57,7 +58,8 @@ export class LoginPage {
   }
 
   navForgotten(){
-    //this.navCtrl.setRoot(ForgottenPasswordPage);
+    //this.navCtrl.setRoot(ForgottenPasswordPage)
+    //  .catch(() => this.setError("You do not have access"))
     window.location.href = "http://www.rheuma-online.de/forum/login.php?do=lostpw";
 
   }

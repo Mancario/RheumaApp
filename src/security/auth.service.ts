@@ -26,7 +26,7 @@ export class AuthService {
     public constructor(private _localStorageService: LocalStorageService,
                        private _storeCredentialsService: StoreCredentialsService,
                        private _http: Http) {
-        setInterval(() => this.refreshToken(), 300 * 1000);
+        //setInterval(() => this.refreshToken(), 300 * 1000);
     }
 
     public isLoggedIn(): boolean {
@@ -66,7 +66,7 @@ export class AuthService {
             username,
             password,
         });
-        this.isLoggedIn();
+        //this.isLoggedIn();
         //console.log("Logging in with: " + JSON.parse(credentials).username + " : " + JSON.parse(credentials).password);
         console.log("Logging in with: " + credentials);
 
@@ -89,12 +89,14 @@ export class AuthService {
             this._cached = null;
             this._localStorageService.store(AuthService._key, null);
         }
+
+        console.log("Stored user exp: " + (jwtDecode(this.retrieveFromStore().authToken)/*.exp - Math.round(new Date().getTime() / 1000)*/));
     }
 
     // TODO: Make this method work...
     private storeCredentials(credentials): void {
 
-        console.log("Storing creds");
+        //console.log("Storing creds");
         if (credentials) {
           this._storeCredentialsService.store(credentials);
         } else {
@@ -108,16 +110,7 @@ export class AuthService {
         return serialized ? AuthUserImpl.fromSerialization(serialized) : null;
     }
 
-    /*
-          this._storeCredentialsService.retrieve().then((creds) =>{
-            console.log("Creds received: " + creds);
 
-            if(creds != null){
-              console.log("Re-logging in with: " + creds);
-              this.login(JSON.parse(creds).username, JSON.parse(creds).password);
-            }
-          });
-    */
 
     public logInByStoredCredentials() : Observable<AuthUser>{
       let creds = this._storeCredentialsService.retrieve();
@@ -134,17 +127,28 @@ export class AuthService {
       });
 */
 
-      console.log("Creds received: " + creds);
+/*
+      this._storeCredentialsService.retrieve().then((creds) =>{
+        console.log("Creds received: " + creds);
+
+        if(creds != null){
+          console.log("Re-logging in with: " + creds);
+          this.login(JSON.parse(creds).username, JSON.parse(creds).password);
+        }
+      });
+*/
+
+      //console.log("Creds received: " + creds);
 
       if(creds != null){
-        console.log("Re-logging in with: " + creds);
+        //console.log("Re-logging in with: " + creds);
         return this.login(JSON.parse(creds).username, JSON.parse(creds).password);
       }
 
     }
 
 
-    private verifyStoredToken(): void {
+    public verifyStoredToken(): void {
         const user = this.retrieveFromStore();
         if (!user) return;
         const token = user.authToken;
@@ -152,6 +156,11 @@ export class AuthService {
         const decoded = jwtDecode(token);
         const now = Math.round(new Date().getTime() / 1000);
         const diffExp = decoded.exp - now;
+
+        setTimeout(() =>{
+          console.log("Time to exp: " + diffExp);
+        }, 2000);
+
 
         if (diffExp < 1) {
             // token is expired
@@ -161,22 +170,26 @@ export class AuthService {
     }
 
 
-    private refreshToken(): void {
+    public refreshToken(): void {
         // first check if it is expired
+        console.log("Refreshing token");
         this.verifyStoredToken();
 
         let user = this.retrieveFromStore();
+        console.log("User stored: " + user);
         if (!user){ // It was expired
+          console.log("Expired token...");
           // First try to log in by stored credentials
-          this.logInByStoredCredentials();
+          //this.logInByStoredCredentials();
 
-          user = this.retrieveFromStore();
+          //user = this.retrieveFromStore();
 
           if(!user){
             return;
           }
 
         }
+
 
         const headers: Headers = new Headers();
         headers.append('Content-Type', 'application/json');

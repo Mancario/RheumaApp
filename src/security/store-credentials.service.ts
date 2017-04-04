@@ -12,7 +12,7 @@ export class StoreCredentialsService {
 
 
   public store(creds: string) : void{
-    console.log("Inside storingclass");
+    //console.log("Inside storingclass");
 /*
     this._storage.ready().then(() => {
 
