@@ -3,12 +3,15 @@
  * it and returns uid and username of the token.
  */
 
+import * as jwtdecode from "jwt-decode";
 
 export class JWTToken {
     private _decoded: any;
-/*
+
+
     public constructor(private _base64: string) {
-        const jwtdecode = require("jwt-decode");
+        //var jwtdecode = require("jwt-decode");
+
         this._decoded = jwtdecode(_base64);
     }
 
@@ -23,5 +26,5 @@ export class JWTToken {
     public toBase64(): string {
         return this._base64;
     }
-    */
+
 }

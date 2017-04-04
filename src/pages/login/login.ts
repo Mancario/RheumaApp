@@ -46,23 +46,39 @@ export class LoginPage {
         .subscribe(
             res => {
                 if (res) {
-                    this.navCtrl.setRoot(HomePage);
+                    this.navCtrl.setRoot(HomePage)
+                      .catch(() => this.setError("Error logging in"))
+                }else{
+                  this.setError("Wrong username or password");
                 }
-                this.setError("Wrong username or password");
+
             },
             err => this.setError("Server error logging in: " + err)
           );
   }
 
   navForgotten(){
-    //this.navCtrl.setRoot(ForgottenPasswordPage);
+    //this.navCtrl.setRoot(ForgottenPasswordPage)
+    //  .catch(() => this.setError("You do not have access"))
     window.location.href = "http://www.rheuma-online.de/forum/login.php?do=lostpw";
 
   }
 
   navSignup(){
     //this.navCtrl.setRoot(SignupPage);
-    window.location.href = "http://www.rheuma-online.de/forum/register.php";
+    //window.location.href = "http://www.rheuma-online.de/forum/register.php";
+    this._authService.logInByStoredCredentials()
+      .subscribe(
+        res => {
+            if (res) {
+                this.navCtrl.setRoot(HomePage);
+            }else{
+              this.setError("Wrong username or password");
+            }
+
+        },
+        err => this.setError("Server error logging in: " + err)
+      );
 
   }
 

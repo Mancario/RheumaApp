@@ -1,21 +1,55 @@
 import {Injectable} from "@angular/core";
+//import {Observable} from 'rxjs/Observable';
 
-const PREFIX = "OMORA::";
+//import { Storage } from '@ionic/storage';
+
+const KEY = "CREDS";
 
 @Injectable()
 export class StoreCredentialsService {
-    private _ls: Storage = window.localStorage;
+  //private _storage : Storage = new Storage();
+  private _ls: Storage = window.localStorage;
 
-    public store(key: string, val: string): void {
-        this._ls.setItem(this.keyFor(key), val);
-    }
 
-    public retrieve(key: string): any {
-        const s = this._ls.getItem(this.keyFor(key));
-        return s;
-    }
+  public store(creds: string) : void{
+    //console.log("Inside storingclass");
+/*
+    this._storage.ready().then(() => {
 
-    private keyFor(key: string): string {
-        return PREFIX + key;
+       this._storage.set(KEY, creds);
+
+       console.log("Stored: " + creds);
+     });
+     */
+
+
+     const s = this._ls.setItem(KEY, creds);
+  }
+
+  // Issues: If I return outside the then() function it will return null.
+  //          When I return inside the function it returns undefined....
+  // Why will it not work?????
+    public retrieve(): any {
+/*
+      //var creds = null;
+      this._storage.ready().then(() => {
+
+        this._storage.get(KEY).then((val) => {
+
+          console.log("Retrieved: " + val);
+
+          return val;
+
+        })
+       });
+
+       //return creds;
+
+       */
+
+      const s = this._ls.getItem(KEY);
+      return s;
+
+
     }
 }

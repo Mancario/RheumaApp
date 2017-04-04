@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { AuthService } from "../../security/auth.service";
+
 
 import { NewEntryPage } from '../new-entry/new-entry';
 
@@ -20,7 +22,12 @@ export class PainDiaryPage {
   private diseaseValue = 4;
   private fatigueValue = 5;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    private authService: AuthService) {}
+
+  ionViewCanEnter(): boolean{
+    return this.authService.isLoggedIn();
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PainDiaryPage');
