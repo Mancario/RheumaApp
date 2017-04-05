@@ -26,8 +26,7 @@ export class SignupPage {
   }
 
   signup(){
-    this.navCtrl.setRoot(HomePage);
-
+    this.navCtrl.setRoot(LoginPage);
   }
 
 }

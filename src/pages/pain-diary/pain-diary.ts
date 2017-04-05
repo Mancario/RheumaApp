@@ -34,7 +34,8 @@ export class PainDiaryPage {
   }
 
   navNewEntry(){
-    this.navCtrl.setRoot(NewEntryPage);
+    this.navCtrl.setRoot(NewEntryPage)
+      .catch(() => this.authService.logout())
   }
 
 }

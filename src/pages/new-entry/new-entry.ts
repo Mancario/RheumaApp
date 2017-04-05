@@ -39,11 +39,13 @@ export class NewEntryPage {
   }
 
   cancel(){
-    this.navCtrl.setRoot(PainDiaryPage);
+    this.navCtrl.setRoot(PainDiaryPage)
+      .catch(() => this.authService.logout())
   }
 
   submit(){
-    this.navCtrl.setRoot(PainDiaryPage);
+    this.navCtrl.setRoot(PainDiaryPage)
+      .catch(() => this.authService.logout())
 
   }
 
