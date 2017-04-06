@@ -3,7 +3,7 @@
 
 describe('Login:', function() {
 
-  let loginTitle = "Ionic App";
+  let loginTitle = "Login";
   let homeTitle = "Home";
   let reportTitle = "Generate Report";
   let diaryTitle = "Pain Diary";
@@ -25,6 +25,18 @@ describe('Login:', function() {
 
     beforeEach(function() {
       browser.get('http://localhost:8100');
+      browser.sleep(700);
+
+      if(browser.getTitle() == homeTitle){
+        menu = element(by.id(m));
+        menu.click();
+        browser.sleep(500);
+        button = element.all(by.className('menubutton')).get(8);
+        button.click();
+        browser.sleep(700);
+      }
+
+
     });
 
 
@@ -118,7 +130,6 @@ describe('Login:', function() {
 
 
       // Navigate to PainDiary
-      menu = "";
       menu = element(by.id(m));
       menu.click();
       browser.sleep(500);

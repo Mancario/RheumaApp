@@ -24,7 +24,7 @@ import { AuthService } from '../security/auth.service';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = LoginPage;
 
   pages: Array<{icon: string, title: string, component: any}>;
 

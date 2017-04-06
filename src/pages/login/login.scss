@@ -1,7 +1,11 @@
 page-login {
 
+.header{
+  visibility: hidden;
+}
+
   .container{
-    padding-top: 40%;
+    padding-top: 30%;
     width: 80%;
     margin: 0 auto;
   }
@@ -55,7 +59,7 @@ page-login {
 
   @media (max-height: 540px) {
     .container{
-      padding-top: 15%;
+      padding-top: 10%;
     }
   }
 

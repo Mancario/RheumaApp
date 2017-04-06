@@ -7,7 +7,8 @@
     "clean": "ionic-app-scripts clean",
     "build": "ionic-app-scripts build",
     "ionic:build": "ionic-app-scripts build",
-    "ionic:serve": "ionic-app-scripts serve"
+    "ionic:serve": "ionic-app-scripts serve",
+    "test": "karma start ./karma/karma.conf.js"
   },
   "dependencies": {
     "@angular/common": "2.4.8",
@@ -33,13 +34,16 @@
   },
   "devDependencies": {
     "@ionic/app-scripts": "1.1.4",
+    "@types/jasmine": "^2.5.47",
     "jasmine": "^2.5.3",
     "jasmine-core": "^2.5.2",
-    "karma": "^1.4.1",
+    "karma": "^1.6.0",
     "karma-chrome-launcher": "^2.0.0",
     "karma-jasmine": "^1.1.0",
     "karma-phantomjs-launcher": "^1.0.2",
-    "typescript": "2.0.9"
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-webpack": "^2.0.3",
+    "typescript": "^2.1.6"
   },
   "cordovaPlugins": [
     "cordova-plugin-whitelist",
