@@ -14,6 +14,7 @@ import { NewEntryPage } from '../pages/new-entry/new-entry';
 import { PainDiaryPage } from '../pages/pain-diary/pain-diary';
 import { SettingsPage } from '../pages/settings/settings';
 import { UserGuidePage } from '../pages/user-guide/user-guide';
+import { AuthService } from '../security/auth.service';
 
 
 
@@ -23,11 +24,11 @@ import { UserGuidePage } from '../pages/user-guide/user-guide';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = LoginPage;
+  rootPage: any = HomePage;
 
   pages: Array<{icon: string, title: string, component: any}>;
 
-  constructor(public platform: Platform) {
+  constructor(public platform: Platform, private _authService: AuthService) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -58,6 +59,7 @@ export class MyApp {
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
+    this.nav.setRoot(page.component)
+      .catch(() => this.nav.setRoot(LogoutPage))
   }
 }
