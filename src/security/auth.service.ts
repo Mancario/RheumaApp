@@ -30,9 +30,9 @@ export class AuthService {
     }
 
     public isLoggedIn(): boolean {
-      // TODO: Remove this log.
-        console.log("Logged in: " + !!this.loggedInUser());
-        return !!this.loggedInUser();
+      var loggedInUsr = this.loggedInUser();
+        //console.log("Logged in: " + loggedInUsr);
+        return !!loggedInUsr;
     }
 
     public loggedInUser(): AuthUser {
@@ -112,6 +112,7 @@ export class AuthService {
 
     public logInByStoredCredentials() : Observable<AuthUser>{
       let creds = this._storeCredentialsService.retrieve();
+      console.log("Logging in by stored credentials");
 /*
       let promise = new Promise(resolve => {
         setTimeout(() =>{
@@ -138,8 +139,8 @@ export class AuthService {
 
       //console.log("Creds received: " + creds);
 
-      if(creds != null){
-        //console.log("Re-logging in with: " + creds);
+      if(!creds){
+        console.log("Re-logging in with: " + creds);
         return this.login(JSON.parse(creds).username, JSON.parse(creds).password);
       }
 
@@ -147,20 +148,37 @@ export class AuthService {
 
 
     public verifyStoredToken(): void {
-        const user = this.retrieveFromStore();
-        if (!user) return;
+        var user = this.retrieveFromStore();
+        if (!user){
+          // Try logging in by stored credentials
+          //this.logInByStoredCredentials();
+          user = this.retrieveFromStore();
+          if(user == null){
+            return
+          }
+        }
         const token = user.authToken;
-        //var jwtDecode = require('jwt-decode');
         const decoded = jwtDecode(token);
         const now = Math.round(new Date().getTime() / 1000);
         const diffExp = decoded.exp - now;
 
-        console.log("Time to exp: " + diffExp);
+        //console.log("Time to exp: " + diffExp);
 
         if (diffExp < 1) {
-            // token is expired
-            this.storeUser(null);
-            return;
+            // Token is expired
+            // Try logging in by stored credentials
+            //this.logInByStoredCredentials();
+            user = this.retrieveFromStore();
+
+            const token2 = user.authToken;
+            const decoded2 = jwtDecode(token2);
+            const now2 = Math.round(new Date().getTime() / 1000);
+            const diffExp2 = decoded2.exp - now2;
+
+            if(diffExp2 < 1){
+              this.storeUser(null);
+              return;
+            }
         }
     }
 
@@ -174,15 +192,7 @@ export class AuthService {
         console.log("User stored: " + user);
         if (!user){ // It was expired
           console.log("Expired token...");
-          // First try to log in by stored credentials
-          this.logInByStoredCredentials();
-
-          user = this.retrieveFromStore();
-
-          if(!user){
-            return;
-          }
-
+          return;
         }
 
 
