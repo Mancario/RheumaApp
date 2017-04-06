@@ -8,7 +8,7 @@
 <script src="node_modules/chart.js/src/chart.js"></script>
 <ion-header>
   <ion-navbar>
-    <button ion-button menuToggle>
+    <button id="menuToggle" ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Home </ion-title>
@@ -28,6 +28,7 @@
         <ion-segment-button value="2">
           eHAQ
         </ion-segment-button>
+<<<<<<< HEAD
       </ion-segment> 
      
         <!-- Show the selected graph -->
@@ -43,6 +44,44 @@
             </canvas>
           </div>
         </div>
+=======
+        <ion-segment-button value="4" >
+          graph 4
+        </ion-segment-button>
+      </ion-segment>
+
+      <!-- Show the selected graph -->
+
+      <div class="col-md-6" [ngSwitch]="graph">
+        <div *ngSwitchCase="'1'">
+          <canvas baseChart height="250px" [datasets]="lineChartData1" [labels]="lineChartLabels" [options]="lineChartOptions" [colors]="lineChartColors"
+            [legend]="lineChartLegend" [chartType]="lineChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+          </canvas>
+        </div>
+
+
+        <div *ngSwitchCase="'2'">
+          <canvas baseChart height="250px"  [datasets]="lineChartData2" [labels]="lineChartLabels" [options]="lineChartOptions" [colors]="lineChartColors"
+            [legend]="lineChartLegend" [chartType]="lineChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+          </canvas>
+        </div>
+
+
+        <div  *ngSwitchCase="'3'">
+          <canvas baseChart  height="250px"  [datasets]="lineChartData3" [labels]="lineChartLabels" [options]="lineChartOptions" [colors]="lineChartColors"
+            [legend]="lineChartLegend" [chartType]="lineChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+          </canvas>
+        </div>
+
+
+        <div  *ngSwitchCase="'4'">
+          <canvas baseChart height="250px" [datasets]="lineChartData4" [labels]="lineChartLabels" [options]="lineChartOptions" [colors]="lineChartColors"
+            [legend]="lineChartLegend" [chartType]="lineChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+          </canvas>
+        </div>
+      </div>
+
+>>>>>>> master
     </ion-card-content>
   </ion-card>
 

@@ -8,7 +8,7 @@
 
 <ion-header class="header">
   <ion-navbar class="navbar">
-    <button ion-button menuToggle>
+    <button id="menuToggle" ion-button menuToggle>
       <ion-icon color="dark" name="menu"></ion-icon>
     </button>
     <ion-title>Pain Diary</ion-title>
@@ -89,7 +89,7 @@
   </ion-card>
 
 
-  <button ion-button large color="light" icon-only class="addbutton" (click)="navNewEntry()">
+  <button id="addButton" ion-button large color="light" icon-only class="addbutton" (click)="navNewEntry()">
     <ion-icon class="addicon" ios="ios-add" md="ios-add"></ion-icon>
   </button>
 
