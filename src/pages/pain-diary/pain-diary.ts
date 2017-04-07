@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { AuthService } from "../../security/auth.service";
-
-
+import { LogoutPage } from '../logout/logout';
 import { NewEntryPage } from '../new-entry/new-entry';
 
 
@@ -35,7 +34,7 @@ export class PainDiaryPage {
 
   navNewEntry(){
     this.navCtrl.setRoot(NewEntryPage)
-      .catch(() => this.authService.logout())
+      .catch(() => this.navCtrl.setRoot(LogoutPage))
   }
 
 }

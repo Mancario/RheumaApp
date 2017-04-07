@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { EHaqNewEntryPage } from '../e-haq-new-entry/e-haq-new-entry';
 import { AuthService } from "../../security/auth.service";
+import { LogoutPage } from '../logout/logout';
+
 
 /*
   Generated class for the EHAQ page.
@@ -38,7 +40,7 @@ this.diaries = [
 
    navNewEntry(){
    this.navCtrl.setRoot(EHaqNewEntryPage)
-    .catch(() => this.authService.logout())
+    .catch(() => this.navCtrl.setRoot(LogoutPage))
   }
 
 }

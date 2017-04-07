@@ -1,19 +1,33 @@
 # RheumaApp
 Monitoring App
 
-To run the project you need to follow this guide in order to install the needed components:
-https://ionicframework.com/getting-started/
+Before you get started, make sure you install:
+node.js
 
-Additional dependencies:
->cordova plugin add cordova-sqlite-storage
 
-After downloading the project you need to run the following commands inside your project folder:
->npm install
->npm install ng2-charts
->npm install charts.js
->npm install jwt-decode
+
+Additional global dependencies:
+
+npm install -g cordova ionic
+cordova plugin add cordova-sqlite-storage
+npm install -g karma-cli
+npm install -g protractor
+webdriver-manager update
+
+
+
+After downloading the project run the following command to install app dependencies:
+
+npm install
 
 
 
 To run the project in a browser, use the following command:
->ionic serve
+
+ionic serve
+
+
+## Testing
+To run e2e testing you must have the app running by the previous command. Then you need to navigate to the 'tests' folder inside 'src'. Run the command:
+
+protractor e2e.conf.js

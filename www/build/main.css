@@ -35639,8 +35639,12 @@ page-home .bottombutttons button {
   display: block;
 }
 
+page-login .header {
+  visibility: hidden;
+}
+
 page-login .container {
-  padding-top: 40%;
+  padding-top: 30%;
   width: 80%;
   margin: 0 auto;
 }
@@ -35692,7 +35696,7 @@ page-login .actionbuttoncontainer {
 
 @media (max-height: 540px) {
   page-login .container {
-    padding-top: 15%;
+    padding-top: 10%;
   }
 }
 
