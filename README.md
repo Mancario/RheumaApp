@@ -1,4 +1,4 @@
-# RheumaApp
+## RheumaApp
 Monitoring App
 
 Before you get started, make sure you install:
@@ -6,7 +6,7 @@ node.js
 
 
 
-Additional global dependencies:
+# Global dependencies:
 
 npm install -g cordova ionic
 cordova plugin add cordova-sqlite-storage
@@ -15,19 +15,24 @@ npm install -g protractor
 webdriver-manager update
 
 
-
+# App dependencies
 After downloading the project run the following command to install app dependencies:
 
 npm install
 
 
 
+# Run the project
 To run the project in a browser, use the following command:
 
 ionic serve
 
 
-## Testing
-To run e2e testing you must have the app running by the previous command. Then you need to navigate to the 'tests' folder inside 'src'. Run the command:
+# Run the tests
+To run unit tests, navigate to the project folder in your terminal, and use the command:
 
-protractor e2e.conf.js
+npm test
+
+To run e2e testing you must navigate to the project folder in your terminal and have the app running by the command 'ionic serve'. Then you need to run the following command:
+
+protractor e2e/e2e.conf.js
