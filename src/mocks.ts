@@ -46,6 +46,19 @@ export class NavMock {
   }
 }
 
+export class NavParamsMock {
+  static returnParam = null;
+  public get(key): any {
+    if (NavParamsMock.returnParam) {
+       return NavParamsMock.returnParam
+    }
+    return 'default';
+  }
+  static setParams(value){
+    NavParamsMock.returnParam = value;
+  }
+}
+
 export class PlatformMock {
   public ready(): any {
     return new Promise((resolve: Function) => {
