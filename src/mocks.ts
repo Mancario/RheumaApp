@@ -74,3 +74,13 @@ export class MenuMock {
     });
   }
 }
+
+export class HttpMock{
+
+  public post(foo, bar, baz): any{
+    return {
+      "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzMDY0IiwiaWF0IjoxNDkxNTcyMDQ0LCJleHAiOjE0OTIxNzY4NDR9.ljE5Q26V0NCHlPSzFGIDeuKNWE4rwvf7JxmbMZCJbIg",
+      "success": true
+    };
+  }
+}
