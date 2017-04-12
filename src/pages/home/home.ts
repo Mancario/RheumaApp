@@ -41,7 +41,7 @@ export class HomePage {
     this.laboratoryDate = "22.04.2017 (Suggestion)";
     this.rheumatologistDate = "20.05.2017";
     this.graph = "1"; // shows segment 1 (graph 1)
-    this.getGraphInfo();
+   
   }
 
   ionViewDidLoad() {
@@ -84,14 +84,17 @@ export class HomePage {
       // adding all pain diary elements if the list is not empty or do not contain pain diary data
       if (element[0] != null && (element[1] || element[2] || element[3] != null) && (element[1] || element[2] || element[3]).localeCompare('') != 0) {
 
-        if (i % 2 == 1) this.lineChartLabels1.push(element[0].substring(5));
-        if (i % 2 == 0) this.lineChartLabels1.push("");
+        // adding space between dates of the graph
+        if (i % 2 == 1)
+          this.lineChartLabels1.push(element[0].substring(5));
+        if (i % 2 == 0)
+          this.lineChartLabels1.push("");
 
-        else // adding date
-          if (element[1].localeCompare('') == 0) // adding pain
-            pain.push(null);
-          else
-            pain.push(parseFloat(element[1]));
+        //  else // adding date
+        if (element[1].localeCompare('') == 0) // adding pain
+          pain.push(null);
+        else
+          pain.push(parseFloat(element[1]));
         if (element[2].localeCompare('') == 0) // adding disease 
           disease.push(null);
         else
