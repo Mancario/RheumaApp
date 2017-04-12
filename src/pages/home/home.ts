@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { PainDiaryPage } from '../pain-diary/pain-diary';
 import { GenerateReportPage } from '../generate-report/generate-report';
 import { LoginPage } from '../login/login';
+import { LogoutPage } from '../logout/logout';
 import { Observable } from 'rxjs/Observable';
 import { Chart } from 'chart.js';
 import { Http, Response, URLSearchParams, Headers } from '@angular/http';
@@ -46,13 +47,22 @@ export class HomePage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad HomePage');
   }
+  ionViewCanEnter(): any {
+    var loggedIn = this._authService.isLoggedIn();
+    if (!loggedIn) {
+      this.navCtrl.setRoot(LogoutPage);
+    } else {
+      this.getGraphInfo();
+      return loggedIn;
+    }
+  }
 
   // buttons for side navigation
   painDiary() {
-    this.navCtrl.setRoot(PainDiaryPage);
+    this.navCtrl.setRoot(PainDiaryPage).catch(() => this._authService.logout());
   }
   generateReport() {
-    this.navCtrl.setRoot(GenerateReportPage);
+    this.navCtrl.setRoot(GenerateReportPage).catch(() => this._authService.logout());
   }
 
   setGraphInfo(list: Array<string>) {
@@ -63,21 +73,25 @@ export class HomePage {
 
     // iterating through all dates and adding them to the right graph, O(5n) notation
     for (var i = 1; i < list.length - 1; i++) {
-      var element = list[i].split(',', 5); // seperating elements 
+      var element = list[i].split(',', 5); // seperating each line into a list of 5 elements
 
-      // adding all eHAQ elements  
-      if (((element[4] && element[0]) != null) && ((element[4].localeCompare('') != 0))) { 
-        this.lineChartLabels2.push(element[0]);
+      // adding all eHAQ elements (the 5th element in the list)
+      if (((element[4] && element[0]) != null) && ((element[4].localeCompare('') != 0))) {
+        this.lineChartLabels2.push(element[0].substring(5));
         ehaq.push(parseFloat(element[4]));
       }
 
       // adding all pain diary elements if the list is not empty or do not contain pain diary data
       if (element[0] != null && (element[1] || element[2] || element[3] != null) && (element[1] || element[2] || element[3]).localeCompare('') != 0) {
-        this.lineChartLabels1.push(element[0]); // adding date
-        if (element[1].localeCompare('') == 0) // adding pain
-          pain.push(null);
-        else
-          pain.push(parseFloat(element[1]));
+
+        if (i % 2 == 1) this.lineChartLabels1.push(element[0].substring(5));
+        if (i % 2 == 0) this.lineChartLabels1.push("");
+
+        else // adding date
+          if (element[1].localeCompare('') == 0) // adding pain
+            pain.push(null);
+          else
+            pain.push(parseFloat(element[1]));
         if (element[2].localeCompare('') == 0) // adding disease 
           disease.push(null);
         else
@@ -88,7 +102,7 @@ export class HomePage {
         else
           fatigue.push(parseFloat(element[3]));
       }
-    } 
+    }
     this.lineChartData1 = [{ data: pain, label: 'pain' },
     { data: disease, label: 'disease activity' },
     { data: fatigue, label: 'fatigue' }];
@@ -100,8 +114,7 @@ export class HomePage {
   public getGraphInfo() {
     var object = this.getChart();
     object.forEach(value => {
-      this.setGraphInfo(value.split('\n'));   
-
+      this.setGraphInfo(value.split('\n'));
     });
   }
 
