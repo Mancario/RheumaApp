@@ -8,6 +8,7 @@ import { HomePage } from '../pages/home/home';
 import { BloodTestPage } from '../pages/blood-test/blood-test';
 import { EDASPage } from '../pages/e-das/e-das';
 import { EHAQPage } from '../pages/e-haq/e-haq';
+import { HAQService } from '../pages/e-haq/e-haq-service';
 import { EHaqNewEntryPage } from '../pages/e-haq-new-entry/e-haq-new-entry';
 import { ForgottenPasswordPage } from '../pages/forgotten-password/forgotten-password';
 import { GenerateReportPage } from '../pages/generate-report/generate-report';
@@ -22,6 +23,7 @@ import { AuthService } from '../security/auth.service';
 import { LocalStorageService } from '../security/local-storage.service';
 import { StoreCredentialsService } from '../security/store-credentials.service';
 import { IonicStorageModule } from '@ionic/storage';
+
 
 @NgModule({
   declarations: [
@@ -68,7 +70,8 @@ import { IonicStorageModule } from '@ionic/storage';
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthService,
     LocalStorageService,
-    StoreCredentialsService
+    StoreCredentialsService,
+    HAQService
   ]
 })
 export class AppModule {}

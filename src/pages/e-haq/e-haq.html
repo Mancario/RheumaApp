@@ -35,11 +35,11 @@
       <ion-card-content>
         <div class="labelcontainer">
           <ion-label>Result</ion-label>
-          <button ion-button small color="primary">{{p.value}}</button>
+          <button ion-button small color="primary">{{p.value}} </button>
         </div>
         <ion-item>
-          <ion-range max="30" mode="wp" [(ngModel)]="painValue" color="primary"
-          pin="false" snaps="true" disabled="true"></ion-range>
+          <ion-range max="30" mode="wp" color="primary"
+          pin="false" snaps="true" disabled="true" [(ngModel)]="p.painvalue" ></ion-range>
         </ion-item>
       </ion-card-content>
     </ion-card>

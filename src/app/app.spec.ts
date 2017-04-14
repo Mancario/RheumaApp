@@ -5,6 +5,7 @@ import { LoginPage } from '../pages/login/login';
 import { AuthService } from '../security/auth.service';
 import { LocalStorageService } from '../security/local-storage.service';
 import { StoreCredentialsService } from '../security/store-credentials.service';
+import {} from 'jasmine';
 
 
 let comp: MyApp;
