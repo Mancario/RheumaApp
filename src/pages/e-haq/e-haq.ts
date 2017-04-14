@@ -3,8 +3,10 @@ import { NavController, NavParams } from 'ionic-angular';
 import { EHaqNewEntryPage } from '../e-haq-new-entry/e-haq-new-entry';
 import { AuthService } from "../../security/auth.service";
 import { LogoutPage } from '../logout/logout';
-
-
+import { Observable } from 'rxjs/Observable';
+import { Http, Response, URLSearchParams, Headers } from '@angular/http';
+import { API_URL } from "../../environments/environment";
+import { HAQEntry, HAQService, HAQEntryList, HAQQuery } from "./e-haq-service"
 /*
   Generated class for the EHAQ page.
 
@@ -16,21 +18,19 @@ import { LogoutPage } from '../logout/logout';
   templateUrl: 'e-haq.html'
 })
 export class EHAQPage {
-   private painValue = 3;
+  private query: HAQQuery;
+  eHAQdiaries: Observable<HAQEntryList>;
 
-   diaries: Array<{date: string, value: string, painValue: number}>;
+  diaries: Array<{ date: string, value: string, painvalue: number }>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-  private authService: AuthService) {
+    private authService: AuthService, private _http: Http, private _haqService: HAQService) {
+    this.getDiary();
 
-this.diaries = [
-      {date: "03.03.17", value: "1,2", painValue: 12},
-      {date: "02.03.17", value: "0,3", painValue: 3},
-      {date: "01.03.17", value: "1,7", painValue: 17}
-    ];
+    this.diaries = []; 
   }
 
-  ionViewCanEnter(): boolean{
+  ionViewCanEnter(): boolean {
     return this.authService.isLoggedIn();
   }
 
@@ -38,9 +38,18 @@ this.diaries = [
     console.log('ionViewDidLoad EHAQPage');
   }
 
-   navNewEntry(){
-   this.navCtrl.setRoot(EHaqNewEntryPage)
-    .catch(() => this.navCtrl.setRoot(LogoutPage))
+  navNewEntry() {
+    this.navCtrl.setRoot(EHaqNewEntryPage)
+      .catch(() => this.navCtrl.setRoot(LogoutPage))
   }
 
+  getDiary() {
+    this.eHAQdiaries = this._haqService.listAllEntries();
+    this.eHAQdiaries.forEach(element => {
+      element.results.forEach(e => {
+         this.diaries.push({ date: '' + e.date, value: ''+ e.score, painvalue: (e.score*10)});
+      
+    });
+    });    
+  }
 }
