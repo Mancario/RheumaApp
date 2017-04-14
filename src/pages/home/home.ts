@@ -25,18 +25,8 @@ export class HomePage {
   graph;
   graphList;
 
-  // lineChar for Pain diary graph -  need setup data for the graphs to work
-  public lineChartData1: Array<any> =
-  [{ data: [0], label: 'pain' },
-  { data: [0], label: 'disease activity' },
-  { data: [0], label: 'fatigue' }];
-  public lineChartLabels1: Array<any> = [];
-
-  // lineChart for eHAQ graph
-  public lineChartData2: Array<any> = [{ data: [0], label: 'eHAQ' }];
-  public lineChartLabels2: Array<any> = [];
-
-  constructor(public navCtrl: NavController, public navParams: NavParams, private _http: Http, private _authService: AuthService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, 
+  private _http: Http, private _authService: AuthService) {
     this.flag = "../../assets/img/flag-green.png";
     this.laboratoryDate = "22.04.2017 (Suggestion)";
     this.rheumatologistDate = "20.05.2017";
@@ -71,10 +61,10 @@ export class HomePage {
     var fatigue: Array<number> = [];
     var disease: Array<number> = [];
 
-    // iterating through all dates and adding them to the right graph, O(5n) notation
+    // iterating through all dates and adding them to the right graph
     for (var i = 1; i < list.length - 1; i++) {
       var element = list[i].split(',', 5); // seperating each line into a list of 5 elements
-
+      
       // adding all eHAQ elements (the 5th element in the list)
       if (((element[4] && element[0]) != null) && ((element[4].localeCompare('') != 0))) {
         this.lineChartLabels2.push(element[0].substring(5));
@@ -120,41 +110,53 @@ export class HomePage {
       this.setGraphInfo(value.split('\n'));
     });
   }
+   // get charts from database
+    public getChart(): Observable<string> {
+        const headers: Headers = new Headers();
+        headers.append('Authorization', 'Bearer ' + this._authService.loggedInUser().authToken);
 
-  // get charts from database
-  public getChart(): Observable<string> {
-    const headers: Headers = new Headers();
-    headers.append('Authorization', 'Bearer ' + this._authService.loggedInUser().authToken);
-
-    var params = new URLSearchParams();
-    var object =
-      this._http.get(API_URL + '/chart/csv', {
-        headers,
-        search: params,
-      })
-        .map(res => res.text())
-        .catch(this.handleError);
-    return object;
-  }
-
-  private handleError(error: Response) {
-    // in a real world app, we may send the error to some remote logging infrastructure
-    // instead of just logging it to the console
-    if (error.status === 404) return Observable.throw('Eintrag nicht gefunden.');
-    if (error.status === 403)
-      return Observable.throw('Sie sind derzeit nicht angemeldet oder Sie haben keine Berechtigung, diese Seite aufzurufen.');
-    if (error.status === 401) return Observable.throw('Permission denied.');
-    console.error(error);
-    let errorMessage: string = null;
-    if (error.json) {
-      try {
-        errorMessage = error.json().error;
-      } catch (e) {
-        errorMessage = 'Server error: ' + (error.statusText ? error.statusText : error);
-      }
+        var params = new URLSearchParams();
+        var object =
+            this._http.get(API_URL + '/chart/csv', {
+                headers,
+                search: params,
+            })
+                .map(res => res.text())
+                .catch(this.handleError);
+        return object;
     }
-    return Observable.throw(errorMessage);
-  }
+
+    private handleError(error: Response) {
+        // in a real world app, we may send the error to some remote logging infrastructure
+        // instead of just logging it to the console
+        if (error.status === 404) return Observable.throw('Eintrag nicht gefunden.');
+        if (error.status === 403)
+            return Observable.throw('Sie sind derzeit nicht angemeldet oder Sie haben keine Berechtigung, diese Seite aufzurufen.');
+        if (error.status === 401) return Observable.throw('Permission denied.');
+        console.error(error);
+        let errorMessage: string = null;
+        if (error.json) {
+            try {
+                errorMessage = error.json().error;
+            } catch (e) {
+                errorMessage = 'Server error: ' + (error.statusText ? error.statusText : error);
+            }
+        }
+        return Observable.throw(errorMessage);
+    }
+
+ 
+
+ // lineChar for Pain diary graph -  need setup data for the graphs to work
+  public lineChartData1: Array<any> =
+  [{ data: [0], label: 'pain' },
+  { data: [0], label: 'disease activity' },
+  { data: [0], label: 'fatigue' }];
+  public lineChartLabels1: Array<any> = [];
+
+  // lineChart for eHAQ graph
+  public lineChartData2: Array<any> = [{ data: [0], label: 'eHAQ' }];
+  public lineChartLabels2: Array<any> = [];
 
   // --------- lineChart settings for all graphs  ---------
   public lineChartOptions: any = {
