@@ -9,6 +9,7 @@ import { BloodTestPage } from '../pages/blood-test/blood-test';
 import { EDASPage } from '../pages/e-das/e-das';
 import { EHAQPage } from '../pages/e-haq/e-haq';
 import { HAQService } from '../pages/e-haq/e-haq-service';
+import { DiaryService } from '../pages/pain-diary/pain-diary-service'; 
 import { EHaqNewEntryPage } from '../pages/e-haq-new-entry/e-haq-new-entry';
 import { ForgottenPasswordPage } from '../pages/forgotten-password/forgotten-password';
 import { GenerateReportPage } from '../pages/generate-report/generate-report';
@@ -71,7 +72,8 @@ import { IonicStorageModule } from '@ionic/storage';
     AuthService,
     LocalStorageService,
     StoreCredentialsService,
-    HAQService
+    HAQService,
+    DiaryService
   ]
 })
 export class AppModule {}
