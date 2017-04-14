@@ -3,6 +3,8 @@ import { NavController, NavParams } from 'ionic-angular';
 import { AuthService } from "../../security/auth.service";
 import { LogoutPage } from '../logout/logout';
 import { NewEntryPage } from '../new-entry/new-entry';
+import { Observable } from 'rxjs/Observable';
+import { DiaryService, DiaryQuery, DiaryEntryList, DiaryEntry } from "./pain-diary-service"
 
 
 /*
@@ -16,15 +18,16 @@ import { NewEntryPage } from '../new-entry/new-entry';
   templateUrl: 'pain-diary.html'
 })
 export class PainDiaryPage {
-
-  private painValue = 3;
-  private diseaseValue = 4;
-  private fatigueValue = 5;
+  query: DiaryQuery = { offset: 0, count: 10 };
+  paindiaries: Observable<DiaryEntryList>;
+  diaries: DiaryEntry[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private authService: AuthService) {}
+    private authService: AuthService, private diaryService: DiaryService) {
+      this.getDiary(); 
+     }
 
-  ionViewCanEnter(): boolean{
+  ionViewCanEnter(): boolean {
     return this.authService.isLoggedIn();
   }
 
@@ -32,9 +35,15 @@ export class PainDiaryPage {
     console.log('ionViewDidLoad PainDiaryPage');
   }
 
-  navNewEntry(){
+  navNewEntry() {
     this.navCtrl.setRoot(NewEntryPage)
       .catch(() => this.navCtrl.setRoot(LogoutPage))
   }
 
+  getDiary() {
+    this.paindiaries = this.diaryService.listEntries(this.query);
+    this.paindiaries.forEach(element => {
+      this.diaries = element.results;       
+    }); 
+  }
 }
