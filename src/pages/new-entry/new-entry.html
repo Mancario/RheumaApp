@@ -23,15 +23,9 @@
         <div class="header-left-button">
           <button ion-button large clear icon-left color="dark" class="headerbutton">
             <ion-icon name="calendar"></ion-icon>
-            <ion-datetime displayFormat="DD.MM.YYYY" [(ngModel)]="date.today"></ion-datetime>
+            <ion-datetime displayFormat="DD.MM.YYYY" [(ngModel)]="date.today" [max]="date.today"></ion-datetime>
           </button>
-
         </div>
-
-        <!--ion-item>
-          <ion-label>Date</ion-label>
-          <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="date.today"></ion-datetime>
-        </ion-item-->
 
     </ion-card-header>
 
@@ -42,7 +36,7 @@
 
           <div class="labelcontainer">
             <ion-label>Pain</ion-label>
-            <button ion-button small color="primary">0</button>
+            <button ion-button small color="primary">{{painValue}}</button>
           </div>
           <ion-item>
             <ion-range max="10" mode="wp" [(ngModel)]="painValue"
@@ -51,7 +45,7 @@
 
           <div class="labelcontainer">
             <ion-label>Disease Activity</ion-label>
-            <button ion-button small color="primary">0</button>
+            <button ion-button small color="primary">{{diseaseValue}}</button>
           </div>
           <ion-item>
             <ion-range max="10" mode="wp" [(ngModel)]="diseaseValue"
@@ -60,7 +54,7 @@
 
           <div class="labelcontainer">
             <ion-label>Fatigue</ion-label>
-            <button ion-button small color="primary">0</button>
+            <button ion-button small color="primary">{{fatigueValue}}</button>
           </div>
           <ion-item>
             <ion-range max="10" mode="wp" [(ngModel)]="fatigueValue"
@@ -76,23 +70,23 @@
 
           <ion-item>
             <ion-label>Prednisolone taken:</ion-label>
-            <ion-input type="number" placeholder="mg"></ion-input>
+            <ion-input type="number" placeholder="mg" [(ngModel)]="prednisoloneDose"></ion-input>
           </ion-item>
 
 
           <ion-item>
             <ion-label stacked>Other medications:</ion-label>
-            <ion-textarea type="text"></ion-textarea>
+            <ion-textarea type="text" [(ngModel)]="additionalDrugs"></ion-textarea>
           </ion-item>
 
           <ion-item>
             <ion-label stacked>Painful joints:</ion-label>
-            <ion-textarea type="text"></ion-textarea>
+            <ion-textarea type="text" [(ngModel)]="tenderJoints"></ion-textarea>
           </ion-item>
 
           <ion-item>
             <ion-label stacked>Other remarks:</ion-label>
-            <ion-textarea></ion-textarea>
+            <ion-textarea [(ngModel)]="comments"></ion-textarea>
           </ion-item>
 
       </ion-list>

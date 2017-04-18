@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { AuthService } from "../../security/auth.service";
 import { LogoutPage } from '../logout/logout';
-import { PainDiaryPage} from '../pain-diary/pain-diary'
+import { PainDiaryPage} from '../pain-diary/pain-diary';
+import { DiaryService, DiaryEntry } from "../pain-diary/pain-diary-service";
+
 
 /*
   Generated class for the NewEntry page.
@@ -15,18 +17,23 @@ import { PainDiaryPage} from '../pain-diary/pain-diary'
   templateUrl: 'new-entry.html'
 })
 export class NewEntryPage {
-  private painValue = 0;
-  private diseaseValue = 0;
-  private fatigueValue = 0;
+  private dateChosen;
+  private painValue;
+  private diseaseValue;
+  private fatigueValue;
+  private prednisoloneDose;
+  private additionalDrugs;
+  private tenderJoints;
+  private comments;
 
-  public date = {
-  today: '2017-03-28'
+
+  private date = {
+    today: new Date().toISOString().substr(0, 10)
   }
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private authService: AuthService) {
-    //this.date.today = new Date();
+    private authService: AuthService, private diaryService: DiaryService) {
   }
 
   ionViewCanEnter(): boolean{
@@ -43,8 +50,31 @@ export class NewEntryPage {
   }
 
   submit(){
-    this.navCtrl.setRoot(PainDiaryPage)
-      .catch(() => this.navCtrl.setRoot(LogoutPage))
+    console.log("Called submit step 1");
+    let entry = {
+      date: this.date.today,
+      pain: this.painValue,
+      diseaseActivity: this.diseaseValue,
+      fatigue: this.fatigueValue,
+      prednisoloneDose: this.prednisoloneDose,
+      additionalDrugs: this.additionalDrugs,
+      tenderJoints: this.tenderJoints,
+      comments: this.comments,
+      deleted: false
+    }
+
+    this.diaryService.saveEntry(entry)
+      .subscribe(
+        res =>{
+          if(res){
+            this.navCtrl.setRoot(PainDiaryPage)
+              .catch(() => this.navCtrl.setRoot(LogoutPage))
+          }else{
+
+          }
+        },
+        err => console.log("Error saving entry")
+      );
 
   }
 
