@@ -4,7 +4,8 @@ import { AuthService } from "../../security/auth.service";
 import { LogoutPage } from '../logout/logout';
 import { NewEntryPage } from '../new-entry/new-entry';
 import { Observable } from 'rxjs/Observable';
-import { DiaryService, DiaryQuery, DiaryEntryList, DiaryEntry } from "./pain-diary-service"
+import { DiaryService, DiaryQuery, DiaryEntryList, DiaryEntry } from "./pain-diary-service";
+import { AlertController } from 'ionic-angular';
 
 
 /*
@@ -23,7 +24,8 @@ export class PainDiaryPage {
   diaries: DiaryEntry[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private authService: AuthService, private diaryService: DiaryService) {
+    private authService: AuthService, private diaryService: DiaryService,
+    private alertCtrl: AlertController) {
       this.getDiary();
      }
 
@@ -42,17 +44,41 @@ export class PainDiaryPage {
 
   deleteEntry(entry: DiaryEntry){
     console.log("Called deleteEntry step 1");
-    this.diaryService.deleteEntry(entry)
-      .subscribe(
-        res =>{
-          if(res){
-            
-          }else{
 
+
+    let alert = this.alertCtrl.create({
+    title: 'Confirm delete',
+    message: 'Do you want to delete pain entry for date: ' + entry.date,
+    buttons: [
+      {
+        text: 'Cancel',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      },
+      {
+        text: 'Delete',
+        handler: () => {
+          console.log('Delete clicked');
+          this.diaryService.deleteEntry(entry)
+            .subscribe(
+              res =>{
+                if(res){
+                  this.navCtrl.setRoot(this);
+                }else{
+
+                }
+              },
+              err => console.log("Error deleting entry")
+            );
           }
-        },
-        err => console.log("Error deleting entry")
-      );
+        }
+      ]
+    });
+
+    alert.present();
+
   }
 
   editEntry(entry: DiaryEntry){
