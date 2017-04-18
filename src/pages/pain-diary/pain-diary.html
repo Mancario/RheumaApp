@@ -30,7 +30,7 @@
             <button ion-button large clear color="dark" class="headerbutton">
             <ion-icon ios="md-create" md="md-create"> </ion-icon>
           </button>
-            <button ion-button large clear color="dark" class="headerbutton">
+            <button ion-button large clear color="dark" class="headerbutton" (click)="deleteEntry(p)">
             <ion-icon name="trash"> </ion-icon>
           </button>
           </div>
@@ -66,7 +66,7 @@
 
             <div class="labelcontainer">
               <ion-label>Prednisolone taken (mg) </ion-label>
-              <button ion-button small color="primary">                      
+              <button ion-button small color="primary">
                 {{p.prednisoloneDose}}
               </button>
             </div>

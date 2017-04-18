@@ -78,6 +78,8 @@ export class DiaryService {
     }
 
     public deleteEntry(entry: DiaryEntry): Observable<boolean> {
+        console.log("Called deleteEntry with date: " + entry.date);
+
         const headers: Headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', 'Bearer ' + this._authService.loggedInUser().authToken);

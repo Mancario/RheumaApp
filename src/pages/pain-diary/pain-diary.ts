@@ -24,7 +24,7 @@ export class PainDiaryPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private authService: AuthService, private diaryService: DiaryService) {
-      this.getDiary(); 
+      this.getDiary();
      }
 
   ionViewCanEnter(): boolean {
@@ -40,10 +40,33 @@ export class PainDiaryPage {
       .catch(() => this.navCtrl.setRoot(LogoutPage))
   }
 
+  deleteEntry(entry: DiaryEntry){
+    console.log("Called deleteEntry step 1");
+    this.diaryService.deleteEntry(entry)
+      .subscribe(
+        res =>{
+          if(res){
+            
+          }else{
+
+          }
+        },
+        err => console.log("Error deleting entry")
+      );
+  }
+
+  editEntry(entry: DiaryEntry){
+    // not implemented yet.
+  }
+
+  extendEntry(){
+    // Not implemented yet
+  }
+
   getDiary() {
     this.paindiaries = this.diaryService.listEntries(this.query);
     this.paindiaries.forEach(element => {
-      this.diaries = element.results;       
-    }); 
+      this.diaries = element.results;
+    });
   }
 }
