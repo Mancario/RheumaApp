@@ -1,4 +1,4 @@
-## RheumaApp
+# RheumaApp
 Monitoring App
 
 Before you get started, make sure you install:
@@ -6,7 +6,7 @@ node.js
 
 
 
-# Global dependencies:
+## Global dependencies:
 
 npm install -g cordova ionic
 cordova plugin add cordova-sqlite-storage
@@ -15,20 +15,20 @@ npm install -g protractor
 webdriver-manager update
 
 
-# App dependencies
+## App dependencies
 After downloading the project run the following command to install app dependencies:
 
 npm install
 
 
 
-# Run the project
+## Run the project
 To run the project in a browser, use the following command:
 
 ionic serve
 
 
-# Run the tests
+## Run the tests
 To run unit tests, navigate to the project folder in your terminal, and use the command:
 
 npm test

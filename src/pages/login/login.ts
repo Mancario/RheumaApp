@@ -84,7 +84,7 @@ export class LoginPage {
 
   }
 
-  private setError(error: string): void {
+  public setError(error: string): void {
       this.loading = false;
       this.errorMessage = error;
   }
