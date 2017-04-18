@@ -35840,11 +35840,11 @@ page-new-entry .submitbuttons button {
 }
 
 page-new-entry .submitbuttons #ok {
-  float: left;
+  float: right;
 }
 
 page-new-entry .submitbuttons #cancel {
-  float: right;
+  float: left;
 }
 
 page-pain-diary .card {
