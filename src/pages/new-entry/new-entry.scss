@@ -3,7 +3,7 @@ page-new-entry {
   .card{
     width: 95%;
     margin: 0 auto;
-    max-height: 90%;
+    //max-height: 90%;
     margin: 0 auto;
   }
 
@@ -138,6 +138,11 @@ page-new-entry {
     float: left;
   }
 
+  @media (max-height: 570px) {
+    .card{
+      //max-height: 85%;
+    }
+  }
 
 
 

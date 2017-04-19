@@ -66,7 +66,7 @@ export class PainDiaryPage {
             .subscribe(
               res =>{
                 if(res){
-                  this.navCtrl.setRoot(this);
+                  this.navCtrl.setRoot(this.navCtrl.getActive().component);
                 }else{
 
                 }
