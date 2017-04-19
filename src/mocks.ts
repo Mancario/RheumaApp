@@ -84,3 +84,14 @@ export class HttpMock{
     };
   }
 }
+
+export class AuthServiceMock{
+  public loggedInUser(){
+    let user = {
+      username: "HVL",
+      uid: "3064",
+      authToken: "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzMDY0IiwiaWF0IjoxNDkxNTcyMDQ0LCJleHAiOjE0OTIxNzY4NDR9.ljE5Q26V0NCHlPSzFGIDeuKNWE4rwvf7JxmbMZCJbIg",
+    }
+    return user;
+  }
+}

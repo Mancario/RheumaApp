@@ -22,7 +22,6 @@ export class PainDiaryPage {
   query: DiaryQuery = { offset: 0, count: 10 };
   paindiaries: Observable<DiaryEntryList>;
   diaries: DiaryEntry[];
-  toggleExtend: boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private authService: AuthService, private diaryService: DiaryService,
