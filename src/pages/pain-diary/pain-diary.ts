@@ -22,6 +22,7 @@ export class PainDiaryPage {
   query: DiaryQuery = { offset: 0, count: 10 };
   paindiaries: Observable<DiaryEntryList>;
   diaries: DiaryEntry[];
+  toggleExtend: boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private authService: AuthService, private diaryService: DiaryService,
@@ -48,7 +49,7 @@ export class PainDiaryPage {
 
     let alert = this.alertCtrl.create({
     title: 'Confirm delete',
-    message: 'Do you want to delete pain entry for date: ' + entry.date,
+    message: 'Do you want to delete pain entry for date: ' + entry.date + "?",
     buttons: [
       {
         text: 'Cancel',
@@ -85,9 +86,41 @@ export class PainDiaryPage {
     // not implemented yet.
   }
 
-  extendEntry(){
-    // Not implemented yet
+
+  extendEntry(entry){
+    let info = document.getElementById(entry.date);
+    if(entry.toggleExtend){
+      console.log("Extend entry: " + entry.date);
+      info.style.display = 'block';
+
+    }else{
+      console.log("Compress entry: " + entry.date);
+      info.style.display = 'none';
+    }
+
   }
+
+/*
+  extendEntry(entry){
+    let info = document.getElementById(entry.date);
+    let exp = document.getElementById("extendbutton");
+    let comp = document.getElementById("compressbutton");
+
+    if(info.style.display === 'none'){
+      console.log("Extend entry: " + entry.date);
+      info.style.display = 'block';
+      exp.style.display = 'none';
+      comp.style.display = 'block'
+
+    }else{
+      console.log("Compress entry: " + entry.date);
+      info.style.display = 'none';
+      exp.style.display = 'block';
+      comp.style.display = 'none'
+    }
+
+  }
+*/
 
   getDiary() {
     this.paindiaries = this.diaryService.listEntries(this.query);

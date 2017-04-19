@@ -71,14 +71,44 @@
               </button>
             </div>
 
-          </ion-list>
-        </ion-card-content>
+            <div id={{p.date}} style="display: none">
+              <ion-item>
+                <ion-label stacked>Other medications:</ion-label>
+                <ion-textarea disabled type="text" [(ngModel)]="p.additionalDrugs"></ion-textarea>
+              </ion-item>
 
-        <div class="line"></div>
-        <button ion-button icon-right clear color="dark" class="extendbutton">
-          Extend report
-          <ion-icon ios="ios-expand" md="ios-expand"></ion-icon>
-        </button>
+              <ion-item>
+                <ion-label stacked>Painful joints:</ion-label>
+                <ion-textarea disabled type="text" [(ngModel)]="p.tenderJoints"></ion-textarea>
+              </ion-item>
+
+              <ion-item>
+                <ion-label stacked>Other remarks:</ion-label>
+                <ion-textarea disabled [(ngModel)]="p.comments"></ion-textarea>
+              </ion-item>
+            </div>
+
+          </ion-list>
+
+          <div class="line"></div>
+          <ion-item>
+            <ion-label>Extend report</ion-label>
+            <ion-toggle checked="false" (click)="extendEntry(p)" [(ngModel)]="p.toggleExtend"></ion-toggle>
+          </ion-item>
+
+<!--
+          <div class="line"></div>
+          <button ion-button icon-right clear color="dark" id="extendbutton" (click)="extendEntry(p)">
+            Extend report
+            <ion-icon ios="ios-expand" md="ios-expand"></ion-icon>
+          </button>
+
+          <button ion-button icon-right clear color="dark" id="compressbutton" (click)="extendEntry(p)">
+            Compress report
+            <ion-icon ios="ios-contract" md="ios-contract"></ion-icon>
+          </button>
+-->
+        </ion-card-content>
 
       </ion-card>
     </div>
