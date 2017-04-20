@@ -50,11 +50,46 @@ describe('Pain Diary:', function() {
       browser.sleep(700);
 
     });
-/*
+
     it('should be in Pain Diary Page', function() {
       expect(browser.getTitle()).toEqual(diaryTitle);
     });
-*/
+
+
+    it('should be able to create new task correctly', function() {
+      let length1, length2;
+
+      // Check number of inputs first
+      element.all(by.className("card")).then(function(items) {
+        length1 = items.length;
+      });
+
+      button = element(by.id('addButton'));
+      button.click();
+      browser.sleep(700);
+      expect(browser.getTitle()).toEqual(painEntryTitle);
+
+      // Adding values
+      el = element(by.id("painInput"));
+      el.click();
+      el = element(by.id("diseaseInput"));
+      el.click();
+      el = element(by.id("fatigueInput"));
+      el.click();
+
+      // Should navigate back to diary
+      button = element(by.id("ok"));
+      button.click();
+      browser.sleep(700);
+      expect(browser.getTitle()).toEqual(diaryTitle);
+
+      // Check new number of inputs
+      element.all(by.className("card")).then(function(items) {
+        length2 = items.length;
+        expect(length2).toBe(length1 + 1);
+      });
+
+    });
 
     it('should display at least one card with information', function() {
       el = element.all(by.className("card")).get(0);
@@ -86,5 +121,53 @@ describe('Pain Diary:', function() {
 
 
 
+    it('should not delete when hitting cancel', function() {
+      button = element.all(by.className("deleteButton")).get(0);
+
+      let length1, length2;
+
+      element.all(by.className("card")).then(function(items) {
+        length1 = items.length;
+      });
+
+
+      button.click();
+
+      button = element.all(by.className("alert-button")).get(0);
+
+      browser.sleep(700);
+
+      button.click();
+
+      element.all(by.className("card")).then(function(items){
+        length2 = items.length;
+        expect(length2).toBe(length1);
+      });
+    });
+
+
+    it('should delete when hitting OK', function() {
+      button = element.all(by.className("deleteButton")).get(0);
+
+      let length1, length2;
+
+      element.all(by.className("card")).then(function(items) {
+        length1 = items.length;
+      });
+
+
+      button.click();
+
+      button = element.all(by.className("alert-button")).get(1);
+
+      browser.sleep(700);
+
+      button.click();
+
+      element.all(by.className("card")).then(function(items){
+        length2 = items.length;
+        expect(length2).toBe(length1 - 1);
+      });
+    });
 
 });
