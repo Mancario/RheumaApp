@@ -24,7 +24,7 @@ export class PainDiaryPage {
   diaries: DiaryEntry[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private authService: AuthService, private diaryService: DiaryService,
+    private authService: AuthService, public diaryService: DiaryService,
     private alertCtrl: AlertController) {
       this.getDiary();
      }

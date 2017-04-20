@@ -1,5 +1,6 @@
 //import * as _authService from '../../security/auth.service';
-
+//import * as matchers from 'jasmine-jquery-matchers';
+var matchers = require('jasmine-jquery-matchers');
 
 describe('Pain Diary:', function() {
 
@@ -16,6 +17,8 @@ describe('Pain Diary:', function() {
   let button, pwd, usr, menu, el;
 
     beforeEach(function() {
+      jasmine.addMatchers(matchers);
+
       browser.get('http://localhost:8100');
       browser.sleep(700);
 
@@ -122,21 +125,16 @@ describe('Pain Diary:', function() {
 
 
     it('should not delete when hitting cancel', function() {
-      button = element.all(by.className("deleteButton")).get(0);
-
       let length1, length2;
-
       element.all(by.className("card")).then(function(items) {
         length1 = items.length;
       });
 
-
+      button = element.all(by.className("deleteButton")).get(0);
       button.click();
 
       button = element.all(by.className("alert-button")).get(0);
-
       browser.sleep(700);
-
       button.click();
 
       element.all(by.className("card")).then(function(items){
@@ -147,27 +145,41 @@ describe('Pain Diary:', function() {
 
 
     it('should delete when hitting OK', function() {
-      button = element.all(by.className("deleteButton")).get(0);
-
       let length1, length2;
-
       element.all(by.className("card")).then(function(items) {
         length1 = items.length;
       });
 
-
+      button = element.all(by.className("deleteButton")).get(0);
       button.click();
 
       button = element.all(by.className("alert-button")).get(1);
-
       browser.sleep(700);
-
       button.click();
+      browser.sleep(1000);
 
       element.all(by.className("card")).then(function(items){
         length2 = items.length;
         expect(length2).toBe(length1 - 1);
       });
     });
+/*
+    it('should extend/compress pain entry', function() {
+
+      el = element.all(by.className("extraInfo")).get(0);
+      //expect(el.style.display).toEqual('none');
+
+
+      button = element.all(by.className("extendToggle")).get(0);
+      button.click();
+      browser.sleep(700);
+
+      el = element.all(by.className("extraInfo")).get(0);
+      expect(el).toBeVisible();
+
+
+
+    });
+*/
 
 });

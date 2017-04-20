@@ -14,6 +14,18 @@ let fixture: ComponentFixture<PainDiaryPage>;
 let de: DebugElement;
 let el: HTMLElement;
 
+let testEntry = {
+  date: '2017-01-01',
+  pain: 1,
+  diseaseActivity: 1,
+  fatigue: 1,
+  prednisoloneDose: 1,
+  additionalDrugs: 'One',
+  tenderJoints: 'Two',
+  comments: 'Three',
+  deleted: false
+}
+
 describe('Page: Pain Diary Page', () => {
 
     beforeEach(async(() => {
@@ -59,9 +71,21 @@ describe('Page: Pain Diary Page', () => {
         expect(comp).toBeDefined();
     });
 
+    it('Retrieves entries correctly', () => {
+      //let length = comp['diaries'].length;
+      let diaries;
+      let paindiaries = comp.diaryService.listEntries({ offset: 0, count: 10 });
+      paindiaries.forEach(element => {
+        diaries = element.results;
+      });
+
+      expect(diaries).toBeDefined();
+
+
+    });
+
     it('deletes entry correctly', () => {
-        de = fixture.debugElement.query(By.css("card"));
-        el = de.nativeElement;
+
     });
 
 });
