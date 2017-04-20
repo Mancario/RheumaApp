@@ -21,13 +21,13 @@
 
         <ion-card-header class="cardheader">
           <div class="header-left-button">
-            <button ion-button large clear icon-left color="dark" class="headerbutton">
+            <button class="dateValue" ion-button large clear icon-left color="dark" class="headerbutton">
             <ion-icon name="calendar"></ion-icon>
             {{p.date}}
           </button>
           </div>
           <div class="header-right-button">
-            <button ion-button large clear color="dark" class="headerbutton editButton">
+            <button ion-button large clear color="dark" class="headerbutton editButton" (click)="editEntry(p)">
             <ion-icon ios="md-create" md="md-create"> </ion-icon>
           </button>
             <button ion-button large clear color="dark" class="headerbutton deleteButton" (click)="deleteEntry(p)">
@@ -44,7 +44,7 @@
               <button class="painButton" ion-button small color="primary">{{p.pain}}</button>
             </div>
             <ion-item>
-              <ion-range max="10" mode="wp" [(ngModel)]="p.pain" color="primary" pin="false" snaps="true" disabled="true"></ion-range>
+              <ion-range class="painValue" max="10" mode="wp" [(ngModel)]="p.pain" color="primary" pin="false" snaps="true" disabled="true"></ion-range>
             </ion-item>
 
             <div class="labelcontainer">
@@ -52,7 +52,7 @@
               <button class="diseaseButton" ion-button small color="primary">{{p.diseaseActivity}}</button>
             </div>
             <ion-item>
-              <ion-range max="10" mode="wp" [(ngModel)]="p.diseaseActivity" color="primary" pin="false" snaps="true" disabled="true"></ion-range>
+              <ion-range class="diseaseValue" max="10" mode="wp" [(ngModel)]="p.diseaseActivity" color="primary" pin="false" snaps="true" disabled="true"></ion-range>
             </ion-item>
 
             <div class="labelcontainer">
@@ -61,7 +61,7 @@
             </div>
             <ion-item>
 
-              <ion-range max="10" mode="wp" [(ngModel)]="p.fatigue" color="primary" pin="false" snaps="true" disabled="true"></ion-range>
+              <ion-range class="fatigueValue" max="10" mode="wp" [(ngModel)]="p.fatigue" color="primary" pin="false" snaps="true" disabled="true"></ion-range>
             </ion-item>
 
             <div class="labelcontainer">
@@ -74,17 +74,17 @@
             <div id={{p.date}} style="display: none">
               <ion-item class="otherMeds">
                 <ion-label stacked>Other medications:</ion-label>
-                <ion-textarea disabled type="text" [(ngModel)]="p.additionalDrugs"></ion-textarea>
+                <ion-textarea class="drugsValue" disabled type="text" [(ngModel)]="p.additionalDrugs"></ion-textarea>
               </ion-item>
 
               <ion-item class="tenderJoints">
                 <ion-label stacked>Painful joints:</ion-label>
-                <ion-textarea disabled type="text" [(ngModel)]="p.tenderJoints"></ion-textarea>
+                <ion-textarea class="tenderValue" disabled type="text" [(ngModel)]="p.tenderJoints"></ion-textarea>
               </ion-item>
 
               <ion-item class="comments">
                 <ion-label stacked>Other remarks:</ion-label>
-                <ion-textarea disabled [(ngModel)]="p.comments"></ion-textarea>
+                <ion-textarea class="commentsValue" disabled [(ngModel)]="p.comments"></ion-textarea>
               </ion-item>
             </div>
 

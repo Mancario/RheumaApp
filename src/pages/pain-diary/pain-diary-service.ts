@@ -30,8 +30,18 @@ const DIARY_API_URL = API_URL + '/diary';
 
 @Injectable()
 export class DiaryService {
+    private diaryEntryToEdit : DiaryEntry;
+
     public constructor(private _http: Http,
                        private _authService: AuthService) {
+    }
+
+    public hasDiaryEntryToEdit(): any{
+      return this.diaryEntryToEdit;
+    }
+
+    public setDiaryEntryToEdit(entry){
+      this.diaryEntryToEdit = entry;
     }
 
     public listEntries(query: DiaryQuery): Observable<DiaryEntryList> {

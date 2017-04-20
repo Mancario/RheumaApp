@@ -82,7 +82,9 @@ export class PainDiaryPage {
   }
 
   editEntry(entry: DiaryEntry){
-    // not implemented yet.
+    this.diaryService.setDiaryEntryToEdit(entry);
+    this.navCtrl.setRoot(NewEntryPage)
+      .catch(() => this.navCtrl.setRoot(LogoutPage))
   }
 
 
