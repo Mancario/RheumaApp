@@ -60,53 +60,56 @@ export class NewEntryPage {
   }
 
   submit(){
-    this.diaryService.setDiaryEntryToEdit(null);
-    console.log("Called submit step 1");
+    if(this.diaryService.hasDiaryEntryToEdit()){
+      this.diaryService.setDiaryEntryToEdit(null);
+      // User does not need to confirm override
+      this.saveEntry();
 
-    // Checks if there is an entry for this date already
-    this.diaryService.viewEntry(this.dateChosen)
-    .subscribe(
-      res =>{
-        if(res){
-          // Ask if user wants to override - if so: override.
-          if(!res.deleted){ // If existing entry is undeleted
-            let alert = this.alertCtrl.create({
-            title: 'Confirm override',
-            message: 'Do you want to override existing pain entry for date: ' + this.dateChosen + "?",
-            buttons: [
-              {
-                text: 'Cancel',
-                role: 'cancel',
-                handler: () => {
-                  console.log('Cancel clicked');
-                }
-              },
-              {
-                text: 'Override',
-                handler: () => {
-                  console.log('Override clicked');
-                  this.saveEntry();
+    }else{
+      // Checks if there is an entry for this date already
+      this.diaryService.viewEntry(this.dateChosen)
+      .subscribe(
+        res =>{
+          if(res){
+            // Ask if user wants to override - if so: override.
+            if(!res.deleted){ // If existing entry is undeleted
+              let alert = this.alertCtrl.create({
+              title: 'Confirm override',
+              message: 'Do you want to override existing pain entry for date: ' + this.dateChosen + "?",
+              buttons: [
+                {
+                  text: 'Cancel',
+                  role: 'cancel',
+                  handler: () => {
+                    console.log('Cancel clicked');
                   }
-                }
-              ]
-            });
+                },
+                {
+                  text: 'Override',
+                  handler: () => {
+                    console.log('Override clicked');
+                    this.saveEntry();
+                    }
+                  }
+                ]
+              });
 
-            alert.present();
+              alert.present();
 
-          }else{ // Existing entry has been deleted before.
-            this.saveEntry();
+            }else{ // Existing entry has been deleted before.
+              this.saveEntry();
+            }
+
+          }else{
+
           }
-
-        }else{
-
+        },
+        err => {
+          console.log("Could not find previous entry")
+          this.saveEntry();
         }
-      },
-      err => {
-        console.log("Could not find previous entry")
-        this.saveEntry();
-      }
-    );
-
+      );
+    }
   }
 
   saveEntry(){
