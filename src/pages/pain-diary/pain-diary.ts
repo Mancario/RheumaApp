@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { AuthService } from "../../security/auth.service";
 import { LogoutPage } from '../logout/logout';
 import { NewEntryPage } from '../new-entry/new-entry';
 import { Observable } from 'rxjs/Observable';
 import { DiaryService, DiaryQuery, DiaryEntryList, DiaryEntry } from "./pain-diary-service";
-import { AlertController } from 'ionic-angular';
 
 
 /*

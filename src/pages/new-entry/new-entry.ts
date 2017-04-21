@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { AuthService } from "../../security/auth.service";
 import { LogoutPage } from '../logout/logout';
 import { PainDiaryPage} from '../pain-diary/pain-diary';
@@ -33,7 +33,8 @@ export class NewEntryPage {
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private authService: AuthService, private diaryService: DiaryService) {
+    private authService: AuthService, private diaryService: DiaryService,
+    private alertCtrl: AlertController) {
   }
 
   ionViewCanEnter(): boolean{
@@ -61,6 +62,54 @@ export class NewEntryPage {
   submit(){
     this.diaryService.setDiaryEntryToEdit(null);
     console.log("Called submit step 1");
+
+    // Checks if there is an entry for this date already
+    this.diaryService.viewEntry(this.dateChosen)
+    .subscribe(
+      res =>{
+        if(res){
+          // Ask if user wants to override - if so: override.
+          if(!res.deleted){ // If existing entry is undeleted
+            let alert = this.alertCtrl.create({
+            title: 'Confirm override',
+            message: 'Do you want to override existing pain entry for date: ' + this.dateChosen + "?",
+            buttons: [
+              {
+                text: 'Cancel',
+                role: 'cancel',
+                handler: () => {
+                  console.log('Cancel clicked');
+                }
+              },
+              {
+                text: 'Override',
+                handler: () => {
+                  console.log('Override clicked');
+                  this.saveEntry();
+                  }
+                }
+              ]
+            });
+
+            alert.present();
+
+          }else{ // Existing entry has been deleted before.
+            this.saveEntry();
+          }
+
+        }else{
+
+        }
+      },
+      err => {
+        console.log("Could not find previous entry")
+        this.saveEntry();
+      }
+    );
+
+  }
+
+  saveEntry(){
     let entry = {
       date: this.dateChosen,
       pain: this.painValue,
