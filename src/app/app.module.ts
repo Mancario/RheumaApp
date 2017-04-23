@@ -9,6 +9,7 @@ import { BloodTestPage } from '../pages/blood-test/blood-test';
 import { EDASPage } from '../pages/e-das/e-das';
 import { EHAQPage } from '../pages/e-haq/e-haq';
 import { HAQService } from '../pages/e-haq/e-haq-service';
+import { DiaryService } from '../pages/pain-diary/pain-diary-service'; 
 import { EHaqNewEntryPage } from '../pages/e-haq-new-entry/e-haq-new-entry';
 import { ForgottenPasswordPage } from '../pages/forgotten-password/forgotten-password';
 import { GenerateReportPage } from '../pages/generate-report/generate-report';
@@ -23,6 +24,9 @@ import { AuthService } from '../security/auth.service';
 import { LocalStorageService } from '../security/local-storage.service';
 import { StoreCredentialsService } from '../security/store-credentials.service';
 import { IonicStorageModule } from '@ionic/storage';
+import {HaqifyPipe} from '../pages/e-haq-new-entry/haqify.pipe'
+import {HaqAnswerForm} from "../pages/e-haq-new-entry/e-haq-new-entry-form"
+
 
 
 @NgModule({
@@ -41,7 +45,8 @@ import { IonicStorageModule } from '@ionic/storage';
     SettingsPage,
     SignupPage,
     UserGuidePage,
-    EHaqNewEntryPage
+    EHaqNewEntryPage,
+    HaqifyPipe
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -71,7 +76,10 @@ import { IonicStorageModule } from '@ionic/storage';
     AuthService,
     LocalStorageService,
     StoreCredentialsService,
-    HAQService
+    HAQService,
+    DiaryService,
+    HaqAnswerForm
+    
   ]
 })
 export class AppModule {}

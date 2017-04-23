@@ -79,7 +79,7 @@ export class AuthService {
             .catch(this.handleError);
     }
 
-    private storeUser(user: AuthUser): void {
+    public storeUser(user: AuthUser): void {
         if (user) {
             this._cached = user;
             this._localStorageService.store(AuthService._key, user.serialize());
@@ -92,7 +92,7 @@ export class AuthService {
     }
 
     // TODO: Make this method work...
-    private storeCredentials(credentials): void {
+    public storeCredentials(credentials): void {
 
         //console.log("Storing creds");
         if (credentials) {
@@ -103,7 +103,7 @@ export class AuthService {
     }
 
 
-    private retrieveFromStore(): AuthUser {
+    public retrieveFromStore(): AuthUser {
         const serialized = this._localStorageService.retrieve(AuthService._key);
         return serialized ? AuthUserImpl.fromSerialization(serialized) : null;
     }
@@ -206,15 +206,6 @@ export class AuthService {
             .subscribe(user => this.storeUser(user));
     }
 
-
-
-/*
-    private convert(result: LoginResult, username: string): AuthUser {
-        if (!result) return null;
-        if (!result.success) return null;
-        return new AuthUserImpl(username, null, token.toBase64());
-    }
-    */
 
     private convert(result: LoginResult): AuthUser {
         if (!result) return null;
