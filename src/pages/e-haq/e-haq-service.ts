@@ -25,7 +25,6 @@ export interface HAQQuestion {
 
 export interface HAQEntry {
     date: string;
-    deleted: boolean;
     answers: HAQEntryAnswer[];
     score?: number;
 }
@@ -52,7 +51,12 @@ export class HAQService {
     public constructor(private _http: Http, private authService: AuthService) { }
 
     public sheet(): Observable<HAQSheet> {
-        return this._http.get(HAQ_API_URL + "/sheet")
+        const headers: Headers = new Headers();
+
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', 'Bearer ' + this.authService.loggedInUser().authToken);
+
+        return this._http.get(HAQ_API_URL + "/sheet", { headers, withCredentials: true})
             .map(res => res ? res.json() : null)
             .catch(this.handleError);
     }
@@ -105,9 +109,10 @@ export class HAQService {
 
     public saveEntry(entry: HAQEntry): Observable<boolean> {
         const body: string = JSON.stringify(entry);
+        console.log(body); 
         const headers: Headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        //     headers.append('Authorization', 'Bearer ' + user.authToken);
+        headers.append('Authorization', 'Bearer ' + this.authService.loggedInUser().authToken);
         const url = HAQ_API_URL + "/" + encodeURI(entry.date);
         return this._http
             .put(url, body, {
