@@ -17,7 +17,6 @@ import { UserGuidePage } from '../pages/user-guide/user-guide';
 import { AuthService } from '../security/auth.service';
 
 
-
 @Component({
   templateUrl: 'app.html'
 })
@@ -33,8 +32,8 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      {icon: "home",  title: 'Home', component: HomePage },
-      {icon: "print", title: 'Generate Report', component: GenerateReportPage },
+      { icon: "home",  title: 'Home', component: HomePage },
+      { icon: "print", title: 'Generate Report', component: GenerateReportPage },
       { icon: "pulse",title: 'Pain Diary', component: PainDiaryPage },
       { icon: "man",title: 'eHAQ', component: EHAQPage },
       { icon: "body",title: 'eDAS', component: EDASPage },
