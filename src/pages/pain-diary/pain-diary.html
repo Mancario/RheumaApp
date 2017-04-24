@@ -21,16 +21,16 @@
 
         <ion-card-header class="cardheader">
           <div class="header-left-button">
-            <button ion-button large clear icon-left color="dark" class="headerbutton">
+            <button class="dateValue" ion-button large clear icon-left color="dark" class="headerbutton">
             <ion-icon name="calendar"></ion-icon>
             {{p.date}}
           </button>
           </div>
           <div class="header-right-button">
-            <button ion-button large clear color="dark" class="headerbutton">
+            <button ion-button large clear color="dark" class="headerbutton editButton" (click)="editEntry(p)">
             <ion-icon ios="md-create" md="md-create"> </ion-icon>
           </button>
-            <button ion-button large clear color="dark" class="headerbutton">
+            <button ion-button large clear color="dark" class="headerbutton deleteButton" (click)="deleteEntry(p)">
             <ion-icon name="trash"> </ion-icon>
           </button>
           </div>
@@ -41,44 +41,74 @@
 
             <div class="labelcontainer">
               <ion-label>Pain</ion-label>
-              <button ion-button small color="primary">{{p.pain}}</button>
+              <button class="painButton" ion-button small color="primary">{{p.pain}}</button>
             </div>
             <ion-item>
-              <ion-range max="10" mode="wp" [(ngModel)]="p.pain" color="primary" pin="false" snaps="true" disabled="true"></ion-range>
+              <ion-range class="painValue" max="10" mode="wp" [(ngModel)]="p.pain" color="primary" pin="false" snaps="true" disabled="true"></ion-range>
             </ion-item>
 
             <div class="labelcontainer">
               <ion-label>Disease Activity</ion-label>
-              <button ion-button small color="primary">{{p.diseaseActivity}}</button>
+              <button class="diseaseButton" ion-button small color="primary">{{p.diseaseActivity}}</button>
             </div>
             <ion-item>
-              <ion-range max="10" mode="wp" [(ngModel)]="p.diseaseActivity" color="primary" pin="false" snaps="true" disabled="true"></ion-range>
+              <ion-range class="diseaseValue" max="10" mode="wp" [(ngModel)]="p.diseaseActivity" color="primary" pin="false" snaps="true" disabled="true"></ion-range>
             </ion-item>
 
             <div class="labelcontainer">
               <ion-label>Fatigue</ion-label>
-              <button ion-button small color="primary">{{p.fatigue}}</button>
+              <button class="fatigueButton" ion-button small color="primary">{{p.fatigue}}</button>
             </div>
             <ion-item>
 
-              <ion-range max="10" mode="wp" [(ngModel)]="p.fatigue" color="primary" pin="false" snaps="true" disabled="true"></ion-range>
+              <ion-range class="fatigueValue" max="10" mode="wp" [(ngModel)]="p.fatigue" color="primary" pin="false" snaps="true" disabled="true"></ion-range>
             </ion-item>
 
             <div class="labelcontainer">
               <ion-label>Prednisolone taken (mg) </ion-label>
-              <button ion-button small color="primary">                      
+              <button class="prednisoloneButton" ion-button small color="primary">
                 {{p.prednisoloneDose}}
               </button>
             </div>
 
-          </ion-list>
-        </ion-card-content>
+            <div id={{p.date}} class="extraInfo" style="display: none">
+              <ion-item class="otherMeds">
+                <ion-label stacked>Other medications:</ion-label>
+                <ion-textarea class="drugsValue" disabled type="text" [(ngModel)]="p.additionalDrugs"></ion-textarea>
+              </ion-item>
 
-        <div class="line"></div>
-        <button ion-button icon-right clear color="dark" class="extendbutton">
-          Extend report
-          <ion-icon ios="ios-expand" md="ios-expand"></ion-icon>
-        </button>
+              <ion-item class="tenderJoints">
+                <ion-label stacked>Painful joints:</ion-label>
+                <ion-textarea class="tenderValue" disabled type="text" [(ngModel)]="p.tenderJoints"></ion-textarea>
+              </ion-item>
+
+              <ion-item class="comments">
+                <ion-label stacked>Other remarks:</ion-label>
+                <ion-textarea class="commentsValue" disabled [(ngModel)]="p.comments"></ion-textarea>
+              </ion-item>
+            </div>
+
+          </ion-list>
+
+          <div class="line"></div>
+          <ion-item>
+            <ion-label>Extend report</ion-label>
+            <ion-toggle class="extendToggle" checked="false" (click)="extendEntry(p)" [(ngModel)]="p.toggleExtend"></ion-toggle>
+          </ion-item>
+
+<!--
+          <div class="line"></div>
+          <button ion-button icon-right clear color="dark" id="extendbutton" (click)="extendEntry(p)">
+            Extend report
+            <ion-icon ios="ios-expand" md="ios-expand"></ion-icon>
+          </button>
+
+          <button ion-button icon-right clear color="dark" id="compressbutton" (click)="extendEntry(p)">
+            Compress report
+            <ion-icon ios="ios-contract" md="ios-contract"></ion-icon>
+          </button>
+-->
+        </ion-card-content>
 
       </ion-card>
     </div>

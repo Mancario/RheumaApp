@@ -91,15 +91,28 @@ export class AuthService {
         //console.log("Stored user exp: " + (jwtDecode(this.retrieveFromStore().authToken)/*.exp - Math.round(new Date().getTime() / 1000)*/));
     }
 
-    // TODO: Make this method work...
     public storeCredentials(credentials): void {
 
         //console.log("Storing creds");
         if (credentials) {
           this._storeCredentialsService.store(credentials);
         } else {
-          this._storeCredentialsService.store(null);
+          let usr = "user";
+          let pwd = "pwd";
+
+          const mockCredentials: string = JSON.stringify({
+              usr,
+              pwd,
+          });
+          this._storeCredentialsService.store(mockCredentials);
         }
+    }
+
+    public retrieveStoredCredentials(): void {
+      let creds = this._storeCredentialsService.retrieve();
+
+      return creds;
+
     }
 
 
@@ -139,9 +152,10 @@ export class AuthService {
 
       //console.log("Creds received: " + creds);
 
-      if(!creds){
+      if(creds){
         console.log("Re-logging in with: " + creds);
         return this.login(JSON.parse(creds).username, JSON.parse(creds).password);
+        //return null;
       }
 
     }

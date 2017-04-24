@@ -78,6 +78,17 @@ page-pain-diary {
 
   }
 
+  ion-label{
+    font-size: 14px;
+    font-weight: bold;
+  }
+
+  ion-textarea{
+    color: #000000;
+
+
+  }
+
 
   .addbutton{
     position: fixed;
@@ -103,15 +114,24 @@ page-pain-diary {
     height: 1%;
     width: 100%;
     margin: 0 auto;
+    margin-top: 15px;
     border-bottom: 1px solid;
     border-color: gray;
   }
 
-
-  .extendbutton{
+  #extendbutton{
     width: 100%;
+    display: block;
     margin: 0 auto;
   }
+
+  #compressbutton{
+    width: 100%;
+    display: none;
+    margin: 0 auto;
+  }
+
+
 
 
 

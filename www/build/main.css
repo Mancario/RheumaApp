@@ -35730,7 +35730,6 @@ page-new-entry {
 page-new-entry .card {
   width: 95%;
   margin: 0 auto;
-  max-height: 90%;
   margin: 0 auto;
 }
 
@@ -35822,11 +35821,6 @@ page-new-entry .line {
   border-color: gray;
 }
 
-page-new-entry .extendbutton {
-  width: 100%;
-  margin: 0 auto;
-}
-
 page-new-entry .submitbuttons {
   width: 95%;
   margin: 0 auto;
@@ -35840,16 +35834,16 @@ page-new-entry .submitbuttons button {
 }
 
 page-new-entry .submitbuttons #ok {
-  float: left;
-}
-
-page-new-entry .submitbuttons #cancel {
   float: right;
 }
 
+page-new-entry .submitbuttons #cancel {
+  float: left;
+}
+
 page-pain-diary .card {
-  width: 95%;
-  margin: 0 auto;
+  width: 97%;
+  margin: 4% auto;
 }
 
 page-pain-diary .cardheader {
@@ -35920,6 +35914,15 @@ page-pain-diary .labelcontainer ion-label {
   font-weight: bold;
 }
 
+page-pain-diary ion-label {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+page-pain-diary ion-textarea {
+  color: #000000;
+}
+
 page-pain-diary .addbutton {
   position: fixed;
   z-index: 1;
@@ -35941,12 +35944,20 @@ page-pain-diary .line {
   height: 1%;
   width: 100%;
   margin: 0 auto;
+  margin-top: 15px;
   border-bottom: 1px solid;
   border-color: gray;
 }
 
-page-pain-diary .extendbutton {
+page-pain-diary #extendbutton {
   width: 100%;
+  display: block;
+  margin: 0 auto;
+}
+
+page-pain-diary #compressbutton {
+  width: 100%;
+  display: none;
   margin: 0 auto;
 }
 

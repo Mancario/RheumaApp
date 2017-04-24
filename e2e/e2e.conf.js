@@ -9,7 +9,8 @@ exports.config = {
   baseUrl: 'http://localhost:8100',
 
   specs: [
-    'e2e-tests/*.e2e.js'
+    //'e2e-tests/*.e2e.js'
+    'e2e-tests/pain-diary.e2e.js'
   ],
 
   jasmineNodeOpts: {
