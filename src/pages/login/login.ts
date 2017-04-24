@@ -32,8 +32,7 @@ export class LoginPage {
       });
 
       // this language will be used as a fallback when a translation isn't found in the current language
-      translate.setDefaultLang('en');
-      //translate.use('no');
+      translate.setDefaultLang('no');
   }
 
   ionViewDidLoad() {
@@ -48,8 +47,8 @@ export class LoginPage {
     this.loading = true;
     const formValue = this.form.value;
 
-    this._authService.login(formValue.username, formValue.password)
-    //this._authService.login("HVL", "ncRvOMpNLICQ4WJw")
+    //this._authService.login(formValue.username, formValue.password)
+    this._authService.login("HVL", "ncRvOMpNLICQ4WJw")
         .subscribe(
             res => {
                 if (res) {

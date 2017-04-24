@@ -15,6 +15,9 @@ import { PainDiaryPage } from '../pages/pain-diary/pain-diary';
 import { SettingsPage } from '../pages/settings/settings';
 import { UserGuidePage } from '../pages/user-guide/user-guide';
 import { AuthService } from '../security/auth.service';
+import { TranslateService } from '@ngx-translate/core';
+import { Observable }     from 'rxjs/Observable';
+
 
 
 @Component({
@@ -25,25 +28,44 @@ export class MyApp {
 
   rootPage: any = LoginPage;
 
+  private home;
+  private report;
+  private pain;
+  private haq;
+  private das;
+  private blood;
+  private guide;
+  private settings;
+  private logOut;
+
+
+
   pages: Array<{icon: string, title: string, component: any}>;
 
-  constructor(public platform: Platform, private _authService: AuthService) {
+  constructor(public platform: Platform, private _authService: AuthService,
+    private translate: TranslateService) {
     this.initializeApp();
 
-    // used for an example of ngFor and navigation
-    this.pages = [
-      { icon: "home",  title: 'Home', component: HomePage },
-      { icon: "print", title: 'Generate Report', component: GenerateReportPage },
-      { icon: "pulse",title: 'Pain Diary', component: PainDiaryPage },
-      { icon: "man",title: 'eHAQ', component: EHAQPage },
-      { icon: "body",title: 'eDAS', component: EDASPage },
-      { icon: "medkit",title: 'Blood Test', component: BloodTestPage },
-      { icon: "help-circle",title: 'User Guide', component: UserGuidePage },
-      { icon: "settings",title: 'Settings', component: SettingsPage },
-      { icon: "exit",title: 'Log Out', component: LogoutPage }
+    // this language will be used as a fallback when a translation isn't found in the current language
+    translate.setDefaultLang('no');
+    //translate.use('no');
 
-    ];
+    this.setTitles().subscribe(
+      value =>{
+        this.pages = [
+          { icon: "home",  title: this.home, component: HomePage },
+          { icon: "print", title: this.report, component: GenerateReportPage },
+          { icon: "pulse",title: this.pain, component: PainDiaryPage },
+          { icon: "man",title: this.haq, component: EHAQPage },
+          { icon: "body",title: this.das, component: EDASPage },
+          { icon: "medkit",title: this.blood, component: BloodTestPage },
+          { icon: "help-circle",title: this.guide, component: UserGuidePage },
+          { icon: "settings",title: this.settings, component: SettingsPage },
+          { icon: "exit",title: this.logOut, component: LogoutPage }
 
+        ];
+      }
+    );
   }
 
   initializeApp() {
@@ -53,6 +75,48 @@ export class MyApp {
       StatusBar.styleDefault();
       Splashscreen.hide();
     });
+  }
+
+  setTitles(): Observable<string|Object>{
+    this.translate.get('menu.home').subscribe(
+      value => this.home = value
+    );
+
+    this.translate.get('menu.report').subscribe(
+      value => this.report = value
+    );
+
+    this.translate.get('menu.pain').subscribe(
+      value => this.pain = value
+    );
+
+    this.translate.get('menu.haq').subscribe(
+      value => this.haq = value
+    );
+
+    this.translate.get('menu.das').subscribe(
+      value => this.das = value
+    );
+
+    this.translate.get('menu.blood').subscribe(
+      value => this.blood = value
+    );
+
+    this.translate.get('menu.guide').subscribe(
+      value => this.guide = value
+    );
+
+    this.translate.get('menu.settings').subscribe(
+      value => this.settings = value
+    );
+
+    this.translate.get('menu.logOut').subscribe(
+      value => {
+        this.logOut = value
+      }
+    );
+
+    return this.translate.get('menu.logOut');
   }
 
   openPage(page) {

@@ -9,5 +9,18 @@
       "error1":     "Feil brukernavn eller passord",
       "error2":     "Feil ved innlogging",
       "error3":     "Serverfeil ved innlogging: "
+  },
+
+  "menu": {
+      "title":      "Meny",
+      "home":       "Hjem",
+      "report":     "Generer Rapport",
+      "pain":       "Smertedagbok",
+      "haq":        "eHAQ",
+      "das":        "eDAS",
+      "blood":      "Blodtest",
+      "guide":      "Brukerguide",
+      "settings":   "Innstillinger",
+      "logOut":     "Logg ut"
   }
 }
