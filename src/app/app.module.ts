@@ -24,6 +24,9 @@ import { AuthService } from '../security/auth.service';
 import { LocalStorageService } from '../security/local-storage.service';
 import { StoreCredentialsService } from '../security/store-credentials.service';
 import { IonicStorageModule } from '@ionic/storage';
+import {HaqifyPipe} from '../pages/e-haq-new-entry/haqify.pipe'
+import {HaqAnswerForm} from "../pages/e-haq-new-entry/e-haq-new-entry-form"
+
 
 
 @NgModule({
@@ -42,7 +45,8 @@ import { IonicStorageModule } from '@ionic/storage';
     SettingsPage,
     SignupPage,
     UserGuidePage,
-    EHaqNewEntryPage
+    EHaqNewEntryPage,
+    HaqifyPipe
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -73,7 +77,9 @@ import { IonicStorageModule } from '@ionic/storage';
     LocalStorageService,
     StoreCredentialsService,
     HAQService,
-    DiaryService
+    DiaryService,
+    HaqAnswerForm
+    
   ]
 })
 export class AppModule {}

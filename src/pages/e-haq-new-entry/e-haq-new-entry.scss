@@ -1,36 +1,93 @@
 page-e-haq-new-entry {
-  .card{
-        position: absolute;
-        top: 1%;
-        height: 90%; 
-        width: 95%; 
-
-    }
-    .slider{     
-        height: 100%; 
-        position: top; 
+    .item-content {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    margin-top: -4px;
+    margin-bottom: -4px;
+    height: 70px;
     }
 
     .question{
         font-size: 1em; 
         font-weight: bold;
+        margin: 0 2% 0; 
     }
      
     ion-label{
         font-size: 0.8em !important;  
     }
-    ion-item{  
-    width:100% !important;  
-    height : 100% !important;  
-    
+    .headerpadding{
+        padding: 0% 4% 0% 4%; 
+    }
+    .text{
+        padding: 0% 4% 0% 4%; 
+        
     }
 
-    ion-avatar{
-    width:auto;  
-    height : 70% !important;  
-    font-size: 0.8em !important;  
+    
+    .avatar  {  
+        margin-left: 4% !important;    
+        width: 100% !important;  
+        height : 100% !important;  
+        max-width: 30px !important;  //any size
+        max-height: 30px !important; //any size 
     }
-    image{
-        height: 3em; 
+    .nopaddingormargin{
+        padding: none; 
+        margin: none; 
     }
+
+    .box{
+        width: 98% auto; 
+        height: auto; 
+        background-color: white;  
+    }
+    .boxpadding{
+        margin: 4% auto; 
+       display: inline-block; 
+    }
+    .itemobject{
+        margin: 0% !important; 
+        padding: 0% !important;
+
+    }
+
+    .labelobject{
+        margin-left:6% !important; 
+        padding: 0% !important;
+    }
+
+    .checkboxobject{
+        margin: 0% !important; 
+        margin-left: 4% !important; 
+        padding: 0% !important;  
+    }
+
+    //--------- page one -----
+    .submitbuttons button{
+        border-radius: 2px;
+        width: 48%;
+        font-weight: bold;
+    }
+    .submitbuttons #next{
+        float: right;
+    }
+    .submitbuttons #cancel{
+        float: left;
+    }
+    #page1{
+        display: block; 
+    }
+
+    //------ page two ------
+     .submitbuttons2 button{
+         position: center; 
+        border-radius: 2px;
+        width: 31%;
+        font-weight: bold;
+    }
+    #page2{
+        display:none; 
+    }
+
 }

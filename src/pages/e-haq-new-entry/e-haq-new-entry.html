@@ -1,139 +1,115 @@
-<!--
-  Generated template for the EHaqNewEntry page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-
 <ion-header>
   <ion-navbar>
     <button id="menuToggle" ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>New eHAQ</ion-title>
+    <ion-title>{{title}}</ion-title>
   </ion-navbar>
 </ion-header>
+
 <ion-content padding>
-  <ion-slides pager>
+  <ion-list>
+    <div class="box">
+      <div class="boxpadding">
+        <h4 class="text">
+          <b> Questions on health status - {{page}}</b>
+        </h4>
+        <div>
+          <b class="text"> Select date: </b>
+          <button id="dateButton" class="col-md-4" ion-button clear icon-right color="dark" class="headerbutton">
+            <ion-icon name="calendar"></ion-icon>
+            <ion-datetime id="dateInput" #dateInput displayFormat="DD.MM.YYYY" [(ngModel)]="haqEntry.date"></ion-datetime>
+          </button>
+        </div>
+        <p class="text">
+          {{texts[0].text1}} {{texts[0].text2}}
+        </p>
 
-    <ion-slide>
-      <ion-card class="card">
-        <ion-card-content>
-          <h2><b> Questions on health status</b></h2><br>
-          <p>In this section, we would like to hear from you about how your illness affects your ability to manage in your daily
-            life. <br><br> Please select the answer that best describes what you could do IN THE LAST WEEK normally.
-          </p>
-        </ion-card-content>
-      </ion-card>
-    </ion-slide>
+        <!-- Listing the questions -->
+        <template ngFor let-categories [ngForOf]="categoriSheet">
+          <h5>
+            <u class="question" text-wrap class="text">
+              {{categories.categoryId | haqify}}
+            </u>
+          </h5>
+          <div *ngFor="let question of categories.difficulties">
+            <div class="text" text-wrap>
+              <b>{{question.questionId | haqify}}</b><br>
+            </div>
+            <ion-list radio-group [(ngModel)]="answer[question.questionId]">
+              <div *ngFor="let a of answersheet">
+                <ion-item>
+                  <div item-left>
+                    <img class="avatar" src={{a.scr}}>
+                  </div>
+                  <ion-label>{{a.text}}</ion-label>
+                  <ion-radio value={{a.value}} (click)="saveAnswerRadio(question, a.value)" disabled="false"></ion-radio>
+                </ion-item>
+              </div>
+            </ion-list>
+          </div>
+        </template>
 
-    <ion-slide>
-
-      <ion-card class="card">
-         <ion-list>
-        <ion-card-content>
-          <ion-list radio-group>
-            <b class="question">Are you able to take a shower?</b>
-            <ion-item>
-              <ion-avatar item-left>
-                <img src="../../assets/img/happy.png">
-              </ion-avatar>
-              <ion-label>Without difficulty</ion-label>
-              <ion-radio value="1" disabled="false"></ion-radio>
-            </ion-item>
-            <ion-item>
-              <ion-avatar item-left>
-                <img src="../../assets/img/neutral.png">
-              </ion-avatar>
-              <ion-label>With slight difficulties </ion-label>
-              <ion-radio value="2" disabled="false"></ion-radio>
-            </ion-item>
-            <ion-item>
-              <ion-avatar item-left>
-                <img src="../../assets/img/sad.png">
-              </ion-avatar>
-              <ion-label>With great difficulty </ion-label>
-              <ion-radio value="3" disabled="false"></ion-radio>
-            </ion-item>
-            <ion-item>
-                <ion-avatar item-left><img src="../../assets/img/very-sad.png"> </ion-avatar>
-              <ion-label> I could not do that</ion-label>
-              <ion-radio value="4" disabled="false" small></ion-radio>
-            </ion-item>
-          </ion-list>
-          <ion-list radio-group>
-            <b class="question">Are you able to take a shower?</b>
-            <ion-item>
-              <ion-avatar item-left>
-                <img src="../../assets/img/happy.png">
-              </ion-avatar>
-              <ion-label>Without difficulty</ion-label>
-              <ion-radio value="1" disabled="false"></ion-radio>
-            </ion-item>
-            <ion-item>
-              <ion-avatar item-left>
-                <img src="../../assets/img/neutral.png">
-              </ion-avatar>
-              <ion-label>With slight difficulties </ion-label>
-              <ion-radio value="2" disabled="false"></ion-radio>
-            </ion-item>
-            <ion-item>
-              <ion-avatar item-left>
-                <img src="../../assets/img/sad.png">
-              </ion-avatar>
-              <ion-label>With great difficulty </ion-label>
-              <ion-radio value="3" disabled="false"></ion-radio>
-            </ion-item>
-            <ion-item>
-              <ion-avatar item-left>
-                <img src="../../assets/img/very-sad.png">
-              </ion-avatar>
-              <ion-label> I could not do that</ion-label>
-              <ion-radio value="4" disabled="false" small></ion-radio>
-            </ion-item>
-          </ion-list>
-        </ion-card-content>
-        </ion-list>
-      </ion-card>
-    </ion-slide>
-
-
-    <ion-slide>
-      <ion-card class="card">
-        <ion-card-content>
+        <!-- Selecting tools -->
+        <div class="text" text-wrap>
+          <b> {{descriptionTextTools}}</b><br>
+        </div>
+        <div *ngFor="let s of categoriSheet">
           <ion-item-group>
-            <ion-item class="question">
-
-            Please seelct all the TOOLS you have <br>
-            used for the above activities:
- </ion-item>
-            <ion-item>
-              <ion-label>Specially adapted chair</ion-label>
-              <ion-checkbox checked="false"></ion-checkbox>
-            </ion-item>
-            <ion-item>
-               <ion-label> Specially adapted aids(for example for eating and cooking)? </ion-label>
-              <ion-checkbox color="dark" checked="false"></ion-checkbox>
-            </ion-item>
-            <ion-item>
-              <ion-label>Walking stick</ion-label>
-              <ion-checkbox color="dark" checked="false"></ion-checkbox>
-            </ion-item>
-            <ion-item>
-              <ion-label>Walking aid (rollator)</ion-label>
-              <ion-checkbox color="dark" checked="false"></ion-checkbox>
-            </ion-item>
-            <ion-item>
-              <ion-label>crutches</ion-label>
-              <ion-checkbox color="dark" checked="false"></ion-checkbox>
-            </ion-item>
-            <ion-item>
-              <ion-label>wheelchair</ion-label>
-              <ion-checkbox color="dark" checked="false"></ion-checkbox>
-            </ion-item>
+            <div *ngFor="let t of s.tools">
+              <ion-item class="itemobject">
+                <ion-label text-wrap class="labelobject">{{t.questionId | haqify}}</ion-label>
+                <ion-checkbox [(ngModel)]="answer[t.questionId]" (click)="saveAnswerCheck(t.questionId)" class="checkboxobject" color="dark"
+                  checked="false"></ion-checkbox>
+              </ion-item>
+            </div>
           </ion-item-group>
-        </ion-card-content>
-      </ion-card>
-    </ion-slide>
-  </ion-slides>
+        </div>
+
+        <!-- Selecting help -->
+        <div class="text" text-wrap>
+          <b>{{descriptionTextHelp}}</b><br>
+        </div>
+        <div *ngFor="let s of categoriSheet">
+          <ion-item-group>
+            <div *ngFor="let t of s.help">
+              <ion-item>
+                <ion-label text-wrap>{{t.questionId | haqify}}</ion-label>
+                <ion-checkbox [(ngModel)]="answer[t.questionId]" color="dark" checked="false" (click)="saveAnswerCheck(t.questionId)"></ion-checkbox>
+              </ion-item>
+            </div>
+          </ion-item-group>
+        </div>
+
+      </div>
+    </div>
+  </ion-list>
+
+  <div class="submitbuttons" id="page1">
+    <button id="cancel" ion-button icon-left color="white" (click)="cancel()">
+      <ion-icon ios="md-close" md="md-close"></ion-icon>
+      Cancel
+    </button>
+    <button id="next" ion-button icon-right color="white" (click)="next()">
+      Next
+      <ion-icon name="md-arrow-round-forward"></ion-icon>  
+    </button>
+  </div>
+
+  <div class="submitbuttons2" id="page2">
+    <button ion-button icon-left color="white" (click)="cancel()" class="col-md-3">
+      <ion-icon name="md-close"></ion-icon>
+      Cancel
+    </button>
+    <button ion-button icon-left color="white" (click)="back()" class="col-md-3">
+      <ion-icon name="md-arrow-round-back"></ion-icon>
+      Back
+    </button>
+    <button ion-button icon-right color="white" (click)="finish()" class="col-md-3">
+       Finish
+      <ion-icon name="md-arrow-round-forward"></ion-icon>
+    </button>
+  </div>
+
+
 </ion-content>
