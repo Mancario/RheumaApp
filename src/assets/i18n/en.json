@@ -1,0 +1,13 @@
+{
+    "appTitle" :      "Rheuma Online",
+    "login": {
+        "username":   "Username",
+        "password":   "Password",
+        "forgotten":  "Forgotten Password?",
+        "signIn":     "Log in",
+        "register":   "Register new user",
+        "error1":     "Wrong username or password",
+        "error2":     "Error logging in",
+        "error3":     "Server error logging in: "
+    }
+}

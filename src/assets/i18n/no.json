@@ -1,0 +1,13 @@
+{
+  "appTitle" :      "Rheuma Online",
+  "login": {
+      "username":   "Brukernavn",
+      "password":   "Passord",
+      "forgotten":  "Glemt Passord?",
+      "signIn":     "Logg in",
+      "register":   "Registrer ny bruker",
+      "error1":     "Feil brukernavn eller passord",
+      "error2":     "Feil ved innlogging",
+      "error3":     "Serverfeil ved innlogging: "
+  }
+}

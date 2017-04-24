@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams} from 'ionic-angular';
-import {FormGroup, Validators, FormControl, FormBuilder} from '@angular/forms';
-import {AuthService} from "../../security/auth.service";
+import { NavController, NavParams } from 'ionic-angular';
+import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
+import { AuthService } from "../../security/auth.service";
+import { TranslateService } from '@ngx-translate/core';
+import { HomePage } from '../home/home';
 
 //import { ForgottenPasswordPage } from '../forgotten-password/forgotten-password';
 //import { SignupPage } from '../signup/signup';
-import { HomePage } from '../home/home';
+
 
 
 @Component({
@@ -22,12 +24,16 @@ export class LoginPage {
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private _authService: AuthService, fb: FormBuilder) {
+    private _authService: AuthService, fb: FormBuilder, private translate: TranslateService) {
 
       this.form = fb.group({
           'username': this.username,
           'password': this.password,
       });
+
+      // this language will be used as a fallback when a translation isn't found in the current language
+      translate.setDefaultLang('en');
+      //translate.use('no');
   }
 
   ionViewDidLoad() {
@@ -43,17 +49,28 @@ export class LoginPage {
     const formValue = this.form.value;
 
     this._authService.login(formValue.username, formValue.password)
+    //this._authService.login("HVL", "ncRvOMpNLICQ4WJw")
         .subscribe(
             res => {
                 if (res) {
                     this.navCtrl.setRoot(HomePage)
-                      .catch(() => this.setError("Error logging in"))
+                      .catch(() => {
+                        this.translate.get('login.error2').subscribe(
+                          value => this.setError(value)
+                        );
+                      })
                 }else{
-                  this.setError("Wrong username or password");
+                  this.translate.get('login.error1').subscribe(
+                    value => this.setError(value)
+                  );
                 }
 
             },
-            err => this.setError("Server error logging in: " + err)
+            err => {
+              this.translate.get('login.error3').subscribe(
+                value => this.setError(value + " " + err)
+              );
+            }
           );
   }
 
