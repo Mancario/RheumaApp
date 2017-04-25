@@ -21,32 +21,39 @@
   <ion-card class="card">
     <!-- Change between diffrent graphs  -->
     <ion-card-content>
-      <ion-segment [(ngModel)]="graph" color="dark">
+      <ion-segment [(ngModel)]="graph" color="dark" class="segmenter">
         <ion-segment-button value="1" id="segmentbutton1">
           Pain Diary
         </ion-segment-button>
-        <ion-segment-button value="2"  id="segmentbutton2">
+        <ion-segment-button value="2" id="segmentbutton2">
           eHAQ
         </ion-segment-button>
       </ion-segment>
 
-        <!-- Show the selected graph -->
-        <div class="col-md-6" [ngSwitch]="graph">
-          <div *ngSwitchCase="'1'" id="graph1">
-            <canvas baseChart height="250px" [datasets]="lineChartData1" [labels]="lineChartLabels1" [options]="lineChartOptions" [colors]="lineChartColors"
-              [legend]="lineChartLegend" [chartType]="lineChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
-            </canvas>
-          </div>
-          <div *ngSwitchCase="'2'" id="graph2">
-            <canvas baseChart height="250px" [datasets]="lineChartData2" [labels]="lineChartLabels2" [options]="lineChartOptions" [colors]="lineChartColors"
-              [legend]="lineChartLegend" [chartType]="lineChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
-            </canvas>
-          </div>
+      <!-- Show the selected graph -->
+
+      <div class="col-md-6" [ngSwitch]="graph" id="graphcanvas">
+        <!-- You will need to comment out these two canvas for npm testing -->
+        <div *ngSwitchCase='2' id="graph2">
+          <canvas baseChart height="250px" [datasets]="lineChartData2" [labels]="lineChartLabels2" [options]="lineChartOptions" [colors]="lineChartColors"
+            [legend]="lineChartLegend" [chartType]="lineChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+          </canvas>
+           The graph displays the eHAQ result from the last 3 months.
         </div>
+
+        <div *ngSwitchCase='1' id="graph1">
+          <canvas baseChart height="250px" [datasets]="lineChartData1" [labels]="lineChartLabels1" [options]="lineChartOptions" [colors]="lineChartColors"
+            [legend]="lineChartLegend" [chartType]="lineChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+          </canvas>
+           The graph displays the pain diary result from the last 3 months.
+        </div>
+
+      </div>
+
     </ion-card-content>
   </ion-card>
 
-  <ion-card class="card" style="visibility: hidden; display: none;" >
+  <ion-card class="card" style="visibility: hidden; display: none;">
     <ion-row>
       <ion-col col-5>
         <div class="statusheader"> STATUS </div>
@@ -62,7 +69,15 @@
   </ion-card>
 
   <div class="bottombutttons">
-    <button ion-button color="light" id="painButton" class="actionbutton" (click)="painDiary()">Pain diary </button>
-    <button ion-button color="light" id="reportButton" class="actionbutton" (click)="generateReport()">Generate report </button>
+
+    <button ion-button color="light" id="painButton" class="actionbutton" (click)="painDiary()">  
+      <ion-icon  name="pulse"> </ion-icon>
+       Pain diary
+    </button>
+
+    <button ion-button color="light" id="reportButton" class="actionbutton" (click)="generateReport()"> 
+      <ion-icon name="print"> </ion-icon>
+      Generate report 
+    </button>
   </div>
 </ion-content>
