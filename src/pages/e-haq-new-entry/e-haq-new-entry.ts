@@ -156,39 +156,77 @@ export class EHaqNewEntryPage {
       this.content.scrollToTop();
     }
     else {
-      let alert = this.alertCtrl.create({
-        title: 'Error',
-        message: 'You need to fill out every question before you can move on to the next page..',
-        buttons: [{ text: 'Ok', handler: () => { } }]
-      });
-      alert.present();
+
+      this.translate.get('haq.alertError').subscribe(
+        errorTitle => {
+          this.translate.get('haq.errorMessage').subscribe(
+            errorMessage => {
+              this.translate.get('button.ok').subscribe(
+                okBtn => {
+                  let alert = this.alertCtrl.create({
+                  title: errorTitle,
+                  message: errorMessage,
+                  buttons: [{text: okBtn, handler: () => { }}],
+                  });
+                  alert.present();
+                }
+              );
+            }
+          );
+        }
+      );
     }
   }
 
   finish() {
     if (this.filledOutPageTwoCorrectly) {
-      let alert = this.alertCtrl.create({
-        title: 'Submit form',
-        message: 'Do you want to finish this HAQ-form?',
-        buttons: [{ text: 'Cancel', role: 'cancel', handler: () => { } },
-        {
-          text: 'Submit',
-          handler: () => {
 
-            this.haqService.saveEntry(this.haqEntry).subscribe(
-              res => {
-                if (res) {
-                  this.navCtrl.setRoot(EHAQPage)
-                    .catch(() => this.navCtrl.setRoot(LogoutPage))
+      // NEW
+      this.translate.get('haq.alertSubmit').subscribe(
+        submitTitle => {
+          this.translate.get('haq.submitMess').subscribe(
+            submitMessage => {
+              this.translate.get('button.cancel').subscribe(
+                cancelBtn => {
+                  this.translate.get('button.submit').subscribe(
+                    submitBtn => {
+                      let alert = this.alertCtrl.create({
+                      title: submitTitle,
+                      message: submitMessage,
+                      buttons: [
+                        {
+                          text: cancelBtn,
+                          role: 'cancel',
+                          handler: () => {
+                            console.log('Cancel clicked');
+                          }
+                        },
+                        {
+                          text: submitBtn,
+                          handler: () => {
+
+                            this.haqService.saveEntry(this.haqEntry).subscribe(
+                              res => {
+                                if (res) {
+                                  this.navCtrl.setRoot(EHAQPage)
+                                    .catch(() => this.navCtrl.setRoot(LogoutPage))
+                                }
+                              },
+                              err => console.log("Error saving entry")
+                            );;
+                          }
+                          }
+                        ]
+                      });
+                      alert.present();
+                    }
+                  );
                 }
-              },
-              err => console.log("Error saving entry")
-            );;
-          }
+              );
+            }
+          );
         }
-        ]
-      });
-      alert.present();
+      );
     }
   }
 

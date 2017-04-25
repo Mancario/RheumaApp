@@ -9,7 +9,9 @@
       "back":         "Back",
       "finish":       "Finish",
       "next":         "Next",
-      "submit":       "Submit"
+      "submit":       "Submit",
+      "override":     "Override",
+      "delete":       "Delete"
   },
 
   "login": {
@@ -55,7 +57,11 @@
       "other":        "Other medications:",
       "tender":       "Tender joints:",
       "comments":     "Other remarks:",
-      "extend":       "Extend report"
+      "extend":       "Extend report",
+      "confirmDel":   "Confirm delete",
+      "deleteMess":   "Do you want to delete pain entry for date: ",
+      "confirmOver":  "Bekreft overskriving",
+      "overrideMess": "Do you want to override existing pain entry for date: "
   },
 
   "haq": {
@@ -70,7 +76,11 @@
       "alt1":         "Without difficulties",
       "alt2":         "With slight difficulties",
       "alt3":         "With great difficulties",
-      "alt4":         "I could not do that"
+      "alt4":         "I could not do that",
+      "alertError":   "Error",
+      "errorMessage": "You need to fill out every question before you can move on to the next page..",
+      "alertSubmit":  "Submit form",
+      "submitMess":   "Do you want to finish this HAQ-form?"
   },
 
   "home": {

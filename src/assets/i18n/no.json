@@ -9,7 +9,9 @@
       "back":         "Tilbake",
       "finish":       "Fullfør",
       "next":         "Neste",
-      "submit":       "Lagre"
+      "submit":       "Lagre",
+      "override":     "Overskriv",
+      "delete":       "Slett"
   },
 
   "login": {
@@ -55,7 +57,11 @@
       "other":        "Andre medikamenter:",
       "tender":       "Ømme ledd:",
       "comments":     "Kommentarer:",
-      "extend":       "Utvidet rapport"
+      "extend":       "Utvidet rapport",
+      "confirmDel":   "Bekreft sletting",
+      "deleteMess":   "Vil du slette smerteinnlegg for dato: ",
+      "confirmOver":  "Bekreft overskriving",
+      "overrideMess": "Vil du overskrive eksisterende innlegg for dato: "
   },
 
   "haq": {
@@ -70,7 +76,11 @@
       "alt1":         "Uten problemer",
       "alt2":         "Med noen problemer",
       "alt3":         "Med store problemer",
-      "alt4":         "Jeg kan ikke gjøre det"
+      "alt4":         "Jeg kan ikke gjøre det",
+      "alertError":   "Error",
+      "errorMessage": "Du må svare på alle spørsmål før du kan gå videre til neste side..",
+      "alertSubmit":  "Lagre skjema",
+      "submitMess":   "Ønsker du å fullføre dette HAQ-skjemaet?"
   },
 
   "home": {
