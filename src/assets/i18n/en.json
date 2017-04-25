@@ -42,14 +42,6 @@
         "logOut":       "Log Out"
     },
 
-    "home": {
-
-    },
-
-    "report": {
-
-    },
-
     "pain": {
         "pain":       "Pain",
         "disease":    "Disease activity",
@@ -63,6 +55,14 @@
     },
 
     "haq": {
+
+    },
+
+    "home": {
+
+    },
+
+    "report": {
 
     },
 
