@@ -74,7 +74,13 @@
   },
 
   "home": {
-
+      "haqGraph":     "The graph displays the eHAQ result from the last 3 months.",
+      "diaryGraph":   "The graph displays the pain diary result from the last 3 months.",
+      "status":       "STATUS",
+      "nextApp":      "NEXT APPOINTMENT",
+      "lab":          "Laboratory: ",
+      "rheuma":       "Rheumatologist: ",
+      "haq":          "eHAQ"
   },
 
   "report": {

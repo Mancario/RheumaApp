@@ -9,9 +9,9 @@
 <ion-header>
   <ion-navbar>
     <button id="menuToggle" ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
+      <ion-icon color="dark" name="menu"></ion-icon>
     </button>
-    <ion-title>Home </ion-title>
+    <ion-title>{{ 'menu.home' | translate }}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -23,10 +23,10 @@
     <ion-card-content>
       <ion-segment [(ngModel)]="graph" color="dark" class="segmenter">
         <ion-segment-button value="1" id="segmentbutton1">
-          Pain Diary
+          {{ 'menu.pain' | translate }}
         </ion-segment-button>
         <ion-segment-button value="2" id="segmentbutton2">
-          eHAQ
+          {{ 'menu.haq' | translate }}
         </ion-segment-button>
       </ion-segment>
 
@@ -38,14 +38,14 @@
           <canvas baseChart height="250px" [datasets]="lineChartData2" [labels]="lineChartLabels2" [options]="lineChartOptions" [colors]="lineChartColors"
             [legend]="lineChartLegend" [chartType]="lineChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
           </canvas>
-           The graph displays the eHAQ result from the last 3 months.
+          {{ 'home.haqGraph' | translate }}
         </div>
 
         <div *ngSwitchCase='1' id="graph1">
           <canvas baseChart height="250px" [datasets]="lineChartData1" [labels]="lineChartLabels1" [options]="lineChartOptions" [colors]="lineChartColors"
             [legend]="lineChartLegend" [chartType]="lineChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
           </canvas>
-           The graph displays the pain diary result from the last 3 months.
+          {{ 'home.diaryGraph' | translate }}
         </div>
 
       </div>
@@ -56,13 +56,13 @@
   <ion-card class="card" style="visibility: hidden; display: none;">
     <ion-row>
       <ion-col col-5>
-        <div class="statusheader"> STATUS </div>
+        <div class="statusheader"> {{ 'home.status' | translate }}</div>
         <div class="flagdiv"> <img src={{flag}} class="flag" /></div>
       </ion-col>
       <ion-col col-7>
-        <div class="appointmentheader"> NEXT APPOINTMENT </div>
+        <div class="appointmentheader"> {{ 'home.nextApp' | translate }} </div>
         <div class="appointmenttext">
-          Laboratory: <br> {{laboratoryDate}} <br><br> Rheumatologist: <br>{{rheumatologistDate}}
+          {{ 'home.lab' | translate }} <br> {{laboratoryDate}} <br><br> {{ 'home.rheuma' | translate }} <br>{{rheumatologistDate}}
         </div>
       </ion-col>
     </ion-row>
@@ -70,14 +70,14 @@
 
   <div class="bottombutttons">
 
-    <button ion-button color="light" id="painButton" class="actionbutton" (click)="painDiary()">  
-      <ion-icon  name="pulse"> </ion-icon>
-       Pain diary
+    <button ion-button color="light" id="painButton" class="actionbutton" (click)="painDiary()">
+      <ion-icon padding name="pulse"> </ion-icon>
+        {{ 'menu.pain' | translate }}
     </button>
 
-    <button ion-button color="light" id="reportButton" class="actionbutton" (click)="generateReport()"> 
-      <ion-icon name="print"> </ion-icon>
-      Generate report 
+    <button ion-button color="light" id="reportButton" class="actionbutton" (click)="generateReport()">
+      <ion-icon padding name="print"> </ion-icon>
+       {{ 'menu.report' | translate }}
     </button>
   </div>
 </ion-content>

@@ -62,11 +62,25 @@
       "title":        "eHAQ Oversikt",
       "result":       "Resultat",
       "qHealth":      "Spørsmål om helsestatus",
-      "selDate":      "Velg dato:"
+      "selDate":      "Velg dato:",
+      "introText1":   "Vi ønsker å høre hvordan din diagnose påvirker din evne til å gjøre daglige handlinger.",
+      "introText2":   "Velg svaret som best beskriver hva du kunne gjøre den SISTE UKEN.",
+      "toolsText":    "Vennligst velg alle hjelpemidlene du har brukt til aktiviteten over:",
+      "helpText":     "Vennligst velg alle aktivitetene hvor du har hatt behov for vanlig hjelp fra en annen person.",
+      "alt1":         "Uten problemer",
+      "alt2":         "Med noen problemer",
+      "alt3":         "Med store problemer",
+      "alt4":         "Jeg kan ikke gjøre det"
   },
 
   "home": {
-
+    "haqGraph":     "Grafen viser resultatene fra eHAQ-undersøkelsene de siste tre månedene.",
+    "diaryGraph":   "Grafen viser resultatene fra smertedagboken de siste tre månedene.",
+    "status":       "STATUS",
+    "nextApp":      "NESTE TIME",
+    "lab":          "Laboratorium: ",
+    "rheuma":       "Reuvmatolog: ",
+    "haq":          "eHAQ"
   },
 
   "report": {
