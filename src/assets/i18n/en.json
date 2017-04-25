@@ -1,0 +1,170 @@
+{
+  "appTitle" :        "Rheuma Online",
+
+  "button": {
+      "ok":           "OK",
+      "cancel":       "Cancel",
+      "register":     "Register",
+      "reset":        "Reset Password",
+      "back":         "Back",
+      "finish":       "Finish",
+      "next":         "Next",
+      "submit":       "Submit",
+      "override":     "Override",
+      "delete":       "Delete"
+  },
+
+  "login": {
+      "username":     "Username",
+      "password":     "Password",
+      "confirm":      "Confirm password",
+      "email":        "Email",
+      "enterEmail":   "Enter your email",
+      "forgotten":    "Forgotten Password?",
+      "forgottenH1":  "Forgotten your password?",
+      "instructions": "Enter your email below to receive password reset instructions",
+      "signIn":       "Log in",
+      "register":     "Register new user",
+      "terms1":       "I have read and agree with the ",
+      "terms2":       "terms of use",
+      "error1":       "Wrong username or password",
+      "error2":       "Error logging in",
+      "error3":       "Server error logging in: ",
+      "loggingOut":   "Logging out"
+  },
+
+  "menu": {
+      "title":        "Menu",
+      "home":         "Home",
+      "report":       "Generate Report",
+      "pain":         "Pain Diary",
+      "newPain":      "New Entry",
+      "haq":          "eHAQ",
+      "newHaq":       "New eHAQ",
+      "das":          "eDAS",
+      "blood":        "Blood Test",
+      "guide":        "User Guide",
+      "settings":     "Settings",
+      "logOut":       "Log Out"
+  },
+
+  "pain": {
+      "pain":         "Pain",
+      "disease":      "Disease activity",
+      "fatigue":      "Fatigue",
+      "prednis":      "Prednisolone taken (mg)",
+      "prednisNew":   "Prednisolone taken: ",
+      "other":        "Other medications:",
+      "tender":       "Tender joints:",
+      "comments":     "Other remarks:",
+      "extend":       "Extend report",
+      "confirmDel":   "Confirm delete",
+      "deleteMess":   "Do you want to delete pain entry for date: ",
+      "confirmOver":  "Bekreft overskriving",
+      "overrideMess": "Do you want to override existing pain entry for date: "
+  },
+
+  "haq": {
+      "title":        "eHAQ Overview",
+      "result":       "Result",
+      "qHealth":      "Questions on health status",
+      "selDate":      "Select date:",
+      "introText1":   "We would like to hear from you about how your illness affects your ability to manage in your daily life. ",
+      "introText2":   "Please select the answer that best describes what you could do IN THE LAST WEEK normally:",
+      "toolsText":    "Please seelct all the tools you have used for the above activities:",
+      "helpText":     "Please select all activities where you have needed ordinary help from another person.",
+      "alt1":         "Without difficulties",
+      "alt2":         "With slight difficulties",
+      "alt3":         "With great difficulties",
+      "alt4":         "I could not do that",
+      "alertError":   "Error",
+      "errorMessage": "You need to fill out every question before you can move on to the next page..",
+      "alertSubmit":  "Submit form",
+      "submitMess":   "Do you want to finish this HAQ-form?"
+  },
+
+  "home": {
+      "haqGraph":     "The graph displays the eHAQ result from the last 3 months.",
+      "diaryGraph":   "The graph displays the pain diary result from the last 3 months.",
+      "status":       "STATUS",
+      "nextApp":      "NEXT APPOINTMENT",
+      "lab":          "Laboratory: ",
+      "rheuma":       "Rheumatologist: ",
+      "haq":          "eHAQ"
+  },
+
+  "report": {
+
+  },
+
+  "blood": {
+
+  },
+
+  "guide": {
+
+  },
+
+  "settings": {
+
+  },
+
+
+  "ANZIEHEN_KOERPERFLEGE": "Anziehen & Körperpflege",
+  "DIFF_SELBST_ANZIEHEN": "sich selbst anziehen, einschließlich Schuhe binden und Knöpfe schließen?",
+  "DIFF_HAARE_WASCHEN": "sich die Haare waschen?",
+  "HILFSMITTEL_ZUM_ANZIEHEN": "Hilfsmittel zum Anziehen (Knopföffner, Schlitten für Reißverschlüsse, langer Schuhlöffel usw.)",
+  "HILFE_ANZIEHEN_KOERPERPFLEGE": "Anziehen & Körperpflege",
+
+  "AUFSTEHEN": "Aufstehen",
+  "DIFF_STUHL_AUFSTEHEN": "von einem Stuhl ohne Armlehne aufstehen?",
+  "DIFF_BETT_LEGEN_AUFSTEHEN": "sich ins Bett legen und aufstehen?",
+  "HILFSMITTEL_ANGEPASSTER_STUHL": "Speziell angepasster Stuhl",
+  "HILFE_AUFSTEHEN": "Aufstehen",
+
+  "ESSEN": "Essen",
+  "DIFF_FLEISCH_SCHNEIDEN": "Fleisch schneiden?",
+  "DIFF_TASSE_GLAS_MUND": "eine volle Tasse oder ein volles Glas zum Mund führen?",
+  "DIFF_MILCHKARTON_OEFFNEN": "einen neuen Milchkarton (TetraPak) öffnen?",
+  "HILFSMITTEL_ANGEPASST": "Speziell angepasste Hilfsmittel (z.B. zum Essen und Kochen)?",
+  "HILFE_ESSEN": "Essen",
+
+  "GEHEN": "Gehen",
+  "DIFF_GEHEN_AUF_EBENEM_UNTERGRUND": "draußen auf ebenem Untergrund gehen?",
+  "DIFF_FUENF_TREPPENSTUFEN_HOCHGEHEN": "fünf Treppenstufen hochgehen?",
+  "HILFSMITTEL_GEHSTOCK": "Gehstock",
+  "HILFSMITTEL_GEHHILFE_ROLLATOR": "Gehhilfe (Rollator)",
+  "HILFSMITTEL_KRUECKEN": "Krücken",
+  "HILFSMITTEL_ROLLSTUHL": "Rollstuhl",
+  "HILFE_GEHEN": "Gehen",
+
+  "HYGIENE": "Hygiene",
+  "DIFF_WASCHEN_ABTROCKNEN": "sich ganz waschen und abtrocknen?",
+  "DIFF_VOLLBAD_NEHMEN": "ein Vollbad nehmen?",
+  "DIFF_TOILETTE_SETZEN_AUFSTEHEN": "sich auf die Toilette setzen und wieder aufstehen?",
+  "HILFSMITTEL_TOILETTENSITZ": "Erhöhter Toilettensitz",
+  "HILFSMITTEL_BADEWANNENSITZ": "Badewannensitz",
+  "HILFSMITTEL_BADEWANNENHANDGRIFF": "Badewannenhandgriff",
+  "HILFSMITTEL_LANGER_HANDGRIFF_BADEZIMMER": "Hilfsmittel mit langem Handgriff für das Badezimmer (z.B. eine Bürste)",
+  "HILFE_HYGIENE": "Hygiene",
+
+  "NACH_ETWAS_GREIFEN": "Nach etwas greifen",
+  "DIFF_SCHWEREN_GEGENSTAND_AUFHEBEN": "einen etwa 2 kg schweren Gegenstand von einer Stelle über Kopfhöhe herunterheben (z.B. eine große Tüte Zucker)?",
+  "DIFF_BUECKEN_KLEIDUNGSSTUECK_AUFHEBEN": "sich bücken, um ein Kleidungsstück vom Fußboden aufzuheben?",
+  "HILFSMITTEL_LANGER_HANDGRIFF_GREIFHILFE": "Greifhilfen mit langem Handgriff",
+  "HILFE_NACH_ETWAS_GREIFEN": "Nach etwas greifen",
+
+  "GREIFEN_UND_OEFFNEN": "Greifen und öffnen",
+  "DIFF_AUTOTUER_OEFFNEN": "Autotüren öffnen?",
+  "DIFF_KONSERVENGLAESER_OEFFNEN": "Konservengläser öffnen, die schon einmal offen waren?",
+  "DIFF_WASSERHAEHNE_AUF_ZUDREHEN": "Wasserhähne auf- und zudrehen?",
+  "HILFSMITTEL_OEFFNER_SCHRAUBVERSCHLUESSE": "Öffner für Schraubverschlüsse (für Gläser, die schon einmal offen waren)",
+  "HILFE_GREIFEN_UND_OEFFNEN": "Greifen und Öffnen von Gegenständen",
+
+  "ANDERE_TAETIGKEITEN": "Andere Tätigkeiten",
+  "DIFF_BESORGUNGEN_MACHEN_EINKAUFEN": "Besorgungen machen und einkaufen?",
+  "DIFF_AUTO_EIN_AUSSTEIGEN": "in ein Auto ein- und aussteigen?",
+  "DIFF_HAUSARBEITEN_GARTENARBEITEN": "Hausarbeiten oder Gartenarbeiten erledigen (z.B. Staubsaugen oder Unkraut jäten)?",
+  "HILFE_BESORGUNGEN_HAUSARBEITEN": "Besorgungen und Hausarbeiten"
+
+}

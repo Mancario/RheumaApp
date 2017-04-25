@@ -1,0 +1,111 @@
+{
+  "appTitle" :        "Rheuma Online",
+
+  "button": {
+      "ok":           "OK",
+      "cancel":       "Avbryt",
+      "register":     "Registrer",
+      "reset":        "Nullstill Passord",
+      "back":         "Tilbake",
+      "finish":       "Fullfør",
+      "next":         "Neste",
+      "submit":       "Lagre",
+      "override":     "Overskriv",
+      "delete":       "Slett"
+  },
+
+  "login": {
+      "username":     "Brukernavn",
+      "password":     "Passord",
+      "confirm":      "Bekreft passord",
+      "email":        "Epost",
+      "enterEmail":   "Tast inn epost",
+      "forgotten":    "Glemt Passord?",
+      "forgottenH1":  "Har du glemt passordet?",
+      "instructions": "Tast inn din epost under for å motta instruksjoner for nullstilling av passordet",
+      "signIn":       "Logg in",
+      "register":     "Registrer ny bruker",
+      "terms1":       "Jeg har lest og godtar ",
+      "terms2":       "brukervilkårene",
+      "error1":       "Feil brukernavn eller passord",
+      "error2":       "Feil ved innlogging",
+      "error3":       "Serverfeil ved innlogging: ",
+      "loggingOut":   "Logger ut"
+  },
+
+  "menu": {
+      "title":        "Meny",
+      "home":         "Hjem",
+      "report":       "Generer Rapport",
+      "pain":         "Smertedagbok",
+      "newPain":      "Nytt innlegg",
+      "haq":          "eHAQ",
+      "newHaq":       "Ny eHAQ",
+      "das":          "eDAS",
+      "blood":        "Blodtest",
+      "guide":        "Brukerguide",
+      "settings":     "Innstillinger",
+      "logOut":       "Logg ut"
+  },
+
+  "pain": {
+      "pain":         "Smerte",
+      "disease":      "Sykdomsaktivitet",
+      "fatigue":      "Utmattelse",
+      "prednis":      "Dose Prednisolon (mg)",
+      "prednisNew":   "Prednisolondose tatt: ",
+      "other":        "Andre medikamenter:",
+      "tender":       "Ømme ledd:",
+      "comments":     "Kommentarer:",
+      "extend":       "Utvidet rapport",
+      "confirmDel":   "Bekreft sletting",
+      "deleteMess":   "Vil du slette smerteinnlegg for dato: ",
+      "confirmOver":  "Bekreft overskriving",
+      "overrideMess": "Vil du overskrive eksisterende innlegg for dato: "
+  },
+
+  "haq": {
+      "title":        "eHAQ Oversikt",
+      "result":       "Resultat",
+      "qHealth":      "Spørsmål om helsestatus",
+      "selDate":      "Velg dato:",
+      "introText1":   "Vi ønsker å høre hvordan din diagnose påvirker din evne til å gjøre daglige handlinger.",
+      "introText2":   "Velg svaret som best beskriver hva du kunne gjøre den SISTE UKEN.",
+      "toolsText":    "Vennligst velg alle hjelpemidlene du har brukt til aktiviteten over:",
+      "helpText":     "Vennligst velg alle aktivitetene hvor du har hatt behov for vanlig hjelp fra en annen person.",
+      "alt1":         "Uten problemer",
+      "alt2":         "Med noen problemer",
+      "alt3":         "Med store problemer",
+      "alt4":         "Jeg kan ikke gjøre det",
+      "alertError":   "Error",
+      "errorMessage": "Du må svare på alle spørsmål før du kan gå videre til neste side..",
+      "alertSubmit":  "Lagre skjema",
+      "submitMess":   "Ønsker du å fullføre dette HAQ-skjemaet?"
+  },
+
+  "home": {
+    "haqGraph":     "Grafen viser resultatene fra eHAQ-undersøkelsene de siste tre månedene.",
+    "diaryGraph":   "Grafen viser resultatene fra smertedagboken de siste tre månedene.",
+    "status":       "STATUS",
+    "nextApp":      "NESTE TIME",
+    "lab":          "Laboratorium: ",
+    "rheuma":       "Reuvmatolog: ",
+    "haq":          "eHAQ"
+  },
+
+  "report": {
+
+  },
+
+  "blood": {
+
+  },
+
+  "guide": {
+
+  },
+
+  "settings": {
+
+  }
+}

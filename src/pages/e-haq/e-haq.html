@@ -5,9 +5,9 @@
 <ion-header>
   <ion-navbar>
     <button id="menuToggle" ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
+      <ion-icon color="dark" name="menu"></ion-icon>
     </button>
-    <ion-title>eHAQ overview</ion-title>
+    <ion-title>{{ 'haq.title' | translate }}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -35,7 +35,7 @@
       </ion-card-header>
       <ion-card-content>
         <div class="labelcontainer">
-          <ion-label>Result</ion-label>
+          <ion-label>{{ 'haq.result' | translate }}</ion-label>
           <button ion-button small color="primary">{{p.value}} </button>
         </div>
         <ion-item>

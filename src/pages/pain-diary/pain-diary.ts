@@ -5,6 +5,7 @@ import { LogoutPage } from '../logout/logout';
 import { NewEntryPage } from '../new-entry/new-entry';
 import { Observable } from 'rxjs/Observable';
 import { DiaryService, DiaryQuery, DiaryEntryList, DiaryEntry } from "./pain-diary-service";
+import { TranslateService } from '@ngx-translate/core';
 
 
 /*
@@ -24,7 +25,7 @@ export class PainDiaryPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private authService: AuthService, public diaryService: DiaryService,
-    private alertCtrl: AlertController) {
+    private alertCtrl: AlertController, private translate: TranslateService) {
       this.getDiary();
      }
 
@@ -44,40 +45,53 @@ export class PainDiaryPage {
   deleteEntry(entry: DiaryEntry){
     console.log("Called deleteEntry step 1");
 
+    this.translate.get('pain.confirmDel').subscribe(
+      deleteTitle => {
+        this.translate.get('pain.deleteMess').subscribe(
+          deleteMessage => {
+            this.translate.get('button.cancel').subscribe(
+              cancelBtn => {
+                this.translate.get('button.delete').subscribe(
+                  deleteBtn => {
+                    let alert = this.alertCtrl.create({
+                    title: deleteTitle,
+                    message: deleteMessage + entry.date + "?",
+                    buttons: [
+                      {
+                        text: cancelBtn,
+                        role: 'cancel',
+                        handler: () => {
+                          console.log('Cancel clicked');
+                        }
+                      },
+                      {
+                        text: deleteBtn,
+                        handler: () => {
+                          console.log('Delete clicked');
+                          this.diaryService.deleteEntry(entry)
+                            .subscribe(
+                              res =>{
+                                if(res){
+                                  this.navCtrl.setRoot(this.navCtrl.getActive().component);
+                                }else{
 
-    let alert = this.alertCtrl.create({
-    title: 'Confirm delete',
-    message: 'Do you want to delete pain entry for date: ' + entry.date + "?",
-    buttons: [
-      {
-        text: 'Cancel',
-        role: 'cancel',
-        handler: () => {
-          console.log('Cancel clicked');
-        }
-      },
-      {
-        text: 'Delete',
-        handler: () => {
-          console.log('Delete clicked');
-          this.diaryService.deleteEntry(entry)
-            .subscribe(
-              res =>{
-                if(res){
-                  this.navCtrl.setRoot(this.navCtrl.getActive().component);
-                }else{
-
-                }
-              },
-              err => console.log("Error deleting entry")
+                                }
+                              },
+                              err => console.log("Error deleting entry")
+                            );
+                          }
+                        }
+                      ]
+                    });
+                    alert.present();
+                  }
+                );
+              }
             );
           }
-        }
-      ]
-    });
-
-    alert.present();
-
+        );
+      }
+    );
   }
 
   editEntry(entry: DiaryEntry){

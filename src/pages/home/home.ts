@@ -8,6 +8,8 @@ import { Observable } from 'rxjs/Observable';
 import { Http, Response, URLSearchParams, Headers } from '@angular/http';
 import { AuthService } from "../../security/auth.service";
 import { API_URL } from "../../environments/environment";
+import { TranslateService } from '@ngx-translate/core';
+
 /*
   Generated class for the Home page.
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
@@ -24,9 +26,11 @@ export class HomePage {
   graph;
   graphList;
   dateLimit;
+  graphLabels = {label1:String, label2:String, label3:String, label4:String};
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private _http: Http, private _authService: AuthService) {
+    private _http: Http, private _authService: AuthService,
+    private translate: TranslateService) {
     this.flag = "../../assets/img/flag-green.png";
     this.laboratoryDate = "22.04.2017 (Suggestion)";
     this.rheumatologistDate = "20.05.2017";
@@ -86,7 +90,7 @@ export class HomePage {
             pain.push(null);
           else
             pain.push(parseFloat(element[1]));
-          if (element[2].localeCompare('') == 0) // adding disease 
+          if (element[2].localeCompare('') == 0) // adding disease
             disease.push(null);
           else
             disease.push(parseFloat(element[2]));
@@ -99,12 +103,41 @@ export class HomePage {
       }
     }
     // adding data values
-    this.lineChartData1 =
-      [{ data: pain, label: 'pain' },
-      { data: disease, label: 'disease activity' },
-      { data: fatigue, label: 'fatigue' }];
-    this.lineChartData2 = [{ data: ehaq, label: 'eHAQ' }];
-    this.fixSpacesOnGraphs();
+    this.setGraphLabels().subscribe(
+      value => {
+        this.lineChartData1 =
+          [{ data: pain, label: this.graphLabels.label1 },
+          { data: disease, label: this.graphLabels.label2 },
+          { data: fatigue, label: this.graphLabels.label3 }];
+        this.lineChartData2 = [{ data: ehaq, label: this.graphLabels.label4 }];
+        this.fixSpacesOnGraphs();
+      }
+    )
+
+  }
+
+  setGraphLabels(): Observable<string|Object>{
+
+    this.translate.get('pain.pain').subscribe(
+      value => this.graphLabels.label1 = value
+    );
+
+    this.translate.get('pain.disease').subscribe(
+      value => this.graphLabels.label2 = value
+    );
+
+    this.translate.get('pain.fatigue').subscribe(
+      value => this.graphLabels.label3 = value
+    );
+
+    this.translate.get('home.haq').subscribe(
+      value => this.graphLabels.label4 = value
+    );
+
+    // This is for the method returning after the previous 4
+    // async tasks are complete. I did not at the moment know
+    // of a different approuch.
+    return this.translate.get('home.haq');
   }
 
   fixSpacesOnGraphs() {

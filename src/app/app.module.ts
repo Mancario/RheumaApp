@@ -9,7 +9,7 @@ import { BloodTestPage } from '../pages/blood-test/blood-test';
 import { EDASPage } from '../pages/e-das/e-das';
 import { EHAQPage } from '../pages/e-haq/e-haq';
 import { HAQService } from '../pages/e-haq/e-haq-service';
-import { DiaryService } from '../pages/pain-diary/pain-diary-service'; 
+import { DiaryService } from '../pages/pain-diary/pain-diary-service';
 import { EHaqNewEntryPage } from '../pages/e-haq-new-entry/e-haq-new-entry';
 import { ForgottenPasswordPage } from '../pages/forgotten-password/forgotten-password';
 import { GenerateReportPage } from '../pages/generate-report/generate-report';
@@ -24,10 +24,15 @@ import { AuthService } from '../security/auth.service';
 import { LocalStorageService } from '../security/local-storage.service';
 import { StoreCredentialsService } from '../security/store-credentials.service';
 import { IonicStorageModule } from '@ionic/storage';
-import {HaqifyPipe} from '../pages/e-haq-new-entry/haqify.pipe'
-import {HaqAnswerForm} from "../pages/e-haq-new-entry/e-haq-new-entry-form"
+import { HaqifyPipe } from '../pages/e-haq-new-entry/haqify.pipe'
+import { HaqAnswerForm } from "../pages/e-haq-new-entry/e-haq-new-entry-form"
+import { Http } from '@angular/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
-
+export function createTranslateLoader(http: Http) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 @NgModule({
   declarations: [
@@ -52,7 +57,14 @@ import {HaqAnswerForm} from "../pages/e-haq-new-entry/e-haq-new-entry-form"
     IonicModule.forRoot(MyApp),
     ChartsModule,
     FormsModule,
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [Http]
+      }
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -79,7 +91,7 @@ import {HaqAnswerForm} from "../pages/e-haq-new-entry/e-haq-new-entry-form"
     HAQService,
     DiaryService,
     HaqAnswerForm
-    
+
   ]
 })
 export class AppModule {}

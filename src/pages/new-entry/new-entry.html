@@ -11,7 +11,7 @@
     <button id="menuToggle" ion-button menuToggle>
       <ion-icon color="dark" name="menu"></ion-icon>
     </button>
-    <ion-title>New Entry</ion-title>
+    <ion-title>{{ 'menu.newPain' | translate }}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -34,7 +34,7 @@
         <ion-list>
 
           <div class="labelcontainer">
-            <ion-label>Pain</ion-label>
+            <ion-label>{{ 'pain.pain' | translate }}</ion-label>
             <button ion-button small color="primary">{{painValue}}</button>
           </div>
           <ion-item>
@@ -43,7 +43,7 @@
           </ion-item>
 
           <div class="labelcontainer">
-            <ion-label>Disease Activity</ion-label>
+            <ion-label>{{ 'pain.disease' | translate }}</ion-label>
             <button ion-button small color="primary">{{diseaseValue}}</button>
           </div>
           <ion-item>
@@ -52,7 +52,7 @@
           </ion-item>
 
           <div class="labelcontainer">
-            <ion-label>Fatigue</ion-label>
+            <ion-label>{{ 'pain.fatigue' | translate }}</ion-label>
             <button ion-button small color="primary">{{fatigueValue}}</button>
           </div>
           <ion-item>
@@ -61,23 +61,23 @@
           </ion-item>
 
           <ion-item>
-            <ion-label>Prednisolone taken:</ion-label>
+            <ion-label>{{ 'pain.prednisNew' | translate }}</ion-label>
             <ion-input id="prednisoloneInput" type="number" placeholder="mg" [(ngModel)]="prednisoloneDose"></ion-input>
           </ion-item>
 
 
           <ion-item>
-            <ion-label stacked>Other medications:</ion-label>
+            <ion-label stacked>{{ 'pain.other' | translate }}</ion-label>
             <ion-textarea id="drugsInput" type="text" [(ngModel)]="additionalDrugs"></ion-textarea>
           </ion-item>
 
           <ion-item>
-            <ion-label stacked>Painful joints:</ion-label>
+            <ion-label stacked>{{ 'pain.tender' | translate }}</ion-label>
             <ion-textarea id="tenderInput" type="text" [(ngModel)]="tenderJoints"></ion-textarea>
           </ion-item>
 
           <ion-item>
-            <ion-label stacked>Other remarks:</ion-label>
+            <ion-label stacked>{{ 'pain.comments' | translate }}</ion-label>
             <ion-textarea id="commentsInput" [(ngModel)]="comments"></ion-textarea>
           </ion-item>
 
@@ -89,11 +89,11 @@
   <div class="submitbuttons">
     <button id="cancel" ion-button icon-left color="white" (click)="cancel()">
       <ion-icon ios="md-close" md="md-close"></ion-icon>
-      Cancel
+      {{ 'button.cancel' | translate }}
     </button>
     <button id="ok" ion-button icon-left color="white" (click)="submit()">
       <ion-icon ios="md-checkmark" md="md-checkmark"></ion-icon>
-      OK
+      {{ 'button.ok' | translate }}
     </button>
 
   </div>

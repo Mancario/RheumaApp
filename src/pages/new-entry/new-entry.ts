@@ -4,6 +4,7 @@ import { AuthService } from "../../security/auth.service";
 import { LogoutPage } from '../logout/logout';
 import { PainDiaryPage} from '../pain-diary/pain-diary';
 import { DiaryService, DiaryEntry } from "../pain-diary/pain-diary-service";
+import { TranslateService } from '@ngx-translate/core';
 
 
 /*
@@ -34,7 +35,7 @@ export class NewEntryPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private authService: AuthService, private diaryService: DiaryService,
-    private alertCtrl: AlertController) {
+    private alertCtrl: AlertController, private translate: TranslateService) {
   }
 
   ionViewCanEnter(): boolean{
@@ -73,28 +74,45 @@ export class NewEntryPage {
           if(res){
             // Ask if user wants to override - if so: override.
             if(!res.deleted){ // If existing entry is undeleted
-              let alert = this.alertCtrl.create({
-              title: 'Confirm override',
-              message: 'Do you want to override existing pain entry for date: ' + this.dateChosen + "?",
-              buttons: [
-                {
-                  text: 'Cancel',
-                  role: 'cancel',
-                  handler: () => {
-                    console.log('Cancel clicked');
-                  }
-                },
-                {
-                  text: 'Override',
-                  handler: () => {
-                    console.log('Override clicked');
-                    this.saveEntry();
-                    }
-                  }
-                ]
-              });
+              //New
 
-              alert.present();
+              this.translate.get('pain.confirmOver').subscribe(
+                overrideTitle => {
+                  this.translate.get('pain.overrideMess').subscribe(
+                    overrideMessage => {
+                      this.translate.get('button.cancel').subscribe(
+                        cancelBtn => {
+                          this.translate.get('button.override').subscribe(
+                            overrideBtn => {
+                              let alert = this.alertCtrl.create({
+                              title: overrideTitle,
+                              message: overrideMessage + this.dateChosen + "?",
+                              buttons: [
+                                {
+                                  text: cancelBtn,
+                                  role: 'cancel',
+                                  handler: () => {
+                                    console.log('Cancel clicked');
+                                  }
+                                },
+                                {
+                                  text: overrideBtn,
+                                  handler: () => {
+                                    console.log('Override clicked');
+                                    this.saveEntry();
+                                    }
+                                  }
+                                ]
+                              });
+                              alert.present();
+                            }
+                          );
+                        }
+                      );
+                    }
+                  );
+                }
+              );
 
             }else{ // Existing entry has been deleted before.
               this.saveEntry();

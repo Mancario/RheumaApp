@@ -1,9 +1,9 @@
 <ion-header>
   <ion-navbar>
     <button id="menuToggle" ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
+      <ion-icon color="dark" name="menu"></ion-icon>
     </button>
-    <ion-title>{{title}}</ion-title>
+    <ion-title>{{ 'menu.newHaq' | translate }}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -12,10 +12,10 @@
     <div class="box">
       <div class="boxpadding">
         <h4 class="text">
-          <b> Questions on health status - {{page}}</b>
+          <b> {{ 'haq.qHealth' | translate }} - {{page}}</b>
         </h4>
         <div>
-          <b class="text"> Select date: </b>
+          <b class="text"> {{ 'haq.selDate' | translate }} </b>
           <button id="dateButton" class="col-md-4" ion-button clear icon-right color="dark" class="headerbutton">
             <ion-icon name="calendar"></ion-icon>
             <ion-datetime id="dateInput" #dateInput displayFormat="DD.MM.YYYY" [(ngModel)]="haqEntry.date"></ion-datetime>
@@ -29,12 +29,12 @@
         <template ngFor let-categories [ngForOf]="categoriSheet">
           <h5>
             <u class="question" text-wrap class="text">
-              {{categories.categoryId | haqify}}
+              {{categories.categoryId | translate}}
             </u>
           </h5>
           <div *ngFor="let question of categories.difficulties">
             <div class="text" text-wrap>
-              <b>{{question.questionId | haqify}}</b><br>
+              <b>{{question.questionId | translate}}</b><br>
             </div>
             <ion-list radio-group [(ngModel)]="answer[question.questionId]">
               <div *ngFor="let a of answersheet">
@@ -52,13 +52,13 @@
 
         <!-- Selecting tools -->
         <div class="text" text-wrap>
-          <b> {{descriptionTextTools}}</b><br>
+          <b> {{ 'haq.toolsText' | translate }}</b><br>
         </div>
         <div *ngFor="let s of categoriSheet">
           <ion-item-group>
             <div *ngFor="let t of s.tools">
               <ion-item class="itemobject">
-                <ion-label text-wrap class="labelobject">{{t.questionId | haqify}}</ion-label>
+                <ion-label text-wrap class="labelobject">{{t.questionId | translate}}</ion-label>
                 <ion-checkbox [(ngModel)]="answer[t.questionId]" (click)="saveAnswerCheck(t.questionId)" class="checkboxobject" color="dark"
                   checked="false"></ion-checkbox>
               </ion-item>
@@ -68,13 +68,13 @@
 
         <!-- Selecting help -->
         <div class="text" text-wrap>
-          <b>{{descriptionTextHelp}}</b><br>
+          <b>{{ 'haq.helpText' | translate }}</b><br>
         </div>
         <div *ngFor="let s of categoriSheet">
           <ion-item-group>
             <div *ngFor="let t of s.help">
               <ion-item>
-                <ion-label text-wrap>{{t.questionId | haqify}}</ion-label>
+                <ion-label text-wrap>{{t.questionId | translate}}</ion-label>
                 <ion-checkbox [(ngModel)]="answer[t.questionId]" color="dark" checked="false" (click)="saveAnswerCheck(t.questionId)"></ion-checkbox>
               </ion-item>
             </div>
@@ -88,25 +88,25 @@
   <div class="submitbuttons" id="page1">
     <button id="cancel" ion-button icon-left color="white" (click)="cancel()">
       <ion-icon ios="md-close" md="md-close"></ion-icon>
-      Cancel
+      {{ 'button.cancel' | translate }}
     </button>
     <button id="next" ion-button icon-right color="white" (click)="next()">
-      Next
-      <ion-icon name="md-arrow-round-forward"></ion-icon>  
+      {{ 'button.next' | translate }}
+      <ion-icon name="md-arrow-round-forward"></ion-icon>
     </button>
   </div>
 
   <div class="submitbuttons2" id="page2">
     <button ion-button icon-left color="white" (click)="cancel()" class="col-md-3">
       <ion-icon name="md-close"></ion-icon>
-      Cancel
+      {{ 'button.cancel' | translate }}
     </button>
     <button ion-button icon-left color="white" (click)="back()" class="col-md-3">
       <ion-icon name="md-arrow-round-back"></ion-icon>
-      Back
+      {{ 'button.back' | translate }}
     </button>
     <button ion-button icon-right color="white" (click)="finish()" class="col-md-3">
-       Finish
+       {{ 'button.finish' | translate }}
       <ion-icon name="md-arrow-round-forward"></ion-icon>
     </button>
   </div>
