@@ -1,22 +1,22 @@
 <ion-content class="content">
   <div class="container">
-    <h1>Register new user</h1>
+    <h1>{{ 'login.register' | translate }}</h1>
     <div class="white-underline"></div>
 
     <form class="signupform">
 
       <ion-list class="list">
         <ion-item id="itemtop" class="item">
-          <ion-input type="text" value="" placeholder="Username"></ion-input>
+          <ion-input type="text" value="" placeholder="{{ 'login.username' | translate }}"></ion-input>
         </ion-item>
         <ion-item class="item">
-          <ion-input type="email" value="" placeholder="Email"></ion-input>
+          <ion-input type="email" value="" placeholder="{{ 'login.email' | translate }}"></ion-input>
         </ion-item>
         <ion-item class="item">
-          <ion-input type="password" value="" placeholder="Password"></ion-input>
+          <ion-input type="password" value="" placeholder="{{ 'login.password' | translate }}"></ion-input>
         </ion-item>
         <ion-item id="itembottom" class="item">
-          <ion-input type="password" value="" placeholder="Confirm password"></ion-input>
+          <ion-input type="password" value="" placeholder="{{ 'login.confirm' | translate }}"></ion-input>
         </ion-item>
       </ion-list>
 
@@ -27,13 +27,13 @@
 
       <div padding class=terms>
         <ion-checkbox></ion-checkbox>
-        <p>I have read and agree with the <a href="">terms of use </a></p>
+        <p>{{ 'login.terms1' | translate }} <a href="">{{ 'login.terms2' | translate }} </a></p>
       </div>
 
 
       <div class="actionbuttoncontainer">
-        <button ion-button color="light" block class="actionbutton" (click)="signup()">Register </button>
-        <button ion-button color="light" block class="actionbutton" (click)="navLogin()">Cancel </button>
+        <button ion-button color="light" block class="actionbutton" (click)="signup()">{{ 'button.register' | translate }} </button>
+        <button ion-button color="light" block class="actionbutton" (click)="navLogin()">{{ 'button.cancel' | translate }}</button>
       </div>
       <!--div class="submitbuttons">
         <button id="ok" ion-button icon-left color="white" (click)="register()">

@@ -1,14 +1,30 @@
 {
   "appTitle" :      "Rheuma Online",
+
+  "button": {
+    "ok":             "OK",
+    "cancel":         "Avbryt",
+    "register":       "Registrer",
+    "reset":          "Nullstill Passord"
+  },
+
   "login": {
-      "username":   "Brukernavn",
-      "password":   "Passord",
-      "forgotten":  "Glemt Passord?",
-      "signIn":     "Logg in",
-      "register":   "Registrer ny bruker",
-      "error1":     "Feil brukernavn eller passord",
-      "error2":     "Feil ved innlogging",
-      "error3":     "Serverfeil ved innlogging: "
+      "username":     "Brukernavn",
+      "password":     "Passord",
+      "confirm":      "Bekreft passord",
+      "email":        "Epost",
+      "enterEmail":   "Tast inn epost",
+      "forgotten":    "Glemt Passord?",
+      "forgottenH1":  "Har du glemt passordet?",
+      "instructions": "Tast inn din epost under for å motta instruksjoner for nullstilling av passordet",
+      "signIn":       "Logg in",
+      "register":     "Registrer ny bruker",
+      "terms1":       "Jeg har lest og godtar ",
+      "terms2":       "brukervilkårene",
+      "error1":       "Feil brukernavn eller passord",
+      "error2":       "Feil ved innlogging",
+      "error3":       "Serverfeil ved innlogging: ",
+      "loggingOut":   "Logger ut"
   },
 
   "menu": {
@@ -43,22 +59,13 @@
       "other":      "Andre medikamenter:",
       "tender":     "Ømme ledd:",
       "comments":   "Kommentarer:",
-      "extend":     "Utvidet rapport",
-      "ok":         "OK",
-      "cancel":     "Avbryt"
+      "extend":     "Utvidet rapport"
   },
 
   "haq": {
 
   },
 
-  "forgotten": {
-
-  },
-
-  "register": {
-
-  },
 
   "blood": {
 

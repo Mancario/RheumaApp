@@ -1,30 +1,45 @@
 {
-    "appTitle" :      "Rheuma Online",
+    "appTitle" :        "Rheuma Online",
+
+    "button": {
+      "ok":             "OK",
+      "cancel":         "Cancel",
+      "register":       "Register",
+      "reset":          "Reset Password"
+    },
 
     "login": {
-        "username":   "Username",
-        "password":   "Password",
-        "forgotten":  "Forgotten Password?",
-        "signIn":     "Log in",
-        "register":   "Register new user",
-        "error1":     "Wrong username or password",
-        "error2":     "Error logging in",
-        "error3":     "Server error logging in: "
+        "username":     "Username",
+        "password":     "Password",
+        "confirm":      "Confirm password",
+        "email":        "Email",
+        "enterEmail":   "Enter your email",
+        "forgotten":    "Forgotten Password?",
+        "forgottenH1":  "Forgotten your password?",
+        "instructions": "Enter your email below to receive password reset instructions",
+        "signIn":       "Log in",
+        "register":     "Register new user",
+        "terms1":       "I have read and agree with the ",
+        "terms2":       "terms of use",
+        "error1":       "Wrong username or password",
+        "error2":       "Error logging in",
+        "error3":       "Server error logging in: ",
+        "logging out":  "Logging out"
     },
 
     "menu": {
-        "title":      "Menu",
-        "home":       "Home",
-        "report":     "Generate Report",
-        "pain":       "Pain Diary",
-        "newPain":    "New Entry",
-        "haq":        "eHAQ",
-        "newHaq":     "New eHAQ",
-        "das":        "eDAS",
-        "blood":      "Blood Test",
-        "guide":      "User Guide",
-        "settings":   "Settings",
-        "logOut":     "Log Out"
+        "title":        "Menu",
+        "home":         "Home",
+        "report":       "Generate Report",
+        "pain":         "Pain Diary",
+        "newPain":      "New Entry",
+        "haq":          "eHAQ",
+        "newHaq":       "New eHAQ",
+        "das":          "eDAS",
+        "blood":        "Blood Test",
+        "guide":        "User Guide",
+        "settings":     "Settings",
+        "logOut":       "Log Out"
     },
 
     "home": {
@@ -44,20 +59,10 @@
         "other":      "Other medications:",
         "tender":     "Tender joints:",
         "comments":   "Other remarks:",
-        "extend":     "Extend report",
-        "ok":         "OK",
-        "cancel":     "Cancel"
+        "extend":     "Extend report"
     },
 
     "haq": {
-
-    },
-
-    "forgotten": {
-
-    },
-
-    "register": {
 
     },
 

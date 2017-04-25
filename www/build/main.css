@@ -35492,40 +35492,99 @@ page-e-haq .extendbutton {
   margin: 0 auto;
 }
 
-page-e-haq-new-entry .card {
-  position: absolute;
-  top: 1%;
-  height: 90%;
-  width: 95%;
-}
-
-page-e-haq-new-entry .slider {
-  height: 100%;
-  position: top;
+page-e-haq-new-entry .item-content {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  margin-top: -4px;
+  margin-bottom: -4px;
+  height: 70px;
 }
 
 page-e-haq-new-entry .question {
   font-size: 1em;
   font-weight: bold;
+  margin: 0 2% 0;
 }
 
 page-e-haq-new-entry ion-label {
   font-size: 0.8em !important;
 }
 
-page-e-haq-new-entry ion-item {
+page-e-haq-new-entry .headerpadding {
+  padding: 0% 4% 0% 4%;
+}
+
+page-e-haq-new-entry .text {
+  padding: 0% 4% 0% 4%;
+}
+
+page-e-haq-new-entry .avatar {
+  margin-left: 4% !important;
   width: 100% !important;
   height: 100% !important;
+  max-width: 30px !important;
+  max-height: 30px !important;
 }
 
-page-e-haq-new-entry ion-avatar {
-  width: auto;
-  height: 70% !important;
-  font-size: 0.8em !important;
+page-e-haq-new-entry .nopaddingormargin {
+  padding: none;
+  margin: none;
 }
 
-page-e-haq-new-entry image {
-  height: 3em;
+page-e-haq-new-entry .box {
+  width: 98% auto;
+  height: auto;
+  background-color: white;
+}
+
+page-e-haq-new-entry .boxpadding {
+  margin: 4% auto;
+  display: inline-block;
+}
+
+page-e-haq-new-entry .itemobject {
+  margin: 0% !important;
+  padding: 0% !important;
+}
+
+page-e-haq-new-entry .labelobject {
+  margin-left: 6% !important;
+  padding: 0% !important;
+}
+
+page-e-haq-new-entry .checkboxobject {
+  margin: 0% !important;
+  margin-left: 4% !important;
+  padding: 0% !important;
+}
+
+page-e-haq-new-entry .submitbuttons button {
+  border-radius: 2px;
+  width: 48%;
+  font-weight: bold;
+}
+
+page-e-haq-new-entry .submitbuttons #next {
+  float: right;
+}
+
+page-e-haq-new-entry .submitbuttons #cancel {
+  float: left;
+}
+
+page-e-haq-new-entry #page1 {
+  display: block;
+}
+
+page-e-haq-new-entry .submitbuttons2 button {
+  position: center;
+  border-radius: 2px;
+  width: 31%;
+  font-weight: bold;
+}
+
+page-e-haq-new-entry #page2 {
+  display: none;
 }
 
 page-forgotten-password .container {
