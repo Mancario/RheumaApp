@@ -8,6 +8,8 @@ import { EHAQPage } from "../e-haq/e-haq"
 import { LogoutPage } from '../logout/logout';
 import { HAQEntry, HAQService, HAQPage, HAQCategory, HAQQuestion, HAQEntryAnswer } from "../e-haq/e-haq-service"
 import { HaqAnswerForm } from "./e-haq-new-entry-form"
+import { TranslateService } from '@ngx-translate/core';
+
 /*
   Generated class for the EHaqNewEntry page.
 
@@ -24,22 +26,18 @@ export class EHaqNewEntryPage {
   answer: any;
   categoriSheet: HAQCategory[];
   pageSheet: HAQPage[];
-  title: String;
-  descriptionTextTools: String;
-  descriptionTextHelp: String;
   page: number;
+  alternatives= {alt1:String, alt2:String, alt3:String, alt4:String}
   texts: Array<any> = [{ text1: String, text2: String }];
   answersheet: Array<any> = [{ text: String, scr: String, value: Number, checked: Boolean }];
   @ViewChild(Content) content: Content;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private authService: AuthService, private haqService: HAQService,
-    private alertCtrl: AlertController, private form: HaqAnswerForm) {
+    private alertCtrl: AlertController, private form: HaqAnswerForm,
+    private translate: TranslateService) {
     this.getSheets();
     this.page = 1;
-    this.descriptionTextTools = "Please seelct all the tools you have used for the above activities:";
-   this.descriptionTextHelp = "Please select all activities where you have needed ordinary help from another person.";
-    this.title = "New eHAQ";
     this.form.newList();
     this.answer = form.getMappingList();
   }
@@ -61,16 +59,51 @@ export class EHaqNewEntryPage {
       this.pageSheet = element.pages;
       this.categoriSheet = element.pages[0].categories;
     });
-    this.answersheet = [
-      { text: "Without difficulties", scr: "../../assets/img/happy.png", value: 0, checked: false },
-      { text: "With slight difficulties", scr: "../../assets/img/smiley-neutral.png", value: 1, checked: false },
-      { text: "With great difficulties", scr: "../../assets/img/smiley-sad.png", value: 2, checked: false },
-      { text: "I could not do that", scr: "../../assets/img/smiley-very-sad.png", value: 3, checked: false },
-    ];
-    this.texts = [{
-      text1: "We would like to hear from you about how your illness affects your ability to manage in your daily life. ",
-      text2: "Please select the answer that best describes what you could do IN THE LAST WEEK normally:"
-    }];
+
+
+    this.setOptions().subscribe(
+      value => {
+        this.answersheet = [
+          { text: this.alternatives.alt1, scr: "../../assets/img/happy.png", value: 0, checked: false },
+          { text: this.alternatives.alt2, scr: "../../assets/img/smiley-neutral.png", value: 1, checked: false },
+          { text: this.alternatives.alt3, scr: "../../assets/img/smiley-sad.png", value: 2, checked: false },
+          { text: this.alternatives.alt4, scr: "../../assets/img/smiley-very-sad.png", value: 3, checked: false },
+        ];
+      }
+    )
+
+    this.translate.get('haq.introText1').subscribe(
+      value => this.texts[0].text1 = value
+    );
+
+    this.translate.get('haq.introText2').subscribe(
+      value => this.texts[0].text2 = value
+    );
+
+  }
+
+  setOptions(): Observable<string|Object>{
+
+    this.translate.get('haq.alt1').subscribe(
+      value => this.alternatives.alt1 = value
+    );
+
+    this.translate.get('haq.alt2').subscribe(
+      value => this.alternatives.alt2 = value
+    );
+
+    this.translate.get('haq.alt3').subscribe(
+      value => this.alternatives.alt3 = value
+    );
+
+    this.translate.get('haq.alt4').subscribe(
+      value => this.alternatives.alt4 = value
+    );
+
+    // This is for the method returning after the previous 4
+    // async tasks are complete. I did not at the moment know
+    // of a different approuch.
+    return this.translate.get('haq.alt4');
   }
 
   saveAnswerRadio(el: HAQQuestion, value: number) {
@@ -106,7 +139,9 @@ export class EHaqNewEntryPage {
     document.getElementById("page1").style.display = 'block';
     document.getElementById("page2").style.display = 'none';
     this.page = 1;
-    this.texts[0].text1 = "We would like to hear from you about how your illness affects your ability to manage in your daily life. ";
+    this.translate.get('haq.introText1').subscribe(
+      value => this.texts[0].text1 = value
+    );
     this.categoriSheet = this.pageSheet[0].categories;
     this.content.scrollToTop();
   }
@@ -134,7 +169,7 @@ export class EHaqNewEntryPage {
     if (this.filledOutPageTwoCorrectly) {
       let alert = this.alertCtrl.create({
         title: 'Submit form',
-        message: 'Do you want to this HAQ-form?',
+        message: 'Do you want to finish this HAQ-form?',
         buttons: [{ text: 'Cancel', role: 'cancel', handler: () => { } },
         {
           text: 'Submit',

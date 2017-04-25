@@ -1,11 +1,15 @@
 {
-  "appTitle" :      "Rheuma Online",
+  "appTitle" :        "Rheuma Online",
 
   "button": {
-    "ok":             "OK",
-    "cancel":         "Avbryt",
-    "register":       "Registrer",
-    "reset":          "Nullstill Passord"
+      "ok":           "OK",
+      "cancel":       "Avbryt",
+      "register":     "Registrer",
+      "reset":        "Nullstill Passord",
+      "back":         "Tilbake",
+      "finish":       "Fullfør",
+      "next":         "Neste",
+      "submit":       "Lagre"
   },
 
   "login": {
@@ -28,34 +32,37 @@
   },
 
   "menu": {
-      "title":      "Meny",
-      "home":       "Hjem",
-      "report":     "Generer Rapport",
-      "pain":       "Smertedagbok",
-      "newPain":    "Nytt innlegg",
-      "haq":        "eHAQ",
-      "newHaq":     "Ny eHAQ",
-      "das":        "eDAS",
-      "blood":      "Blodtest",
-      "guide":      "Brukerguide",
-      "settings":   "Innstillinger",
-      "logOut":     "Logg ut"
+      "title":        "Meny",
+      "home":         "Hjem",
+      "report":       "Generer Rapport",
+      "pain":         "Smertedagbok",
+      "newPain":      "Nytt innlegg",
+      "haq":          "eHAQ",
+      "newHaq":       "Ny eHAQ",
+      "das":          "eDAS",
+      "blood":        "Blodtest",
+      "guide":        "Brukerguide",
+      "settings":     "Innstillinger",
+      "logOut":       "Logg ut"
   },
 
   "pain": {
-      "pain":       "Smerte",
-      "disease":    "Sykdomsaktivitet",
-      "fatigue":    "Utmattelse",
-      "prednis":    "Dose Prednisolon (mg)",
-      "prednisNew": "Prednisolondose tatt: ",
-      "other":      "Andre medikamenter:",
-      "tender":     "Ømme ledd:",
-      "comments":   "Kommentarer:",
-      "extend":     "Utvidet rapport"
+      "pain":         "Smerte",
+      "disease":      "Sykdomsaktivitet",
+      "fatigue":      "Utmattelse",
+      "prednis":      "Dose Prednisolon (mg)",
+      "prednisNew":   "Prednisolondose tatt: ",
+      "other":        "Andre medikamenter:",
+      "tender":       "Ømme ledd:",
+      "comments":     "Kommentarer:",
+      "extend":       "Utvidet rapport"
   },
 
   "haq": {
-
+      "title":        "eHAQ Oversikt",
+      "result":       "Resultat",
+      "qHealth":      "Spørsmål om helsestatus",
+      "selDate":      "Velg dato:"
   },
 
   "home": {
