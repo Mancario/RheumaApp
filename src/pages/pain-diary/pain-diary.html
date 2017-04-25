@@ -10,7 +10,7 @@
     <button id="menuToggle" ion-button menuToggle>
       <ion-icon color="dark" name="menu"></ion-icon>
     </button>
-    <ion-title>Pain Diary</ion-title>
+    <ion-title>{{ 'menu.pain' | translate }}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -40,7 +40,7 @@
           <ion-list>
 
             <div class="labelcontainer">
-              <ion-label>Pain</ion-label>
+              <ion-label>{{ 'pain.pain' | translate }}</ion-label>
               <button class="painButton" ion-button small color="primary">{{p.pain}}</button>
             </div>
             <ion-item>
@@ -48,7 +48,7 @@
             </ion-item>
 
             <div class="labelcontainer">
-              <ion-label>Disease Activity</ion-label>
+              <ion-label>{{ 'pain.disease' | translate }}</ion-label>
               <button class="diseaseButton" ion-button small color="primary">{{p.diseaseActivity}}</button>
             </div>
             <ion-item>
@@ -56,7 +56,7 @@
             </ion-item>
 
             <div class="labelcontainer">
-              <ion-label>Fatigue</ion-label>
+              <ion-label>{{ 'pain.fatigue' | translate }}</ion-label>
               <button class="fatigueButton" ion-button small color="primary">{{p.fatigue}}</button>
             </div>
             <ion-item>
@@ -65,7 +65,7 @@
             </ion-item>
 
             <div class="labelcontainer">
-              <ion-label>Prednisolone taken (mg) </ion-label>
+              <ion-label>{{ 'pain.prednis' | translate }}</ion-label>
               <button class="prednisoloneButton" ion-button small color="primary">
                 {{p.prednisoloneDose}}
               </button>
@@ -73,17 +73,17 @@
 
             <div id={{p.date}} class="extraInfo" style="display: none">
               <ion-item class="otherMeds">
-                <ion-label stacked>Other medications:</ion-label>
+                <ion-label stacked>{{ 'pain.other' | translate }}</ion-label>
                 <ion-textarea class="drugsValue" disabled type="text" [(ngModel)]="p.additionalDrugs"></ion-textarea>
               </ion-item>
 
               <ion-item class="tenderJoints">
-                <ion-label stacked>Painful joints:</ion-label>
+                <ion-label stacked>{{ 'pain.tender' | translate }}</ion-label>
                 <ion-textarea class="tenderValue" disabled type="text" [(ngModel)]="p.tenderJoints"></ion-textarea>
               </ion-item>
 
               <ion-item class="comments">
-                <ion-label stacked>Other remarks:</ion-label>
+                <ion-label stacked>{{ 'pain.comments' | translate }}</ion-label>
                 <ion-textarea class="commentsValue" disabled [(ngModel)]="p.comments"></ion-textarea>
               </ion-item>
             </div>
@@ -92,7 +92,7 @@
 
           <div class="line"></div>
           <ion-item>
-            <ion-label>Extend report</ion-label>
+            <ion-label>{{ 'pain.extend' | translate }}</ion-label>
             <ion-toggle class="extendToggle" checked="false" (click)="extendEntry(p)" [(ngModel)]="p.toggleExtend"></ion-toggle>
           </ion-item>
 

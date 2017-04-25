@@ -17,7 +17,9 @@
         "home":       "Home",
         "report":     "Generate Report",
         "pain":       "Pain Diary",
+        "newPain":    "New Entry",
         "haq":        "eHAQ",
+        "newHaq":     "New eHAQ",
         "das":        "eDAS",
         "blood":      "Blood Test",
         "guide":      "User Guide",
@@ -34,10 +36,40 @@
     },
 
     "pain": {
-
+        "pain":       "Pain",
+        "disease":    "Disease activity",
+        "fatigue":    "Fatigue",
+        "prednis":    "Prednisolone taken (mg)",
+        "prednisNew": "Prednisolone taken: ",
+        "other":      "Other medications:",
+        "tender":     "Tender joints:",
+        "comments":   "Other remarks:",
+        "extend":     "Extend report",
+        "ok":         "OK",
+        "cancel":     "Cancel"
     },
 
     "haq": {
+
+    },
+
+    "forgotten": {
+
+    },
+
+    "register": {
+
+    },
+
+    "blood": {
+
+    },
+
+    "guide": {
+
+    },
+
+    "settings": {
 
     }
 }

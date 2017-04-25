@@ -47,8 +47,10 @@ export class MyApp {
     this.initializeApp();
 
     // this language will be used as a fallback when a translation isn't found in the current language
-    translate.setDefaultLang('no');
-    //translate.use('no');
+    translate.setDefaultLang('en');
+
+    // This is the language the app will use
+    translate.use('no');
 
     this.setTitles().subscribe(
       value =>{

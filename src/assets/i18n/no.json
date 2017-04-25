@@ -16,11 +16,59 @@
       "home":       "Hjem",
       "report":     "Generer Rapport",
       "pain":       "Smertedagbok",
+      "newPain":    "Nytt innlegg",
       "haq":        "eHAQ",
+      "newHaq":     "Ny eHAQ",
       "das":        "eDAS",
       "blood":      "Blodtest",
       "guide":      "Brukerguide",
       "settings":   "Innstillinger",
       "logOut":     "Logg ut"
+  },
+
+  "home": {
+
+  },
+
+  "report": {
+
+  },
+
+  "pain": {
+      "pain":       "Smerte",
+      "disease":    "Sykdomsaktivitet",
+      "fatigue":    "Utmattelse",
+      "prednis":    "Dose Prednisolon (mg)",
+      "prednisNew": "Prednisolondose tatt: ",
+      "other":      "Andre medikamenter:",
+      "tender":     "Ømme ledd:",
+      "comments":   "Kommentarer:",
+      "extend":     "Utvidet rapport",
+      "ok":         "OK",
+      "cancel":     "Avbryt"
+  },
+
+  "haq": {
+
+  },
+
+  "forgotten": {
+
+  },
+
+  "register": {
+
+  },
+
+  "blood": {
+
+  },
+
+  "guide": {
+
+  },
+
+  "settings": {
+
   }
 }
