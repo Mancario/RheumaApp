@@ -24,10 +24,13 @@ export class EHaqNewEntryPage {
 
   haqEntry: HAQEntry = { date: new Date().toISOString().substr(0, 10), answers: [] };
   answer: any;
+  private date = {
+    today: new Date().toISOString().substr(0, 10)
+  }
   categoriSheet: HAQCategory[];
   pageSheet: HAQPage[];
   page: number;
-  alternatives= {alt1:String, alt2:String, alt3:String, alt4:String}
+  alternatives = { alt1: String, alt2: String, alt3: String, alt4: String }
   texts: Array<any> = [{ text1: String, text2: String }];
   answersheet: Array<any> = [{ text: String, scr: String, value: Number, checked: Boolean }];
   @ViewChild(Content) content: Content;
@@ -38,8 +41,11 @@ export class EHaqNewEntryPage {
     private translate: TranslateService) {
     this.getSheets();
     this.page = 1;
-    this.form.newList();
+    this.haqEntry.answers = form.getEditList();
+    if (this.haqEntry.answers == null)
+      this.haqEntry.answers = [];
     this.answer = form.getMappingList();
+    
   }
 
   ionViewCanEnter(): boolean {
@@ -47,10 +53,15 @@ export class EHaqNewEntryPage {
   }
 
   ionViewDidLoad() {
+    if (this.form.isEdit()) {
+      document.getElementById("dateButton").setAttribute("disabled", "true");
+      this.haqEntry.date = this.form.getDate();
+    }
     console.log('ionViewDidLoad EHaqNewEntryPage');
   }
   ionViewDidLeave() {
     this.form.newList();
+    this.form.exit();
     this.answer = this.form.getMappingList();
   }
 
@@ -59,7 +70,6 @@ export class EHaqNewEntryPage {
       this.pageSheet = element.pages;
       this.categoriSheet = element.pages[0].categories;
     });
-
 
     this.setOptions().subscribe(
       value => {
@@ -82,7 +92,7 @@ export class EHaqNewEntryPage {
 
   }
 
-  setOptions(): Observable<string|Object>{
+  setOptions(): Observable<string | Object> {
 
     this.translate.get('haq.alt1').subscribe(
       value => this.alternatives.alt1 = value
@@ -156,7 +166,6 @@ export class EHaqNewEntryPage {
       this.content.scrollToTop();
     }
     else {
-
       this.translate.get('haq.alertError').subscribe(
         errorTitle => {
           this.translate.get('haq.errorMessage').subscribe(
@@ -164,9 +173,9 @@ export class EHaqNewEntryPage {
               this.translate.get('button.ok').subscribe(
                 okBtn => {
                   let alert = this.alertCtrl.create({
-                  title: errorTitle,
-                  message: errorMessage,
-                  buttons: [{text: okBtn, handler: () => { }}],
+                    title: errorTitle,
+                    message: errorMessage,
+                    buttons: [{ text: okBtn, handler: () => { } }],
                   });
                   alert.present();
                 }
@@ -179,8 +188,7 @@ export class EHaqNewEntryPage {
   }
 
   finish() {
-    if (this.filledOutPageTwoCorrectly) {
-
+    if (this.filledOutPageTwoCorrectly()) {
       // NEW
       this.translate.get('haq.alertSubmit').subscribe(
         submitTitle => {
@@ -191,30 +199,30 @@ export class EHaqNewEntryPage {
                   this.translate.get('button.submit').subscribe(
                     submitBtn => {
                       let alert = this.alertCtrl.create({
-                      title: submitTitle,
-                      message: submitMessage,
-                      buttons: [
-                        {
-                          text: cancelBtn,
-                          role: 'cancel',
-                          handler: () => {
-                            console.log('Cancel clicked');
-                          }
-                        },
-                        {
-                          text: submitBtn,
-                          handler: () => {
+                        title: submitTitle,
+                        message: submitMessage,
+                        buttons: [
+                          {
+                            text: cancelBtn,
+                            role: 'cancel',
+                            handler: () => {
+                              console.log('Cancel clicked');
+                            }
+                          },
+                          {
+                            text: submitBtn,
+                            handler: () => {
 
-                            this.haqService.saveEntry(this.haqEntry).subscribe(
-                              res => {
-                                if (res) {
-                                  this.navCtrl.setRoot(EHAQPage)
-                                    .catch(() => this.navCtrl.setRoot(LogoutPage))
-                                }
-                              },
-                              err => console.log("Error saving entry")
-                            );;
-                          }
+                              this.haqService.saveEntry(this.haqEntry).subscribe(
+                                res => {
+                                  if (res) {
+                                    this.navCtrl.setRoot(EHAQPage)
+                                      .catch(() => this.navCtrl.setRoot(LogoutPage))
+                                  }
+                                },
+                                err => console.log("Error saving entry")
+                              );;
+                            }
                           }
                         ]
                       });
@@ -228,17 +236,105 @@ export class EHaqNewEntryPage {
         }
       );
     }
+    else {
+      this.translate.get('haq.alertError').subscribe(
+        errorTitle => {
+          this.translate.get('haq.errorMessage').subscribe(
+            errorMessage => {
+              this.translate.get('button.ok').subscribe(
+                okBtn => {
+                  let alert = this.alertCtrl.create({
+                    title: errorTitle,
+                    message: errorMessage,
+                    buttons: [{ text: okBtn, handler: () => { } }],
+                  });
+                  alert.present();
+                }
+              );
+            }
+          );
+        }
+      );
+    }
   }
 
   cancel() {
-    this.navCtrl.setRoot(EHAQPage).catch(() => this.navCtrl.setRoot(LogoutPage))
+    // NEW
+    this.translate.get('haq.cancelSubmit').subscribe(
+      submitTitle => {
+        this.translate.get('haq.cancelMess').subscribe(
+          submitMessage => {
+            this.translate.get('button.no').subscribe(
+              noBtn => {
+                this.translate.get('button.yes').subscribe(
+                  yesBtn => {
+                    let alert = this.alertCtrl.create({
+                      title: submitTitle,
+                      message: submitMessage,
+                      buttons: [
+                        {
+                          text: noBtn,
+                          role: 'cancel',
+                          handler: () => {
+                            console.log('Cancel clicked');
+                          }
+                        },
+                        {
+                          text: yesBtn,
+                          handler: () => {
+                            this.navCtrl.setRoot(EHAQPage).catch(() => this.navCtrl.setRoot(LogoutPage))
+                          }
+                        }
+                      ]
+                    });
+                    alert.present();
+                  }
+                );
+              }
+            );
+          }
+        );
+      }
+    );
   }
 
   private filledOutPageOneCorrectly(): boolean {
-    return true;
-  }
-  private filledOutPageTwoCorrectly(): boolean {
-    return true;
+    var index = 0;
+    var filledOut = true;
+    this.categoriSheet.forEach(category => {
+      category.difficulties.forEach(qestion => {
+        this.haqEntry.answers.forEach(answers => {
+          if (answers.questionId == qestion.questionId) {
+            index++;
+
+          }
+        });
+      });
+      if (index == 0) {
+        filledOut = false;
+      }
+      index = 0;
+    });
+    return filledOut;
   }
 
+  private filledOutPageTwoCorrectly(): boolean {
+    var index = 0;
+    var filledOut = true;
+    this.categoriSheet.forEach(category => {
+      category.difficulties.forEach(qestion => {
+        this.haqEntry.answers.forEach(answers => {
+          if (answers.questionId == qestion.questionId) {
+            index++;
+
+          }
+        });
+      });
+      if (index == 0) {
+        filledOut = false;
+      }
+      index = 0;
+    });
+    return filledOut;
+  }
 }

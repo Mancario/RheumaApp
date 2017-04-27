@@ -14,7 +14,7 @@
 
 <ion-content padding>
   <ion-list>
-     <div *ngFor="let p of diaries">
+     <div *ngFor="let p of results">
     <ion-card class="card" >
       <ion-card-header class="cardheader">
         <div class="header-left-button">
@@ -23,24 +23,23 @@
             {{p.date}}
           </button>
         </div>
-        <div class="header-right-button">
-          <!--
+        <div class="header-right-button">         
           <button ion-button large clear color="dark" class="headerbutton">
-            <ion-icon ios="md-create" md="md-create"> </ion-icon>
-          </button> -->
+            <ion-icon ios="md-create" md="md-create" (click)="editEntry(p)"> </ion-icon>
+          </button> 
           <button ion-button large clear color="dark" class="headerbutton">
-            <ion-icon name="trash"> </ion-icon>
+            <ion-icon name="trash" (click) = "deleteEntry(p)"> </ion-icon>
           </button>
         </div>
       </ion-card-header>
       <ion-card-content>
         <div class="labelcontainer">
           <ion-label>{{ 'haq.result' | translate }}</ion-label>
-          <button ion-button small color="primary">{{p.value}} </button>
+          <button ion-button small color="primary">{{ (p.score/10).toFixed(2) }} </button>
         </div>
         <ion-item>
           <ion-range max="30" mode="wp" color="primary"
-          pin="false" snaps="true" disabled="true" [(ngModel)]="p.painvalue" ></ion-range>
+          pin="false" snaps="true" disabled="true" [(ngModel)]="p.score" ></ion-range>
         </ion-item>
       </ion-card-content>
     </ion-card>

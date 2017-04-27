@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { EHaqNewEntryPage } from '../e-haq-new-entry/e-haq-new-entry';
 import { AuthService } from "../../security/auth.service";
 import { LogoutPage } from '../logout/logout';
@@ -7,6 +7,9 @@ import { Observable } from 'rxjs/Observable';
 import { Http, Response, URLSearchParams, Headers } from '@angular/http';
 import { API_URL } from "../../environments/environment";
 import { HAQEntry, HAQService, HAQEntryList, HAQQuery } from "./e-haq-service"
+import { TranslateService } from '@ngx-translate/core';
+import { HaqAnswerForm } from "../e-haq-new-entry/e-haq-new-entry-form"
+
 /*
   Generated class for the EHAQ page.
 
@@ -18,16 +21,18 @@ import { HAQEntry, HAQService, HAQEntryList, HAQQuery } from "./e-haq-service"
   templateUrl: 'e-haq.html'
 })
 export class EHAQPage {
-  private query: HAQQuery;
+  private query: HAQQuery = { offset: 0, count: 10 };
   eHAQdiaries: Observable<HAQEntryList>;
+  results: HAQEntry[];  
 
   diaries: Array<{ date: string, value: string, painvalue: number }>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private authService: AuthService, private _http: Http, private _haqService: HAQService) {
+    private authService: AuthService, private _http: Http, private translate: TranslateService,
+    private _haqService: HAQService,  private alertCtrl: AlertController, private form: HaqAnswerForm) {
     this.getDiary();
 
-    this.diaries = []; 
+    this.diaries = [];
   }
 
   ionViewCanEnter(): boolean {
@@ -44,12 +49,70 @@ export class EHAQPage {
   }
 
   getDiary() {
-    this.eHAQdiaries = this._haqService.listAllEntries();
+    this.eHAQdiaries = this._haqService.listEntries(this.query);
     this.eHAQdiaries.forEach(element => {
-      element.results.forEach(e => {
-         this.diaries.push({ date: '' + e.date, value: ''+ e.score, painvalue: (e.score*10)});
-      
+      this.results = element.results; 
+      this.results.forEach(entry => {
+        entry.score = entry.score *10; 
+      }); 
+          
     });
-    });    
+  }
+
+   deleteEntry(entry: HAQEntry){
+    console.log("Called deleteEntry step 1");
+
+    this.translate.get('pain.confirmDel').subscribe(
+      deleteTitle => {
+        this.translate.get('pain.deleteMess').subscribe(
+          deleteMessage => {
+            this.translate.get('button.cancel').subscribe(
+              cancelBtn => {
+                this.translate.get('button.delete').subscribe(
+                  deleteBtn => {
+                    let alert = this.alertCtrl.create({
+                    title: deleteTitle,
+                    message: deleteMessage + entry.date + "?",
+                    buttons: [
+                      {
+                        text: cancelBtn,
+                        role: 'cancel',
+                        handler: () => {
+                          console.log('Cancel clicked');
+                        }
+                      },
+                      {
+                        text: deleteBtn,
+                        handler: () => {
+                          console.log('Delete clicked');
+                          this._haqService.deleteEntry(entry)
+                            .subscribe(
+                              res =>{
+                                if(res){
+                                  this.navCtrl.setRoot(this.navCtrl.getActive().component);
+                                }else{
+
+                                }
+                              },
+                              err => console.log("Error deleting entry")
+                            );
+                          }
+                        }
+                      ]
+                    });
+                    alert.present();
+                  }
+                );
+              }
+            );
+          }
+        );
+      }
+    );
+  }
+  editEntry(entry: HAQEntry){
+    this.form.setList(entry.answers, entry.date); 
+    this.navCtrl.setRoot(EHaqNewEntryPage)
+      .catch(() => this.navCtrl.setRoot(LogoutPage)) 
   }
 }
