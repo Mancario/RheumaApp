@@ -79,7 +79,7 @@ export class HttpMock{
 
   public post(foo, bar, baz): any{
     return {
-      "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzMDY0IiwiaWF0IjoxNDkxNTcyMDQ0LCJleHAiOjE0OTIxNzY4NDR9.ljE5Q26V0NCHlPSzFGIDeuKNWE4rwvf7JxmbMZCJbIg",
+      "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzMDY0IiwiaWF0IjoxNDkzMjA5NzEwLCJleHAiOjE0OTM4MTQ1MTB9.wtzhoZFODHrHnPetFxv_-16__oEIyIlFGAcb20WM7wU",
       "success": true
     };
   }
@@ -90,7 +90,7 @@ export class AuthServiceMock{
     let user = {
       username: "HVL",
       uid: "3064",
-      authToken: "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzMDY0IiwiaWF0IjoxNDkxNTcyMDQ0LCJleHAiOjE0OTIxNzY4NDR9.ljE5Q26V0NCHlPSzFGIDeuKNWE4rwvf7JxmbMZCJbIg",
+      authToken: "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzMDY0IiwiaWF0IjoxNDkzMjA5NzEwLCJleHAiOjE0OTM4MTQ1MTB9.wtzhoZFODHrHnPetFxv_-16__oEIyIlFGAcb20WM7wU",
     }
     return user;
   }

@@ -6,6 +6,7 @@ import { HomePage } from '../pages/home/home';
 import { AuthService } from '../security/auth.service';
 import { LocalStorageService } from '../security/local-storage.service';
 import { StoreCredentialsService } from '../security/store-credentials.service';
+import { TranslateModule } from '@ngx-translate/core';
 import {} from 'jasmine';
 
 
@@ -27,7 +28,8 @@ describe('Component: Root Component', () => {
             ],
 
             imports: [
-                IonicModule.forRoot(MyApp)
+                IonicModule.forRoot(MyApp),
+                TranslateModule.forRoot()
             ]
 
         }).compileComponents();

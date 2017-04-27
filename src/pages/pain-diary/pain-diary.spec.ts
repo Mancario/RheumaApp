@@ -8,6 +8,8 @@ import { AuthService } from "../../security/auth.service";
 import { DiaryService } from './pain-diary-service';
 import { MyApp } from '../../app/app.component';
 import { PainDiaryPage } from './pain-diary';
+import { TranslateModule } from '@ngx-translate/core';
+
 
 let comp: PainDiaryPage;
 let fixture: ComponentFixture<PainDiaryPage>;
@@ -43,6 +45,7 @@ describe('Page: Pain Diary Page', () => {
 
             imports: [
                 IonicModule.forRoot(MyApp),
+                TranslateModule.forRoot()
             ]
 
         }).compileComponents();

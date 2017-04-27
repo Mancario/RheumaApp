@@ -10,6 +10,8 @@ import { StoreCredentialsService } from '../../security/store-credentials.servic
 import { MyApp } from '../../app/app.component';
 import { LoginPage } from './login';
 import { HomePage } from '../home/home';
+import { TranslateModule } from '@ngx-translate/core';
+
 
 let comp: LoginPage;
 let fixture: ComponentFixture<LoginPage>;
@@ -35,6 +37,7 @@ describe('Page: Login Page', () => {
 
             imports: [
                 IonicModule.forRoot(MyApp),
+                TranslateModule.forRoot()
             ]
 
         }).compileComponents();

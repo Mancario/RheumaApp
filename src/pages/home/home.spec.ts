@@ -11,6 +11,8 @@ import { DebugElement } from '@angular/core';
 import { LocalStorageService } from '../../security/local-storage.service';
 import { StoreCredentialsService } from '../../security/store-credentials.service';
 import { NavParamsMock, AuthServiceMock } from '../../mocks.ts';
+import { TranslateModule } from '@ngx-translate/core';
+
 let comp: HomePage;
 let fixture: ComponentFixture<HomePage>;
 let navCtrl: NavController;
@@ -19,8 +21,8 @@ let componentLogin: LoginPage;
 let componentHome: HomePage;
 
 /*
-    To run the tests for this class, you need to comment out the two canvas in home.html. 
-    The tests can not define anything inside a canvas, where the graphs are, and will therefore fail. 
+    To run the tests for this class, you need to comment out the two canvas in home.html.
+    The tests can not define anything inside a canvas, where the graphs are, and will therefore fail.
  */
 
 describe('Page: Home/dashboard page', function () {
@@ -54,7 +56,7 @@ describe('Page: Home/dashboard page', function () {
         { data: [5, 6, 2, null, 2, 3, 3, 5], label: 'fatigue' }];
 
     var stringlist_outOfDate = 'Date,Schmerz,Krankheitsaktivität,Müdigkeit,HAQ,\n2017-01-24,,,,1.86\n2016-04-06,3,2,5,,\n2016-04-07,4,3,6,,\n2016-04-08,5,4,2,1.86,\n2016-04-09,5,4,2,,\n2016-04-10,3,2,2,,\n2016-04-11,4,0,3,,\n2016-04-12,5,1,3,2.00,\n2016-04-13,7,1,5,,'.split('\n');
-    
+
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [MyApp, HomePage],
@@ -65,6 +67,7 @@ describe('Page: Home/dashboard page', function () {
             ],
             imports: [
                 IonicModule.forRoot(MyApp),
+                TranslateModule.forRoot()
             ]
         }).compileComponents();
     }));
@@ -107,11 +110,6 @@ describe('Page: Home/dashboard page', function () {
         expect(comp.lineChartData1[1].data.length == 17).toBeTruthy();
         expect(comp.lineChartData1[2].data.length == 17).toBeTruthy();
 
-        //input labels should match mocklabels
-        expect(comp.lineChartData1[0].label).toEqual(lineChartDataPain_long[0].label);
-        expect(comp.lineChartData1[1].label).toEqual(lineChartDataPain_long[1].label);
-        expect(comp.lineChartData1[2].label).toEqual(lineChartDataPain_long[2].label);
-        expect(comp.lineChartData2[0].label).toEqual(lineChartDataHAQ_long[0].label);
 
     });
 
@@ -129,11 +127,6 @@ describe('Page: Home/dashboard page', function () {
         expect(comp.lineChartData1[1].data.length == 8).toBeTruthy();
         expect(comp.lineChartData1[2].data.length == 8).toBeTruthy();
 
-        //input labels should match mocklabels
-        expect(comp.lineChartData1[0].label).toEqual(lineChartDataPain_short[0].label);
-        expect(comp.lineChartData1[1].label).toEqual(lineChartDataPain_short[1].label);
-        expect(comp.lineChartData1[2].label).toEqual(lineChartDataPain_short[2].label);
-        expect(comp.lineChartData2[0].label).toEqual(lineChartDataHAQ_short[0].label);
 
     });
 
@@ -151,10 +144,6 @@ describe('Page: Home/dashboard page', function () {
         expect(comp.lineChartData1[1].data.length == 8).toBeTruthy();
         expect(comp.lineChartData1[2].data.length == 8).toBeTruthy();
 
-        //input labels should match mocklabels
-        expect(comp.lineChartData1[0].label).toEqual(lineChartDataPain_mix[0].label);
-        expect(comp.lineChartData1[1].label).toEqual(lineChartDataPain_mix[1].label);
-        expect(comp.lineChartData1[2].label).toEqual(lineChartDataPain_mix[2].label);
     });
 
     it('creates spaces in graph labels if the list contains >= 10 dates', function () {
@@ -205,4 +194,3 @@ describe('Page: Home/dashboard page', function () {
         expect(comp.lineChartData2[0].data.length == 0).toBeTruthy();
     });
 });
-

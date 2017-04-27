@@ -150,6 +150,10 @@ describe('Pain Diary:', function() {
         length1 = items.length;
       });
 
+      let date = element.all(by.className("dateValue")).get(0);
+
+
+
       button = element.all(by.className("deleteButton")).get(0);
       button.click();
 

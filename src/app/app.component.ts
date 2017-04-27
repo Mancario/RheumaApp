@@ -50,7 +50,7 @@ export class MyApp {
     translate.setDefaultLang('en');
 
     // This is the language the app will use
-    translate.use('no');
+    translate.use('en');
 
     this.setTitles().subscribe(
       value =>{
