@@ -97,6 +97,7 @@ export class AuthService {
         if (credentials) {
           this._storeCredentialsService.store(credentials);
         } else {
+/*
           let usr = "user";
           let pwd = "pwd";
 
@@ -105,6 +106,9 @@ export class AuthService {
               pwd,
           });
           this._storeCredentialsService.store(mockCredentials);
+          */
+          this._storeCredentialsService.store(null);
+
         }
     }
 

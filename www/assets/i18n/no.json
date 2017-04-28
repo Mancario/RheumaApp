@@ -59,7 +59,7 @@
       "comments":     "Kommentarer:",
       "extend":       "Utvidet rapport",
       "confirmDel":   "Bekreft sletting",
-      "deleteMess":   "Vil du slette smerteinnlegg for dato: ",
+      "deleteMess":   "Vil du slette innlegg for dato: ",
       "confirmOver":  "Bekreft overskriving",
       "overrideMess": "Vil du overskrive eksisterende innlegg for dato: "
   },

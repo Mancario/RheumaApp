@@ -74,6 +74,8 @@ describe('Component: AuthService', () => {
 
       authService.logout();
       retrievedCreds = storeCredentialsService.retrieve();
+
+      // Expect credentials to be default credentials in store
       expect(retrievedCreds).toEqual('null');
 
     });
