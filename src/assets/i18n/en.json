@@ -11,7 +11,9 @@
       "next":         "Next",
       "submit":       "Submit",
       "override":     "Override",
-      "delete":       "Delete"
+      "delete":       "Delete",
+      "yes":          "Yes",
+      "no":           "No"
   },
 
   "login": {
@@ -80,7 +82,9 @@
       "alertError":   "Error",
       "errorMessage": "You need to fill out every question before you can move on to the next page..",
       "alertSubmit":  "Submit form",
-      "submitMess":   "Do you want to finish this HAQ-form?"
+      "submitMess":   "Do you want to finish this HAQ-form?",
+      "cancelSubmit": "Confirm cancel",
+      "cancelMess":   "Do you want to cancel your HAQ?"
   },
 
   "home": {
