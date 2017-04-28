@@ -57,7 +57,7 @@ export class NewEntryPage {
   cancel(){
     this.diaryService.setDiaryEntryToEdit(null);
     this.navCtrl.setRoot(PainDiaryPage)
-      .catch(() => this.navCtrl.setRoot(LogoutPage))
+      //.catch(() => this.navCtrl.setRoot(LogoutPage))
   }
 
   submit(){
@@ -171,6 +171,22 @@ export class NewEntryPage {
     let el = document.getElementById("dateButton");
     el.setAttribute("disabled", "true");
 
+  }
+
+  getEntry(): DiaryEntry{
+    let entry = {
+      date: this.dateChosen,
+      pain: this.painValue,
+      diseaseActivity: this.diseaseValue,
+      fatigue: this.fatigueValue,
+      prednisoloneDose: this.prednisoloneDose,
+      additionalDrugs: this.additionalDrugs,
+      tenderJoints: this.tenderJoints,
+      comments: this.comments,
+      deleted: false
+    }
+
+    return entry;
   }
 
 }

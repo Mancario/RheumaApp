@@ -8,6 +8,7 @@ import { AuthService } from "../../security/auth.service";
 import { DiaryService } from '../pain-diary/pain-diary-service';
 import { MyApp } from '../../app/app.component';
 import { NewEntryPage } from './new-entry';
+import { PainDiaryPage } from '../pain-diary/pain-diary';
 import { TranslateModule } from '@ngx-translate/core';
 
 
@@ -75,6 +76,29 @@ describe('Page: New Pain Entry Page', () => {
         expect(comp).toBeDefined();
     });
 
+
+    it('populates entry correctly', () => {
+        comp.populateEntry(testEntry);
+        let entry = comp.getEntry();
+
+        expect(entry.date).toEqual(testEntry.date);
+        expect(entry.pain).toEqual(testEntry.pain);
+        expect(entry.diseaseActivity).toEqual(testEntry.diseaseActivity);
+        expect(entry.fatigue).toEqual(testEntry.fatigue);
+        expect(entry.prednisoloneDose).toEqual(testEntry.prednisoloneDose);
+        expect(entry.additionalDrugs).toEqual(testEntry.additionalDrugs);
+        expect(entry.tenderJoints).toEqual(testEntry.tenderJoints);
+        expect(entry.comments).toEqual(testEntry.comments);
+        expect(entry.deleted).toEqual(testEntry.deleted);
+
+    });
+
+    /*  The rest of the function use the DiaryService directly, hence it
+        uses the database directly. We have not found a way to mock this
+        to give a satisfiable result. Therefore the testcases that include
+        these sections of code has been made as an e2e-test.
+
+    */
 
 
 });
