@@ -18,7 +18,7 @@
           <b class="text"> {{ 'haq.selDate' | translate }} </b>
           <button id="dateButton" class="col-md-4" ion-button clear icon-right color="dark" class="headerbutton">
             <ion-icon name="calendar"></ion-icon>
-            <ion-datetime id="dateInput" #dateInput displayFormat="DD.MM.YYYY" [(ngModel)]="haqEntry.date"></ion-datetime>
+            <ion-datetime id="dateInput" #dateInput displayFormat="DD.MM.YYYY" [(ngModel)]="haqEntry.date" [max]="date.today"></ion-datetime>
           </button>
         </div>
         <p class="text">
