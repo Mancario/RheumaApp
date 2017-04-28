@@ -86,6 +86,10 @@ export class HttpMock{
 }
 
 export class AuthServiceMock{
+  public isLoggedIn(){
+    return !!this.loggedInUser();
+  }
+
   public loggedInUser(){
     let user = {
       username: "HVL",
@@ -94,4 +98,66 @@ export class AuthServiceMock{
     }
     return user;
   }
+}
+
+export class DiaryServiceMock{
+  private diaryEntryToEdit;
+
+
+  public hasDiaryEntryToEdit(): any{
+    return this.diaryEntryToEdit;
+  }
+
+  public setDiaryEntryToEdit(entry){
+    this.diaryEntryToEdit = entry;
+  }
+
+  public listEntries(): any{
+      let res = {
+        "offset": 0,
+        "count": 3,
+        "totalCount": 45,
+        "results": [
+          {
+            "patientId": "3064",
+            "date": "2017-04-25",
+            "pain": 6,
+            "diseaseActivity": 5,
+            "fatigue": 4,
+            "prednisoloneDose": null,
+            "additionalDrugs": null,
+            "tenderJoints": null,
+            "comments": null,
+            "deleted": false
+          },
+          {
+            "patientId": "3064",
+            "date": "2017-04-23",
+            "pain": 5,
+            "diseaseActivity": 7,
+            "fatigue": 6,
+            "prednisoloneDose": 2,
+            "additionalDrugs": null,
+            "tenderJoints": null,
+            "comments": null,
+            "deleted": false
+          },
+          {
+            "patientId": "3064",
+            "date": "2017-04-22",
+            "pain": 6,
+            "diseaseActivity": 8,
+            "fatigue": 7,
+            "prednisoloneDose": 2,
+            "additionalDrugs": null,
+            "tenderJoints": null,
+            "comments": null,
+            "deleted": false
+          }
+        ]
+      }
+
+      return res;
+  }
+
 }

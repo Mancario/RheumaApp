@@ -50,7 +50,7 @@ describe('Pain Diary:', function() {
       browser.sleep(500);
       button = element.all(by.className('menubutton')).get(2);
       button.click();
-      browser.sleep(700);
+      browser.sleep(1000);
 
     });
 
@@ -60,12 +60,9 @@ describe('Pain Diary:', function() {
 
 
     it('should be able to create new task correctly', function() {
-      let length1, length2;
+      let date1, date2;
 
-      // Check number of inputs first
-      element.all(by.className("card")).then(function(items) {
-        length1 = items.length;
-      });
+      date1 = element.all(by.className("dateValue")).get(0).getAttribute("value");
 
       button = element(by.id('addButton'));
       button.click();
@@ -83,14 +80,13 @@ describe('Pain Diary:', function() {
       // Should navigate back to diary
       button = element(by.id("ok"));
       button.click();
-      browser.sleep(700);
+      browser.sleep(1000);
       expect(browser.getTitle()).toEqual(diaryTitle);
 
-      // Check new number of inputs
-      element.all(by.className("card")).then(function(items) {
-        length2 = items.length;
-        expect(length2).toBe(length1 + 1);
-      });
+      date2 = element.all(by.className("dateValue")).get(0).getAttribute("value");
+
+      expect(date1).not.toEqual(date2);
+      expect(date2).toEqual(new Date().toISOString().substr(0, 10));
 
     });
 
@@ -122,37 +118,57 @@ describe('Pain Diary:', function() {
 
     });
 
+    it('should show override alert when overriding entry', function() {
+
+      button = element(by.id('addButton'));
+      button.click();
+      browser.sleep(700);
+      expect(browser.getTitle()).toEqual(painEntryTitle);
+
+      // Adding values
+      el = element(by.id("painInput"));
+      el.click();
+      el = element(by.id("diseaseInput"));
+      el.click();
+      el = element(by.id("fatigueInput"));
+      el.click();
+
+      // Should not navigate back to diary
+      button = element(by.id("ok"));
+      button.click();
+      browser.sleep(1000);
+      expect(browser.getTitle()).toEqual(painEntryTitle);
+
+      button = element.all(by.className("alert-button")).get(0);
+      expect(button).toBeDefined();
+
+    });
+
 
 
     it('should not delete when hitting cancel', function() {
-      let length1, length2;
-      element.all(by.className("card")).then(function(items) {
-        length1 = items.length;
-      });
+      let date1, date2;
+
+      date1 = element.all(by.className("dateValue")).get(0).getAttribute("value");
 
       button = element.all(by.className("deleteButton")).get(0);
       button.click();
 
       button = element.all(by.className("alert-button")).get(0);
-      browser.sleep(700);
+      browser.sleep(1000);
       button.click();
+      browser.sleep(1000);
 
-      element.all(by.className("card")).then(function(items){
-        length2 = items.length;
-        expect(length2).toBe(length1);
-      });
+      date2 = element.all(by.className("dateValue")).get(0).getAttribute("value");
+
+      expect(date1).toEqual(date2);
     });
 
 
     it('should delete when hitting OK', function() {
-      let length1, length2;
-      element.all(by.className("card")).then(function(items) {
-        length1 = items.length;
-      });
+      let date1, date2;
 
-      let date = element.all(by.className("dateValue")).get(0);
-
-
+      date1 = element.all(by.className("dateValue")).get(0).getAttribute("value");
 
       button = element.all(by.className("deleteButton")).get(0);
       button.click();
@@ -162,28 +178,33 @@ describe('Pain Diary:', function() {
       button.click();
       browser.sleep(1000);
 
-      element.all(by.className("card")).then(function(items){
-        length2 = items.length;
-        expect(length2).toBe(length1 - 1);
-      });
+      date2 = element.all(by.className("dateValue")).get(0).getAttribute("value");
+
+      expect(date1).not.toEqual(date2);
+
     });
-/*
+
+
     it('should extend/compress pain entry', function() {
 
       el = element.all(by.className("extraInfo")).get(0);
-      //expect(el.style.display).toEqual('none');
-
+      expect(el.isDisplayed()).toBeFalsy();
 
       button = element.all(by.className("extendToggle")).get(0);
       button.click();
       browser.sleep(700);
 
       el = element.all(by.className("extraInfo")).get(0);
-      expect(el).toBeVisible();
+      expect(el.isDisplayed()).toBeTruthy();
 
+      button.click();
+      browser.sleep(700);
 
+      el = element.all(by.className("extraInfo")).get(0);
+      expect(el.isDisplayed()).toBeFalsy();
 
     });
-*/
+
+
 
 });

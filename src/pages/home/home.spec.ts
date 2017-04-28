@@ -154,7 +154,7 @@ describe('Page: Home/dashboard page', function () {
 
     });
 
-    it(' does not creates spaces in graph labels if the list contains < 10 dates', function () {
+    it('does not creates spaces in graph labels if the list contains < 10 dates', function () {
         var date = new Date("2017-04-25");
         comp.dateLimit = date.setMonth(date.getMonth() - 3);
         comp.setGraphInfo(stringlist_short);
