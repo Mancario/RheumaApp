@@ -35,7 +35,6 @@ export class HomePage {
     this.laboratoryDate = "22.04.2017 (Suggestion)";
     this.rheumatologistDate = "20.05.2017";
     this.graph = "1"; // shows segment 1 (graph 1)
-    console.log("Inside constructor");
     var temp = new Date();
     temp.setMonth(temp.getMonth() - 3);
     this.dateLimit = temp;
@@ -142,14 +141,27 @@ export class HomePage {
 
   fixSpacesOnGraphs() {
     // haq
-    if (this.lineChartLabels2.length >= 12) {
+    if (this.lineChartLabels2.length >= 30) {
+      for (var i = 0; i < this.lineChartLabels2.length; i++) {
+        if (i % 3 == 1 || i % 3 == 2)
+          this.lineChartLabels2[i] = '';
+      }
+    }
+    else if (this.lineChartLabels2.length >= 12) {
       for (var i = 0; i < this.lineChartLabels2.length; i++) {
         if (i % 2 == 1)
           this.lineChartLabels2[i] = '';
       }
+
     }
     // Pain
-    if (this.lineChartLabels1.length >= 12) {
+    if (this.lineChartLabels1.length >= 30) {
+      for (var i = 0; i < this.lineChartLabels1.length; i++) {
+        if (i % 3 == 1 || i % 3 == 2)
+          this.lineChartLabels1[i] = '';
+      }
+    }
+    else if (this.lineChartLabels1.length >= 12) {
       for (var i = 0; i < this.lineChartLabels1.length; i++) {
         if (i % 2 == 1)
           this.lineChartLabels1[i] = '';

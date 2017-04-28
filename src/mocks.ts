@@ -79,19 +79,85 @@ export class HttpMock{
 
   public post(foo, bar, baz): any{
     return {
-      "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzMDY0IiwiaWF0IjoxNDkxNTcyMDQ0LCJleHAiOjE0OTIxNzY4NDR9.ljE5Q26V0NCHlPSzFGIDeuKNWE4rwvf7JxmbMZCJbIg",
+      "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzMDY0IiwiaWF0IjoxNDkzMjA5NzEwLCJleHAiOjE0OTM4MTQ1MTB9.wtzhoZFODHrHnPetFxv_-16__oEIyIlFGAcb20WM7wU",
       "success": true
     };
   }
 }
 
 export class AuthServiceMock{
+  public isLoggedIn(){
+    return !!this.loggedInUser();
+  }
+
   public loggedInUser(){
     let user = {
       username: "HVL",
       uid: "3064",
-      authToken: "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzMDY0IiwiaWF0IjoxNDkxNTcyMDQ0LCJleHAiOjE0OTIxNzY4NDR9.ljE5Q26V0NCHlPSzFGIDeuKNWE4rwvf7JxmbMZCJbIg",
+      authToken: "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzMDY0IiwiaWF0IjoxNDkzMjA5NzEwLCJleHAiOjE0OTM4MTQ1MTB9.wtzhoZFODHrHnPetFxv_-16__oEIyIlFGAcb20WM7wU",
     }
     return user;
   }
+}
+
+export class DiaryServiceMock{
+  private diaryEntryToEdit;
+
+
+  public hasDiaryEntryToEdit(): any{
+    return this.diaryEntryToEdit;
+  }
+
+  public setDiaryEntryToEdit(entry){
+    this.diaryEntryToEdit = entry;
+  }
+
+  public listEntries(): any{
+      let res = {
+        "offset": 0,
+        "count": 3,
+        "totalCount": 45,
+        "results": [
+          {
+            "patientId": "3064",
+            "date": "2017-04-25",
+            "pain": 6,
+            "diseaseActivity": 5,
+            "fatigue": 4,
+            "prednisoloneDose": null,
+            "additionalDrugs": null,
+            "tenderJoints": null,
+            "comments": null,
+            "deleted": false
+          },
+          {
+            "patientId": "3064",
+            "date": "2017-04-23",
+            "pain": 5,
+            "diseaseActivity": 7,
+            "fatigue": 6,
+            "prednisoloneDose": 2,
+            "additionalDrugs": null,
+            "tenderJoints": null,
+            "comments": null,
+            "deleted": false
+          },
+          {
+            "patientId": "3064",
+            "date": "2017-04-22",
+            "pain": 6,
+            "diseaseActivity": 8,
+            "fatigue": 7,
+            "prednisoloneDose": 2,
+            "additionalDrugs": null,
+            "tenderJoints": null,
+            "comments": null,
+            "deleted": false
+          }
+        ]
+      }
+
+      return res;
+  }
+
 }

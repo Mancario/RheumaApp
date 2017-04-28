@@ -48,6 +48,7 @@ const HAQ_API_URL = API_URL + "/haq";
 
 @Injectable()
 export class HAQService {
+    private diaryEntry : HAQEntry; 
     public constructor(private _http: Http, private authService: AuthService) { }
 
     public sheet(): Observable<HAQSheet> {
@@ -126,7 +127,7 @@ export class HAQService {
     public deleteEntry(entry: HAQEntry): Observable<boolean> {
         const headers: Headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        //     headers.append('Authorization', 'Bearer ' + user.authToken);
+        headers.append('Authorization', 'Bearer ' + this.authService.loggedInUser().authToken);
         const url = HAQ_API_URL + "/" + encodeURI(entry.date);
         return this._http
             .delete(url, {

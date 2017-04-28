@@ -30,7 +30,8 @@ export class PainDiaryPage {
      }
 
   ionViewCanEnter(): boolean {
-    return this.authService.isLoggedIn();
+    //return this.authService.isLoggedIn();
+    return true;
   }
 
   ionViewDidLoad() {
