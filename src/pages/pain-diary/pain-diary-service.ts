@@ -3,6 +3,7 @@ import {Http, Response, URLSearchParams, Headers} from '@angular/http';
 import {Observable}     from 'rxjs/Observable';
 import {API_URL} from '../../environments/environment';
 import { AuthService } from "../../security/auth.service";
+import { Storage } from '@ionic/storage';
 
 export interface DiaryEntry {
     date: string;
@@ -27,13 +28,18 @@ export interface DiaryQuery {
 }
 
 const DIARY_API_URL = API_URL + '/diary';
+const DIARY_STORAGE_PREFIX = "DIARY:";
+const DIARY_STORAGE_LIST = DIARY_STORAGE_PREFIX + "LIST";
 
 @Injectable()
 export class DiaryService {
     private diaryEntryToEdit : DiaryEntry;
+    private offline = true;
+
 
     public constructor(private _http: Http,
-                       private _authService: AuthService) {
+                       private _authService: AuthService,
+                       private _storage: Storage) {
     }
 
     public hasDiaryEntryToEdit(): any{
@@ -45,6 +51,11 @@ export class DiaryService {
     }
 
     public listEntries(query: DiaryQuery): Observable<DiaryEntryList> {
+        if(this.offline){
+          console.log("Offline retrieval :)")
+          return this.listEntriesOffline(query.offset || 0, query.count)
+        }
+
         const headers: Headers = new Headers();
         headers.append('Authorization', 'Bearer ' + this._authService.loggedInUser().authToken);
 
@@ -58,7 +69,63 @@ export class DiaryService {
                 search: params,
             })
             .map(res => res.json())
+            .do(entries => {
+              console.log("Hello following entries: ", entries)
+
+              this._storage.ready().then(()=>{
+                const dates = entries.results.map(r => r.date)
+                console.log("Mapped dates", dates);
+
+                this._storage.get(DIARY_STORAGE_LIST).then(list =>{
+                  list = list || [];
+                  console.log("Retrieved list:", list);
+                  list = list.concat(dates)
+
+                  list = list.filter((elem, index) => list.indexOf(elem) === index)
+                  list.sort()
+                  list.reverse()
+
+                  console.log("Concatted list", list);
+
+
+                  this._storage.set(DIARY_STORAGE_LIST, list);
+
+
+                })
+
+                entries.results.forEach(entry => this._storage.set(DIARY_STORAGE_PREFIX + entry.date, entry))
+
+              })
+
+
+            })
             .catch(this.handleError);
+    }
+
+    public listEntriesOffline(offset, count): Observable<DiaryEntryList>{
+
+      let totalCount = 0
+
+      const promise = this._storage.ready()
+        .then(() => this._storage.get(DIARY_STORAGE_LIST))
+        .then((list: any) => {
+          // list is an array of date strings
+          let dateList = <string[]>list || [];
+          console.log("Retrieved list:", dateList);
+          totalCount = list.length;
+          dateList = dateList.slice(offset, Math.min(dateList.length, offset + count))
+
+          // obtain a list of promise for each date entry
+          const all = dateList.map(date => this._storage.get(DIARY_STORAGE_PREFIX + date))
+          return Promise.all(all)
+      })
+
+      // promise is a Promise<DiaryEntry[]>
+
+      return Observable.fromPromise(promise)
+        .map(l => <DiaryEntryList>({
+          totalCount, results: l
+        }) )
     }
 
     public viewEntry(date: string): Observable<DiaryEntry> {

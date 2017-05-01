@@ -115,7 +115,6 @@ export class AuthService {
     public retrieveStoredCredentials(): void {
       let creds = this._storeCredentialsService.retrieve();
 
-      return creds;
 
     }
 
@@ -128,20 +127,21 @@ export class AuthService {
 
 
     public logInByStoredCredentials() : Observable<AuthUser>{
-      let creds = this._storeCredentialsService.retrieve();
-      console.log("Logging in by stored credentials");
-/*
-      let promise = new Promise(resolve => {
-        setTimeout(() =>{
-          resolve(this._storeCredentialsService.retrieve());
-        }, 2000);
+      let creds = this._storeCredentialsService.retrieve()
+      return Observable.fromPromise(creds)
+        .do(creds =>{
 
-      });
+          console.log("Locally stored creds: ", creds);
 
-      promise.then(value => {
-        console.log("Promise received: " + value);
-      });
-*/
+
+
+
+        })
+        .map(creds => JSON.parse(creds))
+
+
+
+
 
 /*
       this._storeCredentialsService.retrieve().then((creds) =>{
@@ -156,11 +156,11 @@ export class AuthService {
 
       //console.log("Creds received: " + creds);
 
-      if(creds){
-        console.log("Re-logging in with: " + creds);
-        return this.login(JSON.parse(creds).username, JSON.parse(creds).password);
-        //return null;
-      }
+      // if(creds){
+      //   console.log("Re-logging in with: " + creds);
+      //   return this.login(JSON.parse(creds).username, JSON.parse(creds).password);
+      //   //return null;
+      // }
 
     }
 
