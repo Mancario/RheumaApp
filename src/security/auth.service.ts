@@ -26,7 +26,7 @@ export class AuthService {
     public constructor(private _localStorageService: LocalStorageService,
                        private _storeCredentialsService: StoreCredentialsService,
                        private _http: Http) {
-        //setInterval(() => this.refreshToken(), 10 * 1000);
+
     }
 
     public isLoggedIn(): boolean {
@@ -74,7 +74,9 @@ export class AuthService {
             })
             .map(res => this.convert(<LoginResult>res.json()))
             .do(user => this.storeUser(user))
-            .do(user => this.storeCredentials(credentials))
+            .do(user => {
+              if(user)this.storeCredentials(credentials)
+            })
             .do(user => this.isLoggedIn())
             .catch(this.handleError);
     }
@@ -97,25 +99,13 @@ export class AuthService {
         if (credentials) {
           this._storeCredentialsService.store(credentials);
         } else {
-/*
-          let usr = "user";
-          let pwd = "pwd";
-
-          const mockCredentials: string = JSON.stringify({
-              usr,
-              pwd,
-          });
-          this._storeCredentialsService.store(mockCredentials);
-          */
           this._storeCredentialsService.store(null);
-
         }
     }
 
     public retrieveStoredCredentials(): void {
       let creds = this._storeCredentialsService.retrieve();
 
-      return creds;
 
     }
 
@@ -128,20 +118,21 @@ export class AuthService {
 
 
     public logInByStoredCredentials() : Observable<AuthUser>{
-      let creds = this._storeCredentialsService.retrieve();
-      console.log("Logging in by stored credentials");
-/*
-      let promise = new Promise(resolve => {
-        setTimeout(() =>{
-          resolve(this._storeCredentialsService.retrieve());
-        }, 2000);
+      let creds = this._storeCredentialsService.retrieve()
+      return Observable.fromPromise(creds)
+        .do(creds =>{
 
-      });
+          console.log("Locally stored creds: ", creds);
 
-      promise.then(value => {
-        console.log("Promise received: " + value);
-      });
-*/
+
+
+
+        })
+        .map(creds => JSON.parse(creds))
+
+
+
+
 
 /*
       this._storeCredentialsService.retrieve().then((creds) =>{
@@ -156,11 +147,11 @@ export class AuthService {
 
       //console.log("Creds received: " + creds);
 
-      if(creds){
-        console.log("Re-logging in with: " + creds);
-        return this.login(JSON.parse(creds).username, JSON.parse(creds).password);
-        //return null;
-      }
+      // if(creds){
+      //   console.log("Re-logging in with: " + creds);
+      //   return this.login(JSON.parse(creds).username, JSON.parse(creds).password);
+      //   //return null;
+      // }
 
     }
 

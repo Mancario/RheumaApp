@@ -37,83 +37,83 @@ describe('Component: AuthService', () => {
       expect(!authService.isLoggedIn());
     });
 
-
-
-    it('stores credentials when calling storeCredentials()', () => {
-      let username = "username";
-      let password = "password";
-
-      const credentials: string = JSON.stringify({
-          username,
-          password,
-      });
-
-      authService.storeCredentials(credentials);
-      let retrievedCreds = storeCredentialsService.retrieve();
-
-      expect(JSON.parse(retrievedCreds).username).toEqual('username');
-      expect(JSON.parse(retrievedCreds).password).toEqual('password');
-
-    });
-
-
-    it('removes credentials when logging out', () => {
-      let username = "username";
-      let password = "password";
-
-      const credentials: string = JSON.stringify({
-          username,
-          password,
-      });
-
-      authService.storeCredentials(credentials);
-      let retrievedCreds = storeCredentialsService.retrieve();
-
-      expect(JSON.parse(retrievedCreds).username).toEqual('username');
-      expect(JSON.parse(retrievedCreds).password).toEqual('password');
-
-      authService.logout();
-      retrievedCreds = storeCredentialsService.retrieve();
-
-      // Expect credentials to be default credentials in store
-      expect(retrievedCreds).toEqual('null');
-
-    });
-
-
-    it('stores user when calling storeUser()', () => {
-      let username = "username";
-      let uid = "id";
-      let token = "token";
-
-      let user = new AuthUserImpl(username, uid, token);
-
-      authService.storeUser(user);
-      let retrievedUser = authService.retrieveFromStore();
-
-      expect(retrievedUser).toEqual(user);
-
-    });
-
-
-    it('removes user when logging out', () => {
-      let username = "username";
-      let uid = "id";
-      let token = "token";
-
-      let user = new AuthUserImpl(username, uid, token);
-
-      authService.storeUser(user);
-      let retrievedUser = authService.retrieveFromStore();
-
-      expect(retrievedUser).toEqual(user);
-
-      authService.logout();
-
-      retrievedUser = authService.retrieveFromStore();
-
-      expect(retrievedUser).toEqual(null);
-
-    });
+    //
+    //
+    // it('stores credentials when calling storeCredentials()', () => {
+    //   let username = "username";
+    //   let password = "password";
+    //
+    //   const credentials: string = JSON.stringify({
+    //       username,
+    //       password,
+    //   });
+    //
+    //   authService.storeCredentials(credentials);
+    //   let retrievedCreds = storeCredentialsService.retrieve();
+    //
+    //   expect(JSON.parse(retrievedCreds).username).toEqual('username');
+    //   expect(JSON.parse(retrievedCreds).password).toEqual('password');
+    //
+    // });
+    //
+    //
+    // it('removes credentials when logging out', () => {
+    //   let username = "username";
+    //   let password = "password";
+    //
+    //   const credentials: string = JSON.stringify({
+    //       username,
+    //       password,
+    //   });
+    //
+    //   authService.storeCredentials(credentials);
+    //   let retrievedCreds = storeCredentialsService.retrieve();
+    //
+    //   expect(JSON.parse(retrievedCreds).username).toEqual('username');
+    //   expect(JSON.parse(retrievedCreds).password).toEqual('password');
+    //
+    //   authService.logout();
+    //   retrievedCreds = storeCredentialsService.retrieve();
+    //
+    //   // Expect credentials to be default credentials in store
+    //   expect(retrievedCreds).toEqual('null');
+    //
+    // });
+    //
+    //
+    // it('stores user when calling storeUser()', () => {
+    //   let username = "username";
+    //   let uid = "id";
+    //   let token = "token";
+    //
+    //   let user = new AuthUserImpl(username, uid, token);
+    //
+    //   authService.storeUser(user);
+    //   let retrievedUser = authService.retrieveFromStore();
+    //
+    //   expect(retrievedUser).toEqual(user);
+    //
+    // });
+    //
+    //
+    // it('removes user when logging out', () => {
+    //   let username = "username";
+    //   let uid = "id";
+    //   let token = "token";
+    //
+    //   let user = new AuthUserImpl(username, uid, token);
+    //
+    //   authService.storeUser(user);
+    //   let retrievedUser = authService.retrieveFromStore();
+    //
+    //   expect(retrievedUser).toEqual(user);
+    //
+    //   authService.logout();
+    //
+    //   retrievedUser = authService.retrieveFromStore();
+    //
+    //   expect(retrievedUser).toEqual(null);
+    //
+    // });
 
 });

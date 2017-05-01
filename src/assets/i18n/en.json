@@ -13,7 +13,8 @@
       "override":     "Override",
       "delete":       "Delete",
       "yes":          "Yes",
-      "no":           "No"
+      "no":           "No",
+      "refresh":      "Refresh list"
   },
 
   "login": {
@@ -62,7 +63,7 @@
       "extend":       "Extend report",
       "confirmDel":   "Confirm delete",
       "deleteMess":   "Do you want to delete entry for date: ",
-      "confirmOver":  "Bekreft overskriving",
+      "confirmOver":  "Confirm override",
       "overrideMess": "Do you want to override existing pain entry for date: "
   },
 
@@ -82,9 +83,7 @@
       "alertError":   "Error",
       "errorMessage": "You need to fill out every question before you can move on to the next page..",
       "alertSubmit":  "Submit form",
-      "submitMess":   "Do you want to finish this HAQ-form?",
-      "cancelSubmit": "Confirm cancel",
-      "cancelMess":   "Do you want to cancel your HAQ?"
+      "submitMess":   "Do you want to finish this HAQ-form?"
   },
 
   "home": {

@@ -3,6 +3,8 @@ import {Http, Response, URLSearchParams, Headers} from '@angular/http';
 import {Observable}     from 'rxjs/Observable';
 import {API_URL} from '../../environments/environment';
 import { AuthService } from "../../security/auth.service";
+import { Storage } from '@ionic/storage';
+
 
 export interface DiaryEntry {
     date: string;
@@ -14,6 +16,7 @@ export interface DiaryEntry {
     tenderJoints: string;
     comments: string;
     deleted: boolean;
+    lastModified: number;
 }
 
 export interface DiaryEntryList {
@@ -27,13 +30,21 @@ export interface DiaryQuery {
 }
 
 const DIARY_API_URL = API_URL + '/diary';
+const DIARY_STORAGE_PREFIX = "DIARY:";
+const DIARY_STORAGE_LIST = DIARY_STORAGE_PREFIX + "LIST";
+const DIARY_STORAGE_PENDING_UPDATES = "PENDING"
 
 @Injectable()
 export class DiaryService {
     private diaryEntryToEdit : DiaryEntry;
+    private offline = true;
+
 
     public constructor(private _http: Http,
-                       private _authService: AuthService) {
+                       private _authService: AuthService,
+                       private _storage: Storage) {
+
+
     }
 
     public hasDiaryEntryToEdit(): any{
@@ -44,13 +55,13 @@ export class DiaryService {
       this.diaryEntryToEdit = entry;
     }
 
-    public listEntries(query: DiaryQuery): Observable<DiaryEntryList> {
+    public refreshAllEntries(): Observable<DiaryEntryList> {
         const headers: Headers = new Headers();
         headers.append('Authorization', 'Bearer ' + this._authService.loggedInUser().authToken);
 
         var params = new URLSearchParams();
-        params.set('offset', '' + (query.offset || 0));
-        params.set('count', '' + query.count);
+        params.set('offset', '0');
+        params.set('count', '10000');
 
         return this._http
             .get(DIARY_API_URL, {
@@ -58,8 +69,52 @@ export class DiaryService {
                 search: params,
             })
             .map(res => res.json())
+            .do(entries => {
+              console.log("Hello following entries: ", entries)
+
+              this._storage.ready().then(()=>{
+                const dates = entries.results.map(r => r.date)
+                console.log("Mapped dates", dates);
+
+                this._storage.set(DIARY_STORAGE_LIST, dates)
+
+                entries.results.forEach(entry => this._storage.set(DIARY_STORAGE_PREFIX + entry.date, entry))
+
+              })
+
+            })
             .catch(this.handleError);
     }
+
+    public listEntries(query: DiaryQuery): Observable<DiaryEntryList>{
+
+      let totalCount = 0
+
+      const promise = this._storage.ready()
+        .then(() => this._storage.get(DIARY_STORAGE_LIST))
+        .then((list: any) => {
+          // list is an array of date strings
+          let dateList = <string[]>list || [];
+          console.log("Retrieved list:", dateList);
+          const count = query.count || 21
+          const offset = query.offset || 0
+          totalCount = list ? (<string[]>list).length : 0
+          dateList = dateList.slice(offset, Math.min(dateList.length, offset + count))
+
+          // obtain a list of promise for each date entry
+          const all = dateList.map(date => this._storage.get(DIARY_STORAGE_PREFIX + date))
+          return Promise.all(all)
+
+      })
+
+      // promise is a Promise<DiaryEntry[]>
+
+      return Observable.fromPromise(promise)
+        .map(l => <DiaryEntryList>({
+          totalCount, results: l
+        }) )
+    }
+
 
     public viewEntry(date: string): Observable<DiaryEntry> {
         const headers: Headers = new Headers();
@@ -73,7 +128,28 @@ export class DiaryService {
             .catch(this.handleError);
     }
 
-    public saveEntry(entry: DiaryEntry): Observable<boolean> {
+    public addEntry(entry: DiaryEntry): Observable<boolean> {
+        let promise = this.saveEntry(entry)
+          .toPromise()
+          .then(_ => this._storage.ready())
+          .then(_ => this._storage.get(DIARY_STORAGE_LIST))
+          .then((dates: any) => {
+            dates.push(entry.date)
+            dates.sort()
+            dates.reverse()
+            console.log("Adding entry to storage list")
+            return this._storage.set(DIARY_STORAGE_LIST, dates)
+          })
+
+        return Observable.fromPromise(promise)
+          .map(_ => true)
+
+
+
+    }
+
+    public saveEntryToServer(entry: DiaryEntry): Observable<boolean> {
+        entry.lastModified = undefined
         const body: string = JSON.stringify(entry);
         const headers: Headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -87,9 +163,80 @@ export class DiaryService {
             .catch(this.handleError);
     }
 
-    public deleteEntry(entry: DiaryEntry): Observable<boolean> {
-        console.log("Called deleteEntry with date: " + entry.date);
+    public saveEntry(entry: DiaryEntry): Observable<boolean> {
+      entry.lastModified = new Date().getTime()
 
+      let promise = this._storage.ready()
+        .then(() => {
+          let p1 = this._storage.set(DIARY_STORAGE_PREFIX + entry.date, entry)
+
+          let p2 = this._storage.get(DIARY_STORAGE_PENDING_UPDATES)
+            .then(list => {
+              list = list || []
+              list.push(entry.date)
+              return this._storage.set(DIARY_STORAGE_PENDING_UPDATES, list)
+            })
+
+          return Promise.all([p1, p2])
+        })
+
+      return Observable.fromPromise(promise)
+        .map(_ => true)
+        .do(_ => this.wakeUpSync())
+    }
+
+    public wakeUpSync(){
+      // If offline - return and display notification
+      // If online - load pending updates list
+      // for each list entry, send update to server
+      // When done, empty pending updates list
+
+
+
+      this._storage.ready().then(() => {
+        const updates = this._storage.get(DIARY_STORAGE_PENDING_UPDATES).then(dates => {
+          const all = dates.map(date => this._storage.get(DIARY_STORAGE_PREFIX + date))
+          Promise.all(all)
+            .then((entries: DiaryEntry[]) => {
+              const saveObservables = entries.map(entry =>{
+                if(entry.deleted)
+                  return this.deleteEntryOnServer(entry)
+                else
+                  return this.saveEntryToServer(entry)
+              })
+              const savePromises = saveObservables.map(obs => obs.toPromise())
+              return Promise.all(savePromises)
+            })
+
+        })
+
+        updates.then(_ => this._storage.set(DIARY_STORAGE_PENDING_UPDATES, []))
+          .then(_ => console.log("Pending updates DONE"))
+      })
+    }
+
+    public deleteEntry(entry: DiaryEntry): Observable<boolean> {
+        console.log("Called deleteEntry with date: " + entry.date)
+
+        entry.deleted = true
+
+        let promise = this.saveEntry(entry)
+          .toPromise()
+          .then(_ => this._storage.ready())
+          .then(_ => this._storage.get(DIARY_STORAGE_LIST))
+          .then((dates: any) => {
+            const removed = dates.filter(date => date !== entry.date)
+            return this._storage.set(DIARY_STORAGE_LIST, removed)
+          })
+
+        return Observable.fromPromise(promise)
+          .map(_ => true)
+
+
+
+    }
+
+    public deleteEntryOnServer(entry: DiaryEntry): Observable<boolean> {
         const headers: Headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', 'Bearer ' + this._authService.loggedInUser().authToken);

@@ -27,6 +27,7 @@ export class PainDiaryPage {
     private authService: AuthService, public diaryService: DiaryService,
     private alertCtrl: AlertController, private translate: TranslateService) {
       this.getDiary();
+      console.log("Constructor of Pain Diary called")
      }
 
   ionViewCanEnter(): boolean {
@@ -93,6 +94,11 @@ export class PainDiaryPage {
         );
       }
     );
+  }
+
+  forceUpdate(){
+    this.diaryService.refreshAllEntries()
+      .subscribe(list => this.diaries = list.results)
   }
 
   editEntry(entry: DiaryEntry){

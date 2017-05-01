@@ -26,7 +26,8 @@ let testEntry = {
   additionalDrugs: 'One',
   tenderJoints: 'Two',
   comments: 'Three',
-  deleted: false
+  deleted: false,
+  lastModified: 0
 }
 
 describe('Page: New Pain Entry Page', () => {
