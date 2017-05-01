@@ -1,22 +1,21 @@
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
-import { StatusBar, Splashscreen } from 'ionic-native';
 
 import { HomePage } from '../pages/home/home';
 import { BloodTestPage } from '../pages/blood-test/blood-test';
 import { EDASPage } from '../pages/e-das/e-das';
 import { EHAQPage } from '../pages/e-haq/e-haq';
-import { EHaqNewEntryPage } from '../pages/e-haq-new-entry/e-haq-new-entry';
 import { GenerateReportPage } from '../pages/generate-report/generate-report';
 import { LoginPage } from '../pages/login/login';
 import { LogoutPage } from '../pages/logout/logout';
-import { NewEntryPage } from '../pages/new-entry/new-entry';
 import { PainDiaryPage } from '../pages/pain-diary/pain-diary';
 import { SettingsPage } from '../pages/settings/settings';
 import { UserGuidePage } from '../pages/user-guide/user-guide';
 import { AuthService } from '../security/auth.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable }     from 'rxjs/Observable';
+import { StatusBar } from "@ionic-native/status-bar";
+import { SplashScreen } from "@ionic-native/splash-screen";
 
 
 
@@ -42,8 +41,12 @@ export class MyApp {
 
   pages: Array<{icon: string, title: string, component: any}>;
 
-  constructor(public platform: Platform, private _authService: AuthService,
-    private translate: TranslateService) {
+  constructor(public platform: Platform,
+              private _statusBar: StatusBar,
+              private _splashScreen: SplashScreen,
+              private _authService: AuthService,
+              private translate: TranslateService) {
+
     this.initializeApp();
 
     // this language will be used as a fallback when a translation isn't found in the current language
@@ -74,8 +77,8 @@ export class MyApp {
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      StatusBar.styleDefault();
-      Splashscreen.hide();
+      this._statusBar.styleDefault();
+      this._splashScreen.hide();
     });
   }
 

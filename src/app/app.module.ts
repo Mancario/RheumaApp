@@ -3,6 +3,8 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { ChartsModule } from 'ng2-charts';
 import { FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpModule } from '@angular/http';
 import 'chart.js';
 import { HomePage } from '../pages/home/home';
 import { BloodTestPage } from '../pages/blood-test/blood-test';
@@ -29,6 +31,8 @@ import { HaqAnswerForm } from "../pages/e-haq-new-entry/e-haq-new-entry-form"
 import { Http } from '@angular/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { StatusBar } from "@ionic-native/status-bar";
+import { SplashScreen } from "@ionic-native/splash-screen";
 
 export function createTranslateLoader(http: Http) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -57,6 +61,8 @@ export function createTranslateLoader(http: Http) {
     IonicModule.forRoot(MyApp),
     ChartsModule,
     FormsModule,
+    BrowserModule,
+    HttpModule,
     IonicStorageModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
@@ -85,6 +91,8 @@ export function createTranslateLoader(http: Http) {
     EHaqNewEntryPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},
+    StatusBar, // Newly add for ionic 3
+    SplashScreen, // Newly add for ionic 3
     AuthService,
     LocalStorageService,
     StoreCredentialsService,
