@@ -50,18 +50,13 @@ export class DiaryService {
       this.diaryEntryToEdit = entry;
     }
 
-    public listEntries(query: DiaryQuery): Observable<DiaryEntryList> {
-        if(this.offline){
-          console.log("Offline retrieval :)")
-          return this.listEntriesOffline(query.offset || 0, query.count)
-        }
-
+    public retrieveAllEntries(): Observable<DiaryEntryList> {
         const headers: Headers = new Headers();
         headers.append('Authorization', 'Bearer ' + this._authService.loggedInUser().authToken);
 
         var params = new URLSearchParams();
-        params.set('offset', '' + (query.offset || 0));
-        params.set('count', '' + query.count);
+        params.set('offset', '0');
+        params.set('count', '10000');
 
         return this._http
             .get(DIARY_API_URL, {
@@ -76,33 +71,17 @@ export class DiaryService {
                 const dates = entries.results.map(r => r.date)
                 console.log("Mapped dates", dates);
 
-                this._storage.get(DIARY_STORAGE_LIST).then(list =>{
-                  list = list || [];
-                  console.log("Retrieved list:", list);
-                  list = list.concat(dates)
-
-                  list = list.filter((elem, index) => list.indexOf(elem) === index)
-                  list.sort()
-                  list.reverse()
-
-                  console.log("Concatted list", list);
-
-
-                  this._storage.set(DIARY_STORAGE_LIST, list);
-
-
-                })
+                this._storage.set(DIARY_STORAGE_LIST, dates)
 
                 entries.results.forEach(entry => this._storage.set(DIARY_STORAGE_PREFIX + entry.date, entry))
 
               })
 
-
             })
             .catch(this.handleError);
     }
 
-    public listEntriesOffline(offset, count): Observable<DiaryEntryList>{
+    public listEntries(query: DiaryQuery): Observable<DiaryEntryList>{
 
       let totalCount = 0
 
@@ -112,6 +91,8 @@ export class DiaryService {
           // list is an array of date strings
           let dateList = <string[]>list || [];
           console.log("Retrieved list:", dateList);
+          const count = query.count || 21
+          const offset = query.offset || 0
           totalCount = list.length;
           dateList = dateList.slice(offset, Math.min(dateList.length, offset + count))
 
@@ -126,6 +107,14 @@ export class DiaryService {
         .map(l => <DiaryEntryList>({
           totalCount, results: l
         }) )
+    }
+
+    public forceUpdate(): Observable<boolean>{
+      let result = true;
+
+      console.log("Force Update")
+
+      return this.retrieveAllEntries().map(list => true)
     }
 
     public viewEntry(date: string): Observable<DiaryEntry> {

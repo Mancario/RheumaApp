@@ -95,6 +95,11 @@ export class PainDiaryPage {
     );
   }
 
+  forceUpdate(){
+    this.diaryService.forceUpdate()
+      .subscribe(() => {})
+  }
+
   editEntry(entry: DiaryEntry){
     this.diaryService.setDiaryEntryToEdit(entry);
     this.navCtrl.setRoot(NewEntryPage)

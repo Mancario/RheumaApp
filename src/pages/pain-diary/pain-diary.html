@@ -15,6 +15,10 @@
 </ion-header>
 
 <ion-content padding class="content">
+
+  <button ion-button color="light" block class="actionbutton" (click)="forceUpdate()">{{ 'diary.update' | translate }}</button>
+
+
   <ion-list>
     <div *ngFor="let p of diaries">
       <ion-card class="card">
