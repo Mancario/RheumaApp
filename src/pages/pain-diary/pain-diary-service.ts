@@ -30,6 +30,7 @@ export interface DiaryQuery {
 const DIARY_API_URL = API_URL + '/diary';
 const DIARY_STORAGE_PREFIX = "DIARY:";
 const DIARY_STORAGE_LIST = DIARY_STORAGE_PREFIX + "LIST";
+const DIARY_STORAGE_PENDING_UPDATES = "PENDING"
 
 @Injectable()
 export class DiaryService {
@@ -50,7 +51,7 @@ export class DiaryService {
       this.diaryEntryToEdit = entry;
     }
 
-    public retrieveAllEntries(): Observable<DiaryEntryList> {
+    public refreshAllEntries(): Observable<DiaryEntryList> {
         const headers: Headers = new Headers();
         headers.append('Authorization', 'Bearer ' + this._authService.loggedInUser().authToken);
 
@@ -99,6 +100,7 @@ export class DiaryService {
           // obtain a list of promise for each date entry
           const all = dateList.map(date => this._storage.get(DIARY_STORAGE_PREFIX + date))
           return Promise.all(all)
+
       })
 
       // promise is a Promise<DiaryEntry[]>
@@ -109,13 +111,6 @@ export class DiaryService {
         }) )
     }
 
-    public forceUpdate(): Observable<boolean>{
-      let result = true;
-
-      console.log("Force Update")
-
-      return this.retrieveAllEntries().map(list => true)
-    }
 
     public viewEntry(date: string): Observable<DiaryEntry> {
         const headers: Headers = new Headers();
@@ -129,7 +124,7 @@ export class DiaryService {
             .catch(this.handleError);
     }
 
-    public saveEntry(entry: DiaryEntry): Observable<boolean> {
+    public saveEntryToServer(entry: DiaryEntry): Observable<boolean> {
         const body: string = JSON.stringify(entry);
         const headers: Headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -143,9 +138,64 @@ export class DiaryService {
             .catch(this.handleError);
     }
 
-    public deleteEntry(entry: DiaryEntry): Observable<boolean> {
-        console.log("Called deleteEntry with date: " + entry.date);
+    public saveEntry(entry: DiaryEntry): Observable<boolean> {
+      let promise = this._storage.ready()
+        .then(() => {
+          let p1 = this._storage.set(DIARY_STORAGE_PREFIX + entry.date, entry)
 
+          let p2 = this._storage.get(DIARY_STORAGE_PENDING_UPDATES)
+            .then(list => {
+              list = list || []
+              list.push(entry.date)
+              return this._storage.set(DIARY_STORAGE_PENDING_UPDATES, list)
+            })
+
+          return Promise.all([p1, p2])
+        })
+
+      return Observable.fromPromise(promise)
+        .map(_ => true)
+        .do(_ => this.wakeUpSync())
+    }
+
+    public wakeUpSync(){
+      // If offline - return and display notification
+      // If online - load pending updates list
+      // for each list entry, send update to server
+      // When done, empty pending updates list
+
+      this._storage.ready().then(() => {
+        const updates = this._storage.get(DIARY_STORAGE_PENDING_UPDATES).then(dates => {
+          const all = dates.map(date => this._storage.get(DIARY_STORAGE_PREFIX + date))
+          Promise.all(all)
+            .then((entries: DiaryEntry[]) => {
+              const saveObservables = entries.map(entry =>{
+                if(entry.deleted)
+                  this.deleteEntryOnServer(entry)
+                else
+                  this.saveEntryToServer(entry)
+              })
+              const savePromises = saveObservables.map(obs => obs.toPromise())
+              return Promise.all(savePromises)
+            })
+
+        })
+
+        updates.then(_ => this._storage.set(DIARY_STORAGE_PENDING_UPDATES, []))
+          .then(_ => console.log("Pending updates DONE"))
+      })
+    }
+
+    public deleteEntry(entry: DiaryEntry): Observable<boolean> {
+        console.log("Called deleteEntry with date: " + entry.date)
+
+        entry.deleted = true
+
+        return this.saveEntry(entry)
+
+    }
+
+    public deleteEntryOnServer(entry: DiaryEntry): Observable<boolean> {
         const headers: Headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', 'Bearer ' + this._authService.loggedInUser().authToken);

@@ -11,7 +11,8 @@
       "next":         "Next",
       "submit":       "Submit",
       "override":     "Override",
-      "delete":       "Delete"
+      "delete":       "Delete",
+      "refresh":      "Refresh list"
   },
 
   "login": {

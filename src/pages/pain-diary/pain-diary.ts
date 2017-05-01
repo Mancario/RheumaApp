@@ -96,8 +96,8 @@ export class PainDiaryPage {
   }
 
   forceUpdate(){
-    this.diaryService.forceUpdate()
-      .subscribe(() => {})
+    this.diaryService.refreshAllEntries()
+      .subscribe(list => this.diaries = list.results)
   }
 
   editEntry(entry: DiaryEntry){
