@@ -33,6 +33,7 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
+import {SecureStorage} from "@ionic-native/secure-storage";
 
 export function createTranslateLoader(http: Http) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -64,6 +65,7 @@ export function createTranslateLoader(http: Http) {
     BrowserModule,
     HttpModule,
     IonicStorageModule.forRoot(),
+
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -91,8 +93,9 @@ export function createTranslateLoader(http: Http) {
     EHaqNewEntryPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},
-    StatusBar, // Newly add for ionic 3
-    SplashScreen, // Newly add for ionic 3
+    StatusBar,
+    SplashScreen,
+    SecureStorage,
     AuthService,
     LocalStorageService,
     StoreCredentialsService,
