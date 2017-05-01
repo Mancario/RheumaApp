@@ -171,9 +171,9 @@ export class DiaryService {
             .then((entries: DiaryEntry[]) => {
               const saveObservables = entries.map(entry =>{
                 if(entry.deleted)
-                  this.deleteEntryOnServer(entry)
+                  return this.deleteEntryOnServer(entry)
                 else
-                  this.saveEntryToServer(entry)
+                  return this.saveEntryToServer(entry)
               })
               const savePromises = saveObservables.map(obs => obs.toPromise())
               return Promise.all(savePromises)
