@@ -110,7 +110,6 @@ export class HAQService {
 
     public saveEntry(entry: HAQEntry): Observable<boolean> {
         const body: string = JSON.stringify(entry);
-        console.log(body); 
         const headers: Headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', 'Bearer ' + this.authService.loggedInUser().authToken);

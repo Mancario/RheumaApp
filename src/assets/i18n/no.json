@@ -11,7 +11,9 @@
       "next":         "Neste",
       "submit":       "Lagre",
       "override":     "Overskriv",
-      "delete":       "Slett"
+      "delete":       "Slett",
+      "yes":          "Ja",
+      "no":           "Nei"
   },
 
   "login": {
@@ -80,7 +82,9 @@
       "alertError":   "Error",
       "errorMessage": "Du må svare på alle spørsmål før du kan gå videre til neste side..",
       "alertSubmit":  "Lagre skjema",
-      "submitMess":   "Ønsker du å fullføre dette HAQ-skjemaet?"
+      "submitMess":   "Ønsker du å fullføre dette HAQ-skjemaet?",
+      "cancelSubmit": "Avbryt",
+      "cancelMess":   "Ønsker du å avbryte utfylling av skjema?"
   },
 
   "home": {
