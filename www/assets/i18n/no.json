@@ -13,7 +13,8 @@
       "override":     "Overskriv",
       "delete":       "Slett",
       "yes":          "Ja",
-      "no":           "Nei"
+      "no":           "Nei",
+      "refresh":      "Oppdater liste"
   },
 
   "login": {

@@ -12,6 +12,8 @@
       "submit":       "Submit",
       "override":     "Override",
       "delete":       "Delete",
+      "yes":          "Yes",
+      "no":           "No",
       "refresh":      "Refresh list"
   },
 
