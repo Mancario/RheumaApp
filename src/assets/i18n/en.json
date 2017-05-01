@@ -61,7 +61,7 @@
       "extend":       "Extend report",
       "confirmDel":   "Confirm delete",
       "deleteMess":   "Do you want to delete entry for date: ",
-      "confirmOver":  "Bekreft overskriving",
+      "confirmOver":  "Confirm override",
       "overrideMess": "Do you want to override existing pain entry for date: "
   },
 

@@ -9,6 +9,7 @@ import { Http, Response, URLSearchParams, Headers } from '@angular/http';
 import { AuthService } from "../../security/auth.service";
 import { API_URL } from "../../environments/environment";
 import { TranslateService } from '@ngx-translate/core';
+import { DiaryService, DiaryEntry } from '../pain-diary/pain-diary-service'
 
 /*
   Generated class for the Home page.
@@ -30,7 +31,7 @@ export class HomePage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private _http: Http, private _authService: AuthService,
-    private translate: TranslateService) {
+    private translate: TranslateService, private _diaryService: DiaryService) {
     this.flag = "../../assets/img/flag-green.png";
     this.laboratoryDate = "22.04.2017 (Suggestion)";
     this.rheumatologistDate = "20.05.2017";
@@ -172,11 +173,18 @@ export class HomePage {
   // Graph info from database
   public getGraphInfo() {
     var object = this.getChart();
-    object.forEach(value => {
-      this.setGraphInfo(value.split('\n'));
-    });
+    //object.forEach(value => {
+    //  this.setGraphInfo(value.split('\n'));
+    //});
   }
   // get charts from database
+
+  public getChart(): Observable<DiaryEntry[]> {
+    return this._diaryService.listEntries({offset: 0, count: 90})
+      .map(list => list.results)
+
+  }
+/*
   public getChart(): Observable<string> {
     const headers: Headers = new Headers();
     headers.append('Authorization', 'Bearer ' + this._authService.loggedInUser().authToken);
@@ -191,6 +199,7 @@ export class HomePage {
         .catch(this.handleError);
     return object;
   }
+  */
 
   private handleError(error: Response) {
     // in a real world app, we may send the error to some remote logging infrastructure

@@ -140,13 +140,16 @@ export class NewEntryPage {
       additionalDrugs: this.additionalDrugs,
       tenderJoints: this.tenderJoints,
       comments: this.comments,
-      deleted: false
+      deleted: false,
+      lastModified: new Date().getTime()
     }
 
-    this.diaryService.saveEntry(entry)
+    this.diaryService.addEntry(entry)
       .subscribe(
         res =>{
+          console.log("New entry returned:", res)
           if(res){
+
             this.navCtrl.setRoot(PainDiaryPage)
               .catch(() => this.navCtrl.setRoot(LogoutPage))
           }else{
@@ -183,7 +186,8 @@ export class NewEntryPage {
       additionalDrugs: this.additionalDrugs,
       tenderJoints: this.tenderJoints,
       comments: this.comments,
-      deleted: false
+      deleted: false,
+      lastModified: new Date().getTime()
     }
 
     return entry;

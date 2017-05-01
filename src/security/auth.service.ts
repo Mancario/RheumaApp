@@ -26,7 +26,7 @@ export class AuthService {
     public constructor(private _localStorageService: LocalStorageService,
                        private _storeCredentialsService: StoreCredentialsService,
                        private _http: Http) {
-        //setInterval(() => this.refreshToken(), 10 * 1000);
+
     }
 
     public isLoggedIn(): boolean {
@@ -74,7 +74,9 @@ export class AuthService {
             })
             .map(res => this.convert(<LoginResult>res.json()))
             .do(user => this.storeUser(user))
-            .do(user => this.storeCredentials(credentials))
+            .do(user => {
+              if(user)this.storeCredentials(credentials)
+            })
             .do(user => this.isLoggedIn())
             .catch(this.handleError);
     }
@@ -97,18 +99,7 @@ export class AuthService {
         if (credentials) {
           this._storeCredentialsService.store(credentials);
         } else {
-/*
-          let usr = "user";
-          let pwd = "pwd";
-
-          const mockCredentials: string = JSON.stringify({
-              usr,
-              pwd,
-          });
-          this._storeCredentialsService.store(mockCredentials);
-          */
           this._storeCredentialsService.store(null);
-
         }
     }
 

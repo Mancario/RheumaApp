@@ -33,7 +33,7 @@
       <!-- Show the selected graph -->
 
       <div class="col-md-6" [ngSwitch]="graph" id="graphcanvas">
-        <!-- You will need to comment out these two canvas for npm testing >
+        <!-- You will need to comment out these two canvas for npm testing -->
         <div *ngSwitchCase='2' id="graph2">
           <canvas baseChart height="250px" [datasets]="lineChartData2" [labels]="lineChartLabels2" [options]="lineChartOptions" [colors]="lineChartColors"
             [legend]="lineChartLegend" [chartType]="lineChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
@@ -46,7 +46,7 @@
             [legend]="lineChartLegend" [chartType]="lineChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
           </canvas>
           {{ 'home.diaryGraph' | translate }}
-        </div-->
+        </div>
 
       </div>
 

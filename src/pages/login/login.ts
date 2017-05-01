@@ -26,6 +26,11 @@ export class LoginPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private _authService: AuthService, fb: FormBuilder, private translate: TranslateService) {
 
+      if(this._authService.isLoggedIn()){
+        console.log("I'm already logged in")
+        this.navCtrl.setRoot(HomePage)
+      }
+
       this.form = fb.group({
           'username': this.username,
           'password': this.password,

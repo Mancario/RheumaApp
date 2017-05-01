@@ -5,6 +5,7 @@ import {API_URL} from '../../environments/environment';
 import { AuthService } from "../../security/auth.service";
 import { Storage } from '@ionic/storage';
 
+
 export interface DiaryEntry {
     date: string;
     pain: number;
@@ -15,6 +16,7 @@ export interface DiaryEntry {
     tenderJoints: string;
     comments: string;
     deleted: boolean;
+    lastModified: number;
 }
 
 export interface DiaryEntryList {
@@ -41,6 +43,8 @@ export class DiaryService {
     public constructor(private _http: Http,
                        private _authService: AuthService,
                        private _storage: Storage) {
+
+
     }
 
     public hasDiaryEntryToEdit(): any{
@@ -94,7 +98,7 @@ export class DiaryService {
           console.log("Retrieved list:", dateList);
           const count = query.count || 21
           const offset = query.offset || 0
-          totalCount = list.length;
+          totalCount = list ? (<string[]>list).length : 0
           dateList = dateList.slice(offset, Math.min(dateList.length, offset + count))
 
           // obtain a list of promise for each date entry
@@ -124,7 +128,28 @@ export class DiaryService {
             .catch(this.handleError);
     }
 
+    public addEntry(entry: DiaryEntry): Observable<boolean> {
+        let promise = this.saveEntry(entry)
+          .toPromise()
+          .then(_ => this._storage.ready())
+          .then(_ => this._storage.get(DIARY_STORAGE_LIST))
+          .then((dates: any) => {
+            dates.push(entry.date)
+            dates.sort()
+            dates.reverse()
+            console.log("Adding entry to storage list")
+            return this._storage.set(DIARY_STORAGE_LIST, dates)
+          })
+
+        return Observable.fromPromise(promise)
+          .map(_ => true)
+
+
+
+    }
+
     public saveEntryToServer(entry: DiaryEntry): Observable<boolean> {
+        entry.lastModified = undefined
         const body: string = JSON.stringify(entry);
         const headers: Headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -139,6 +164,8 @@ export class DiaryService {
     }
 
     public saveEntry(entry: DiaryEntry): Observable<boolean> {
+      entry.lastModified = new Date().getTime()
+
       let promise = this._storage.ready()
         .then(() => {
           let p1 = this._storage.set(DIARY_STORAGE_PREFIX + entry.date, entry)
@@ -163,6 +190,8 @@ export class DiaryService {
       // If online - load pending updates list
       // for each list entry, send update to server
       // When done, empty pending updates list
+
+
 
       this._storage.ready().then(() => {
         const updates = this._storage.get(DIARY_STORAGE_PENDING_UPDATES).then(dates => {
@@ -191,7 +220,19 @@ export class DiaryService {
 
         entry.deleted = true
 
-        return this.saveEntry(entry)
+        let promise = this.saveEntry(entry)
+          .toPromise()
+          .then(_ => this._storage.ready())
+          .then(_ => this._storage.get(DIARY_STORAGE_LIST))
+          .then((dates: any) => {
+            const removed = dates.filter(date => date !== entry.date)
+            return this._storage.set(DIARY_STORAGE_LIST, removed)
+          })
+
+        return Observable.fromPromise(promise)
+          .map(_ => true)
+
+
 
     }
 
