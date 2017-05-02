@@ -43,7 +43,8 @@ export class HomePage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad HomePage');
+    console.log('ionViewDidLoad HomePage')
+    console.log("TEST LIVE RELOAD LOG PT4")
   }
   ionViewCanEnter(): any {
     var loggedIn = this._authService.isLoggedIn();

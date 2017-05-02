@@ -44,8 +44,7 @@ export class DiaryService {
     public constructor(
       private _http: Http,
       private _authService: AuthService,
-      //private _storage: Storage,
-      private _storage: NativeStorage) {
+      private _storage: Storage) {
 
     }
 
@@ -74,12 +73,15 @@ export class DiaryService {
             .do(entries => {
               console.log("Hello following entries: ", entries)
 
-              const dates = entries.results.map(r => r.date)
-              console.log("Mapped dates", dates)
-              this._storage.setItem(DIARY_STORAGE_LIST, dates)
+              this._storage.ready().then(()=>{
+                const dates = entries.results.map(r => r.date)
+                console.log("Mapped dates", dates);
 
-              entries.results.forEach(entry => this._storage.setItem(DIARY_STORAGE_PREFIX + entry.date, entry))
+                this._storage.set(DIARY_STORAGE_LIST, dates)
 
+                entries.results.forEach(entry => this._storage.set(DIARY_STORAGE_PREFIX + entry.date, entry))
+
+              })
 
             })
             .catch(this.handleError);
@@ -89,7 +91,8 @@ export class DiaryService {
 
       let totalCount = 0
 
-      const promise = this._storage.getItem(DIARY_STORAGE_LIST)
+      const promise = this._storage.ready()
+        .then(() => this._storage.get(DIARY_STORAGE_LIST))
         .then((list: any) => {
           // list is an array of date strings
           let dateList = <string[]>list || [];
@@ -100,7 +103,7 @@ export class DiaryService {
           dateList = dateList.slice(offset, Math.min(dateList.length, offset + count))
 
           // obtain a list of promise for each date entry
-          const all = dateList.map(date => this._storage.getItem(DIARY_STORAGE_PREFIX + date))
+          const all = dateList.map(date => this._storage.get(DIARY_STORAGE_PREFIX + date))
           return Promise.all(all)
 
       })
@@ -129,18 +132,18 @@ export class DiaryService {
     public addEntry(entry: DiaryEntry): Observable<boolean> {
         let promise = this.saveEntry(entry)
           .toPromise()
-          .then(_ => this._storage.getItem(DIARY_STORAGE_LIST))
+          .then(_ => this._storage.ready())
+          .then(_ => this._storage.get(DIARY_STORAGE_LIST))
           .then((dates: any) => {
             dates.push(entry.date)
             dates.sort()
             dates.reverse()
             console.log("Adding entry to storage list")
-            return this._storage.setItem(DIARY_STORAGE_LIST, dates)
+            return this._storage.set(DIARY_STORAGE_LIST, dates)
           })
 
         return Observable.fromPromise(promise)
           .map(_ => true)
-
 
 
     }
@@ -163,16 +166,19 @@ export class DiaryService {
     public saveEntry(entry: DiaryEntry): Observable<boolean> {
       entry.lastModified = new Date().getTime()
 
-      let p1 = this._storage.setItem(DIARY_STORAGE_PREFIX + entry.date, entry)
+      let promise = this._storage.ready()
+        .then(() => {
+          let p1 = this._storage.set(DIARY_STORAGE_PREFIX + entry.date, entry)
 
-      let p2 = this._storage.getItem(DIARY_STORAGE_PENDING_UPDATES)
-        .then((list:any) => {
-          list = list || []
-          list.push(entry.date)
-          return this._storage.setItem(DIARY_STORAGE_PENDING_UPDATES, list)
+          let p2 = this._storage.get(DIARY_STORAGE_PENDING_UPDATES)
+            .then((list:any) => {
+              list = list || []
+              list.push(entry.date)
+              return this._storage.set(DIARY_STORAGE_PENDING_UPDATES, list)
+            })
+
+          return Promise.all([p1, p2])
         })
-
-      const promise = Promise.all([p1, p2])
 
       return Observable.fromPromise(promise)
         .map(_ => true)
@@ -187,24 +193,26 @@ export class DiaryService {
 
 
 
-      const updates = this._storage.getItem(DIARY_STORAGE_PENDING_UPDATES).then((dates:any) => {
-        const all = dates.map(date => this._storage.getItem(DIARY_STORAGE_PREFIX + date))
-        Promise.all(all)
-          .then((entries: DiaryEntry[]) => {
-            const saveObservables = entries.map(entry =>{
-              if(entry.deleted)
-                return this.deleteEntryOnServer(entry)
-              else
-                return this.saveEntryToServer(entry)
+      this._storage.ready().then(() => {
+        const updates = this._storage.get(DIARY_STORAGE_PENDING_UPDATES).then((dates:any) => {
+          const all = dates.map(date => this._storage.get(DIARY_STORAGE_PREFIX + date))
+          Promise.all(all)
+            .then((entries: DiaryEntry[]) => {
+              const saveObservables = entries.map(entry =>{
+                if(entry.deleted)
+                  return this.deleteEntryOnServer(entry)
+                else
+                  return this.saveEntryToServer(entry)
+              })
+              const savePromises = saveObservables.map(obs => obs.toPromise())
+              return Promise.all(savePromises)
             })
-            const savePromises = saveObservables.map(obs => obs.toPromise())
-            return Promise.all(savePromises)
-          })
 
+        })
+
+        updates.then(_ => this._storage.set(DIARY_STORAGE_PENDING_UPDATES, []))
+          .then(_ => console.log("Pending updates DONE"))
       })
-
-      updates.then(_ => this._storage.setItem(DIARY_STORAGE_PENDING_UPDATES, []))
-        .then(_ => console.log("Pending updates DONE"))
     }
 
     public deleteEntry(entry: DiaryEntry): Observable<boolean> {
@@ -214,10 +222,11 @@ export class DiaryService {
 
         let promise = this.saveEntry(entry)
           .toPromise()
-          .then(_ => this._storage.getItem(DIARY_STORAGE_LIST))
+          .then(_ => this._storage.ready())
+          .then(_ => this._storage.get(DIARY_STORAGE_LIST))
           .then((dates: any) => {
             const removed = dates.filter(date => date !== entry.date)
-            return this._storage.setItem(DIARY_STORAGE_LIST, removed)
+            return this._storage.set(DIARY_STORAGE_LIST, removed)
           })
 
         return Observable.fromPromise(promise)
