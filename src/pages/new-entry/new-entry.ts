@@ -33,9 +33,13 @@ export class NewEntryPage {
   }
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-    private authService: AuthService, private diaryService: DiaryService,
-    private alertCtrl: AlertController, private translate: TranslateService) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private authService: AuthService,
+    private diaryService: DiaryService,
+    private alertCtrl: AlertController,
+    private translate: TranslateService) {
   }
 
   ionViewCanEnter(): boolean{
@@ -135,18 +139,7 @@ export class NewEntryPage {
   }
 
   saveEntry(){
-    let entry = {
-      date: this.dateChosen,
-      pain: this.painValue,
-      diseaseActivity: this.diseaseValue,
-      fatigue: this.fatigueValue,
-      prednisoloneDose: this.prednisoloneDose,
-      additionalDrugs: this.additionalDrugs,
-      tenderJoints: this.tenderJoints,
-      comments: this.comments,
-      deleted: false,
-      lastModified: new Date().getTime()
-    }
+    let entry = this.getEntry()
 
     this.diaryService.addEntry(entry)
       .subscribe(
@@ -196,5 +189,6 @@ export class NewEntryPage {
 
     return entry;
   }
+
 
 }

@@ -1,4 +1,5 @@
 import { Injectable} from '@angular/core';
+import { ToastController, AlertController } from 'ionic-angular';
 import { Http, Response, URLSearchParams, Headers} from '@angular/http';
 import { Observable}     from 'rxjs/Observable';
 import { API_URL} from '../../environments/environment';
@@ -42,6 +43,8 @@ export class DiaryService {
 
 
     public constructor(
+      public toastCtrl: ToastController,
+      public alertCtrl: AlertController,
       private _http: Http,
       private _authService: AuthService,
       private _storage: Storage) {
@@ -150,17 +153,18 @@ export class DiaryService {
 
     public saveEntryToServer(entry: DiaryEntry): Observable<boolean> {
         entry.lastModified = undefined
-        const body: string = JSON.stringify(entry);
-        const headers: Headers = new Headers();
-        headers.append('Content-Type', 'application/json');
+        const body: string = JSON.stringify(entry)
+        const headers: Headers = new Headers()
+        headers.append('Content-Type', 'application/json')
         headers.append('Authorization', 'Bearer ' + this._authService.loggedInUser().authToken);
         const url = DIARY_API_URL + '/' + encodeURI(entry.date);
+        const errorHandler = this.handleUpdateError(entry)
         return this._http
             .put(url, body, {
                 headers,
             })
             .map(res => true)
-            .catch(this.handleError);
+            .catch(errorHandler)
     }
 
     public saveEntry(entry: DiaryEntry): Observable<boolean> {
@@ -250,13 +254,52 @@ export class DiaryService {
             .catch(this.handleError);
     }
 
+    public handleConflict(entry: DiaryEntry){
+      let alert = this.alertCtrl.create({
+      title: "Conflict",
+      message: `There was a conflict for entry on date: ${entry.date}`,
+      buttons: [
+        {
+          text: "Discard",
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: "Override",
+          handler: () => {
+            console.log('Override clicked');
+
+            }
+          }
+        ]
+      });
+      alert.present();
+    }
+
+    private handleUpdateError(entry: DiaryEntry): (error: Response) => Observable<boolean> {
+       return (error) => {
+          if (error.status === 409) {
+            console.log("We have a conflict", error, entry)
+            this.handleConflict(entry)
+            return Observable.of(false)
+          }
+
+          return this.handleError(error)
+       }
+    }
+
     private handleError(error: Response) {
         // in a real world app, we may send the error to some remote logging infrastructure
-        // instead of just logging it to the console
-        if (error.status === 404) return Observable.throw('Eintrag nicht gefunden.');
+        // instead of just logging it to the consolew
+
+        if (error.status === 404)
+            return Observable.throw('Eintrag nicht gefunden.');
         if (error.status === 403)
             return Observable.throw('Sie sind derzeit nicht angemeldet oder Sie haben keine Berechtigung, diese Seite aufzurufen.');
-        if (error.status === 401) return Observable.throw('Permission denied.');
+        if (error.status === 401)
+            return Observable.throw('Permission denied.');
         console.error(error);
         let errorMessage: string = null;
         if (error.json) {

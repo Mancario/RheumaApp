@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
 import { AuthService } from "../../security/auth.service";
 import { LogoutPage } from '../logout/logout';
 import { NewEntryPage } from '../new-entry/new-entry';
@@ -23,9 +23,16 @@ export class PainDiaryPage {
   paindiaries: Observable<DiaryEntryList>;
   diaries: DiaryEntry[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-    private authService: AuthService, public diaryService: DiaryService,
-    private alertCtrl: AlertController, private translate: TranslateService) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public toastCtrl: ToastController,
+    public diaryService: DiaryService,
+    private authService: AuthService,
+    private alertCtrl: AlertController,
+    private translate: TranslateService) {
+      this.presentToast()
+
       this.getDiary();
       console.log("Constructor of Pain Diary called")
      }
@@ -34,6 +41,20 @@ export class PainDiaryPage {
     //return this.authService.isLoggedIn();
     return true;
   }
+
+  presentToast() {
+  let toast = this.toastCtrl.create({
+    message: 'User was added successfully',
+    duration: 3000,
+    position: 'top'
+  });
+
+  toast.onDidDismiss(() => {
+    console.log('Dismissed toast');
+  });
+
+  toast.present();
+}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PainDiaryPage');
