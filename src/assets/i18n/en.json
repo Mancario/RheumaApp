@@ -83,7 +83,9 @@
       "alertError":   "Error",
       "errorMessage": "You need to fill out every question before you can move on to the next page..",
       "alertSubmit":  "Submit form",
-      "submitMess":   "Do you want to finish this HAQ-form?"
+      "submitMess":   "Do you want to finish this HAQ-form?",
+      "cancelSubmit": "Cancel",
+      "cancelMess":   "Do you want to abort this questionnaire?"
   },
 
   "home": {

@@ -54,6 +54,10 @@ export class NewEntryPage {
     }
   }
 
+  ionViewDidLeave() {
+    this.diaryService.setDiaryEntryToEdit(null)
+  }
+
   cancel(){
     this.diaryService.setDiaryEntryToEdit(null);
     this.navCtrl.setRoot(PainDiaryPage)

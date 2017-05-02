@@ -179,12 +179,17 @@ export class HomePage {
   }
   // get charts from database
 
+/*
   public getChart(): Observable<DiaryEntry[]> {
+
+    console.log("Dashboard querying entries")
     return this._diaryService.listEntries({offset: 0, count: 90})
       .map(list => list.results)
+      .do(_ => console.log("Query complete"))
 
   }
-/*
+  */
+
   public getChart(): Observable<string> {
     const headers: Headers = new Headers();
     headers.append('Authorization', 'Bearer ' + this._authService.loggedInUser().authToken);
@@ -199,7 +204,7 @@ export class HomePage {
         .catch(this.handleError);
     return object;
   }
-  */
+
 
   private handleError(error: Response) {
     // in a real world app, we may send the error to some remote logging infrastructure

@@ -33,7 +33,8 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
-import {SecureStorage} from "@ionic-native/secure-storage";
+import { SecureStorage } from "@ionic-native/secure-storage";
+import { NativeStorage } from "@ionic-native/native-storage";
 
 export function createTranslateLoader(http: Http) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -96,6 +97,7 @@ export function createTranslateLoader(http: Http) {
     StatusBar,
     SplashScreen,
     SecureStorage,
+    NativeStorage,
     AuthService,
     LocalStorageService,
     StoreCredentialsService,
