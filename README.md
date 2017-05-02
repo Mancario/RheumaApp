@@ -9,7 +9,9 @@ node.js
 ## Global dependencies:
 
 npm install -g cordova ionic
-cordova plugin add cordova-sqlite-storage
+ionic plugin add --save cordova-sqlite-storage
+ionic plugin add --save cordova-plugin-network-information
+
 npm install -g karma-cli
 npm install -g protractor
 webdriver-manager update

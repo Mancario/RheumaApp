@@ -12,6 +12,8 @@ import {JWTToken} from "./jwt-token";
 
 import * as jwtDecode from "jwt-decode";
 
+import 'rxjs/Rx';
+
 const LOGIN_API_URL = API_URL + '/auth/login';
 const TOKEN_API_URL = API_URL + '/auth/token';
 

@@ -1,6 +1,7 @@
 # Specifies intentionally untracked files to ignore when using Git
 # http://git-scm.com/docs/gitignore
-
+#
+.idea
 
 node_modules
 .tmp
@@ -12,6 +13,5 @@ plugins
 *.swo
 *.log
 *.DS_Store
-www/build/main.css
-www/build/main.js.map
-www/build/main.js
+
+www/
