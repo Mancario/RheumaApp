@@ -32,6 +32,8 @@ export class PainDiaryPage {
     private translate: TranslateService) {
 
       this.getDiary();
+
+      //this.diaryService.updates$.subscribe(_ => this.getDiary())
      }
 
   ionViewCanEnter(): boolean {

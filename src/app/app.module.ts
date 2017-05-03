@@ -35,6 +35,7 @@ import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { SecureStorage } from "@ionic-native/secure-storage";
 import { NativeStorage } from "@ionic-native/native-storage";
+import { NetworkService } from '../services/network.service'
 import { Network } from '@ionic-native/network';
 
 
@@ -106,7 +107,8 @@ export function createTranslateLoader(http: Http) {
     HAQService,
     DiaryService,
     HaqAnswerForm,
-    Network
+    Network, // Ionic service
+    NetworkService // Our service
 
   ]
 })

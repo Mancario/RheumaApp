@@ -16,6 +16,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { Observable }     from 'rxjs/Observable';
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
+import { NetworkService } from '../services/network.service'
+
 
 
 
@@ -45,7 +47,8 @@ export class MyApp {
               private _statusBar: StatusBar,
               private _splashScreen: SplashScreen,
               private _authService: AuthService,
-              private translate: TranslateService) {
+              private translate: TranslateService,
+              private _network: NetworkService) {
 
     this.initializeApp();
 

@@ -6,6 +6,9 @@ import { API_URL} from '../../environments/environment';
 import { AuthService } from "../../security/auth.service";
 import { Storage } from '@ionic/storage';
 import { NativeStorage } from '@ionic-native/native-storage';
+import { IWakeMeUp, NetworkService } from '../../services/network.service'
+import { Subject}     from 'rxjs/Subject';
+
 
 
 export interface DiaryEntry {
@@ -37,18 +40,24 @@ const DIARY_STORAGE_LIST = DIARY_STORAGE_PREFIX + "LIST";
 const DIARY_STORAGE_PENDING_UPDATES = "PENDING"
 
 @Injectable()
-export class DiaryService {
+export class DiaryService implements IWakeMeUp {
     private diaryEntryToEdit : DiaryEntry;
-    private offline = true;
-
+    private syncInProgress = false;
+  //  public updates$ = new Subject<void>()
 
     public constructor(
       public toastCtrl: ToastController,
       public alertCtrl: AlertController,
       private _http: Http,
       private _authService: AuthService,
-      private _storage: Storage) {
+      private _storage: Storage,
+      private _network: NetworkService) {
+        this._network.registerWakeUpCall(this)
+    }
 
+    public wakeMeUp() : void{
+      console.log("Pain Diary sync Woken up from network")
+      this.wakeUpSync()
     }
 
     public hasDiaryEntryToEdit(): any{
@@ -145,6 +154,19 @@ export class DiaryService {
       return promise
     }
 
+    public getEntryFromServer(date: string): Observable<boolean>{
+      const headers: Headers = new Headers();
+      headers.append('Authorization', 'Bearer ' + this._authService.loggedInUser().authToken);
+      return this._http
+            .get(DIARY_API_URL + '/' + encodeURI(date), {
+                headers,
+            })
+            .map(res => res ? res.json() : null)
+            .do(entry => this._storage.set(DIARY_STORAGE_PREFIX + entry.date, entry))
+              //.then(_ => this.updates$.next()))
+            .catch(this.handleError);
+    }
+
     public addEntry(entry: DiaryEntry): Observable<boolean> {
         console.log("AddEntry called")
         let promise = this.saveEntry(entry)
@@ -215,8 +237,18 @@ export class DiaryService {
       // for each list entry, send update to server
       // When done, empty pending updates list
 
+      if(!this._network.connected){
+        console.log("Return due to unconnected")
+        return
+      }
 
+      if(this.syncInProgress){
+        console.log("Return due to sync in progress")
+        return
+      }
 
+      this.syncInProgress = true
+      console.log("Updating server now")
       this._storage.ready().then(() => {
         const updates = this._storage.get(DIARY_STORAGE_PENDING_UPDATES).then((dates:any) => {
           const all = dates.map(date => this._storage.get(DIARY_STORAGE_PREFIX + date))
@@ -234,8 +266,12 @@ export class DiaryService {
 
         })
 
-        updates.then(_ => this._storage.set(DIARY_STORAGE_PENDING_UPDATES, []))
-          .then(_ => console.log("Pending updates DONE"))
+        updates
+          .then(updatedList => this._storage.set(DIARY_STORAGE_PENDING_UPDATES, []))
+          .then(_ => {
+            console.log("Pending updates DONE")
+            this.syncInProgress = false
+          })
       })
     }
 
@@ -275,7 +311,9 @@ export class DiaryService {
             .catch(this.handleError);
     }
 
-    public handleConflict(entry: DiaryEntry){
+    public handleConflict(entry: DiaryEntry): Observable<boolean>{
+      let obs = new Subject<boolean>()
+
       let alert = this.alertCtrl.create({
       title: "Conflict",
       message: `There was a conflict for entry on date: ${entry.date}`,
@@ -284,27 +322,30 @@ export class DiaryService {
           text: "Discard",
           role: 'cancel',
           handler: () => {
-            console.log('Cancel clicked');
+            console.log('Discard clicked');
+            this.getEntryFromServer(entry.date).subscribe(res => obs.next(res))
           }
         },
         {
           text: "Override",
           handler: () => {
             console.log('Override clicked');
+            entry.lastModified = new Date().getTime()
+            this.saveEntryToServer(entry).subscribe(res => obs.next(res))
 
             }
           }
         ]
       });
       alert.present();
+      return obs
     }
 
     private handleUpdateError(entry: DiaryEntry): (error: Response) => Observable<boolean> {
        return (error) => {
           if (error.status === 409) {
             console.log("We have a conflict", error, entry)
-            this.handleConflict(entry)
-            return Observable.of(false)
+            return this.handleConflict(entry)
           }
 
           return this.handleError(error)

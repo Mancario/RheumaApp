@@ -12,7 +12,6 @@ import { API_URL } from "../../environments/environment";
 import { TranslateService } from '@ngx-translate/core';
 import { DiaryService, DiaryEntry } from '../pain-diary/pain-diary-service'
 import { HAQEntry } from "../e-haq/e-haq-service"
-import { Network } from '@ionic-native/network';
 
 /*
   Generated class for the Home page.
@@ -36,7 +35,6 @@ export class HomePage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public toastCtrl: ToastController,
-    private network: Network,
     private _http: Http,
     private _authService: AuthService,
     private translate: TranslateService,
@@ -50,25 +48,6 @@ export class HomePage {
       temp.setMonth(temp.getMonth() - 3);
       this.dateLimit = temp;
 
-
-      // watch network for a disconnect
-      let disconnectSubscription = this.network.onDisconnect().subscribe(() => {
-        console.log('network was disconnected :-(');
-      });
-
-
-      // watch network for a connection
-      let connectSubscription = this.network.onConnect().subscribe(() => {
-        console.log('network connected!'); 
-        // We just got a connection but we need to wait briefly
-         // before we determine the connection type.  Might need to wait 
-        // prior to doing any api requests as well.
-        setTimeout(() => {
-          if (this.network.type === 'wifi') {
-            console.log('we got a wifi connection, woohoo!');
-          }
-        }, 3000);
-      });
 
   }
 
