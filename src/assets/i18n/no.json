@@ -14,7 +14,8 @@
       "delete":       "Slett",
       "yes":          "Ja",
       "no":           "Nei",
-      "refresh":      "Oppdater liste"
+      "refresh":      "Oppdater liste",
+      "close":        "Lukk"
   },
 
   "login": {
@@ -64,7 +65,9 @@
       "confirmDel":   "Bekreft sletting",
       "deleteMess":   "Vil du slette innlegg for dato: ",
       "confirmOver":  "Bekreft overskriving",
-      "overrideMess": "Vil du overskrive eksisterende innlegg for dato: "
+      "overrideMess": "Vil du overskrive eksisterende innlegg for dato: ",
+      "saved":        "Innlegg lagret"
+
   },
 
   "haq": {
@@ -111,6 +114,13 @@
   },
 
   "settings": {
+
+  },
+
+  "error": {
+    "network":      "Du er uten internetttilkobling. Du kan fortsatt bruke appen, all data vil synkroniseres når du får nettilgang igjen.",
+    "storage":      "Det var et problem ved lagring av innlegg",
+    "unvalid":      "Du har ikke tastet inn noe informasjon"
 
   }
 }

@@ -120,29 +120,48 @@ export class DiaryService {
     }
 
 
-    public viewEntry(date: string): Observable<DiaryEntry> {
-        const headers: Headers = new Headers();
-        headers.append('Authorization', 'Bearer ' + this._authService.loggedInUser().authToken);
+    public viewEntry(date: string): Observable<boolean> {
+      let promise = this._storage.ready()
+        .then(_ => this._storage.get(DIARY_STORAGE_LIST))
+        .then((dates: any) => {
+          if(dates.indexOf(date) === -1){
+            console.log("Entry does not exist")
+            return Promise.resolve(false)
+          }
+          console.log("Entry already exists")
+          return Promise.resolve(true)
 
-        return this._http
-            .get(DIARY_API_URL + '/' + encodeURI(date), {
-                headers,
-            })
-            .map(res => res ? res.json() : null)
-            .catch(this.handleError);
+        })
+
+      return Observable.fromPromise(promise)
+        //.map(_ => true)
+    }
+
+    public getEntry(date: string): Promise<DiaryEntry> {
+      let promise = this._storage.ready()
+        .then(_ => this._storage.get(DIARY_STORAGE_PREFIX + date))
+        .then((entry:DiaryEntry) => {return entry})
+
+      return promise
     }
 
     public addEntry(entry: DiaryEntry): Observable<boolean> {
+        console.log("AddEntry called")
         let promise = this.saveEntry(entry)
           .toPromise()
           .then(_ => this._storage.ready())
           .then(_ => this._storage.get(DIARY_STORAGE_LIST))
           .then((dates: any) => {
-            dates.push(entry.date)
-            dates.sort()
-            dates.reverse()
-            console.log("Adding entry to storage list")
-            return this._storage.set(DIARY_STORAGE_LIST, dates)
+            if(dates.indexOf(entry.date) === -1){
+              dates.push(entry.date)
+              dates.sort()
+              dates.reverse()
+              console.log("Adding entry to storage list")
+              return this._storage.set(DIARY_STORAGE_LIST, dates)
+            }
+
+            return Promise.resolve(true)
+
           })
 
         return Observable.fromPromise(promise)
@@ -152,7 +171,7 @@ export class DiaryService {
     }
 
     public saveEntryToServer(entry: DiaryEntry): Observable<boolean> {
-        entry.lastModified = undefined
+        //entry.lastModified = undefined
         const body: string = JSON.stringify(entry)
         const headers: Headers = new Headers()
         headers.append('Content-Type', 'application/json')
@@ -168,6 +187,7 @@ export class DiaryService {
     }
 
     public saveEntry(entry: DiaryEntry): Observable<boolean> {
+      console.log("SaveEntry called")
       entry.lastModified = new Date().getTime()
 
       let promise = this._storage.ready()
@@ -219,24 +239,27 @@ export class DiaryService {
       })
     }
 
-    public deleteEntry(entry: DiaryEntry): Observable<boolean> {
-        console.log("Called deleteEntry with date: " + entry.date)
+    public deleteEntry(date: string): Observable<boolean> {
+        console.log("Called deleteEntry with date: " + date)
 
-        entry.deleted = true
+        //let promise = this.getEntry(date).then(entry =>{
+          return Observable.fromPromise(this.getEntry(date).then(entry =>{
+          entry.deleted = true
+          console.log("DeleteEntry found entry:", entry)
+          this.saveEntry(entry)
+            .toPromise()
+            .then(_ => this._storage.ready())
+            .then(_ => this._storage.get(DIARY_STORAGE_LIST))
+            .then((dates: any) => {
+              const removed = dates.filter(date => date !== entry.date)
+              return this._storage.set(DIARY_STORAGE_LIST, removed)
+            })
+        })).map(_ => true)
 
-        let promise = this.saveEntry(entry)
-          .toPromise()
-          .then(_ => this._storage.ready())
-          .then(_ => this._storage.get(DIARY_STORAGE_LIST))
-          .then((dates: any) => {
-            const removed = dates.filter(date => date !== entry.date)
-            return this._storage.set(DIARY_STORAGE_LIST, removed)
-          })
-
-        return Observable.fromPromise(promise)
-          .map(_ => true)
 
 
+        //return Observable.fromPromise(promise)
+        //  .map(_ => true)
 
     }
 

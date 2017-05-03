@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
 import { AuthService } from "../../security/auth.service";
 import { LogoutPage } from '../logout/logout';
 import { PainDiaryPage} from '../pain-diary/pain-diary';
@@ -36,6 +36,7 @@ export class NewEntryPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    public toastCtrl: ToastController,
     private authService: AuthService,
     private diaryService: DiaryService,
     private alertCtrl: AlertController,
@@ -79,60 +80,55 @@ export class NewEntryPage {
       this.diaryService.viewEntry(this.dateChosen)
       .subscribe(
         res =>{
-          if(res){
-            // Ask if user wants to override - if so: override.
-            if(!res.deleted){ // If existing entry is undeleted
-              //New
 
-              this.translate.get('pain.confirmOver').subscribe(
-                overrideTitle => {
-                  this.translate.get('pain.overrideMess').subscribe(
-                    overrideMessage => {
-                      this.translate.get('button.cancel').subscribe(
-                        cancelBtn => {
-                          this.translate.get('button.override').subscribe(
-                            overrideBtn => {
-                              let alert = this.alertCtrl.create({
-                              title: overrideTitle,
-                              message: overrideMessage + this.dateChosen + "?",
-                              buttons: [
-                                {
-                                  text: cancelBtn,
-                                  role: 'cancel',
-                                  handler: () => {
-                                    console.log('Cancel clicked');
+          // Ask if user wants to override - if so: override.
+          if(res){ // If existing entry is undeleted
+            this.translate.get('pain.confirmOver').subscribe(
+              overrideTitle => {
+                this.translate.get('pain.overrideMess').subscribe(
+                  overrideMessage => {
+                    this.translate.get('button.cancel').subscribe(
+                      cancelBtn => {
+                        this.translate.get('button.override').subscribe(
+                          overrideBtn => {
+                            let alert = this.alertCtrl.create({
+                            title: overrideTitle,
+                            message: overrideMessage + this.dateChosen + "?",
+                            buttons: [
+                              {
+                                text: cancelBtn,
+                                role: 'cancel',
+                                handler: () => {
+                                  console.log('Cancel clicked');
+                                }
+                              },
+                              {
+                                text: overrideBtn,
+                                handler: () => {
+                                  console.log('Override clicked');
+                                  this.saveEntry();
                                   }
-                                },
-                                {
-                                  text: overrideBtn,
-                                  handler: () => {
-                                    console.log('Override clicked');
-                                    this.saveEntry();
-                                    }
-                                  }
-                                ]
-                              });
-                              alert.present();
-                            }
-                          );
-                        }
-                      );
-                    }
-                  );
-                }
-              );
+                                }
+                              ]
+                            });
+                            alert.present();
+                          }
+                        );
+                      }
+                    );
+                  }
+                );
+              }
+            );
 
-            }else{ // Existing entry has been deleted before.
-              this.saveEntry();
-            }
-
-          }else{
-
+          }else{ // No existing entry
+            this.saveEntry();
           }
+
         },
         err => {
           console.log("Could not find previous entry")
-          this.saveEntry();
+
         }
       );
     }
@@ -141,22 +137,28 @@ export class NewEntryPage {
   saveEntry(){
     let entry = this.getEntry()
 
-    this.diaryService.addEntry(entry)
-      .subscribe(
-        res =>{
-          console.log("New entry returned:", res)
-          if(res){
+    if(this.isValidEntry(entry)){
+      this.diaryService.addEntry(entry)
+        .subscribe(
+          res =>{
+            console.log("New entry returned:", res)
+            if(res){
+              this.displaySavedToast()
+              this.navCtrl.setRoot(PainDiaryPage)
+                .catch(() => this.navCtrl.setRoot(LogoutPage))
+            }else{
 
-            this.navCtrl.setRoot(PainDiaryPage)
-              .catch(() => this.navCtrl.setRoot(LogoutPage))
-          }else{
+            }
+          },
+          err => this.displayErrorSavingToast()
+        );
 
-          }
-        },
-        err => console.log("Error saving entry")
-      );
+    }else{
+      this.displayUnvalidEntryToast()
+    }
 
   }
+
 
   populateEntry(entry: DiaryEntry){
     this.dateChosen = entry.date;
@@ -188,6 +190,68 @@ export class NewEntryPage {
     }
 
     return entry;
+  }
+
+  isValidEntry(entry: DiaryEntry): boolean{
+    let valid = (
+      entry.pain ||
+      entry.diseaseActivity ||
+      entry.fatigue ||
+      entry.prednisoloneDose ||
+      entry.additionalDrugs ||
+      entry.tenderJoints ||
+      entry.comments
+    ) != null
+
+    return valid
+  }
+
+  displaySavedToast(){
+    this.translate.get("pain.saved").subscribe(savedMessage => {
+      let toast = this.toastCtrl.create({
+        message: savedMessage,
+        duration: 2000,
+        position: 'bottom'
+      });
+
+      toast.onDidDismiss(() => {
+        console.log('Dismissed toast');
+      });
+
+      toast.present();
+    })
+  }
+
+  displayErrorSavingToast(){
+    this.translate.get("error.storage").subscribe(errorMessage => {
+      let toast = this.toastCtrl.create({
+        message: errorMessage,
+        duration: 3000,
+        position: 'top'
+      });
+
+      toast.onDidDismiss(() => {
+        console.log('Dismissed toast');
+      });
+
+      toast.present();
+    })
+  }
+
+  displayUnvalidEntryToast(){
+    this.translate.get("error.unvalid").subscribe(errorMessage => {
+      let toast = this.toastCtrl.create({
+        message: errorMessage,
+        duration: 3000,
+        position: 'bottom'
+      });
+
+      toast.onDidDismiss(() => {
+        console.log('Dismissed toast');
+      });
+
+      toast.present();
+    })
   }
 
 

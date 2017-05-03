@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { AuthService } from "../../security/auth.service";
 import { LogoutPage } from '../logout/logout';
 import { NewEntryPage } from '../new-entry/new-entry';
@@ -26,35 +26,18 @@ export class PainDiaryPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public toastCtrl: ToastController,
     public diaryService: DiaryService,
     private authService: AuthService,
     private alertCtrl: AlertController,
     private translate: TranslateService) {
-      this.presentToast()
 
       this.getDiary();
-      console.log("Constructor of Pain Diary called")
      }
 
   ionViewCanEnter(): boolean {
     //return this.authService.isLoggedIn();
     return true;
   }
-
-  presentToast() {
-  let toast = this.toastCtrl.create({
-    message: 'User was added successfully',
-    duration: 3000,
-    position: 'top'
-  });
-
-  toast.onDidDismiss(() => {
-    console.log('Dismissed toast');
-  });
-
-  toast.present();
-}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PainDiaryPage');
@@ -66,41 +49,23 @@ export class PainDiaryPage {
   }
 
   deleteEntry(entry: DiaryEntry){
-    console.log("Called deleteEntry step 1");
-
-    this.translate.get('pain.confirmDel').subscribe(
-      deleteTitle => {
-        this.translate.get('pain.deleteMess').subscribe(
-          deleteMessage => {
-            this.translate.get('button.cancel').subscribe(
-              cancelBtn => {
-                this.translate.get('button.delete').subscribe(
-                  deleteBtn => {
+    this.translate.get('pain.confirmDel').subscribe(deleteTitle => {
+        this.translate.get('pain.deleteMess').subscribe(deleteMessage => {
+            this.translate.get('button.cancel').subscribe(cancelBtn => {
+                this.translate.get('button.delete').subscribe(deleteBtn => {
                     let alert = this.alertCtrl.create({
-                    title: deleteTitle,
-                    message: deleteMessage + entry.date + "?",
-                    buttons: [
-                      {
-                        text: cancelBtn,
-                        role: 'cancel',
-                        handler: () => {
-                          console.log('Cancel clicked');
-                        }
-                      },
-                      {
-                        text: deleteBtn,
-                        handler: () => {
-                          console.log('Delete clicked');
-                          this.diaryService.deleteEntry(entry)
-                            .subscribe(
-                              res =>{
-                                if(res){
-                                  this.navCtrl.setRoot(this.navCtrl.getActive().component);
-                                }else{
-
-                                }
-                              },
-                              err => console.log("Error deleting entry")
+                      title: deleteTitle,
+                      message: deleteMessage + entry.date + "?",
+                      buttons: [
+                        {text: cancelBtn, role: 'cancel', handler: () => {}},
+                        {text: deleteBtn, handler: () => {
+                            console.log('Delete clicked');
+                            this.diaryService.deleteEntry(entry.date).subscribe(res => {
+                              if(res){
+                                this.navCtrl.setRoot(this.navCtrl.getActive().component);
+                              }
+                            },
+                            err => console.log("Error deleting entry")
                             );
                           }
                         }
