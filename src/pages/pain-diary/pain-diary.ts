@@ -33,7 +33,7 @@ export class PainDiaryPage {
 
       this.getDiary();
 
-      //this.diaryService.updates$.subscribe(_ => this.getDiary())
+      this.diaryService.updates$.subscribe(_ => this.getDiary())
      }
 
   ionViewCanEnter(): boolean {

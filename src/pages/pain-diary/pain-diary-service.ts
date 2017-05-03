@@ -43,7 +43,7 @@ const DIARY_STORAGE_PENDING_UPDATES = "PENDING"
 export class DiaryService implements IWakeMeUp {
     private diaryEntryToEdit : DiaryEntry;
     private syncInProgress = false;
-  //  public updates$ = new Subject<void>()
+    public updates$ = new Subject<void>()
 
     public constructor(
       public toastCtrl: ToastController,
@@ -162,8 +162,8 @@ export class DiaryService implements IWakeMeUp {
                 headers,
             })
             .map(res => res ? res.json() : null)
-            .do(entry => this._storage.set(DIARY_STORAGE_PREFIX + entry.date, entry))
-              //.then(_ => this.updates$.next()))
+            .do(entry => this._storage.set(DIARY_STORAGE_PREFIX + entry.date, entry)
+              .then(_ => this.updates$.next()))
             .catch(this.handleError);
     }
 
