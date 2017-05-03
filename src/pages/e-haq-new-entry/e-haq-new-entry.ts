@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Content } from 'ionic-angular';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ToastController } from 'ionic-angular';
 import { AuthService } from "../../security/auth.service";
 import { Observable } from 'rxjs/Observable';
 import { AlertController } from 'ionic-angular';
@@ -35,17 +35,23 @@ export class EHaqNewEntryPage {
   answersheet: Array<any> = [{ text: String, scr: String, value: Number, checked: Boolean }];
   @ViewChild(Content) content: Content;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-    private authService: AuthService, private haqService: HAQService,
-    private alertCtrl: AlertController, private form: HaqAnswerForm,
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public toastCtrl: ToastController,
+    private authService: AuthService,
+    private haqService: HAQService,
+    private alertCtrl: AlertController,
+    private form: HaqAnswerForm,
     private translate: TranslateService) {
-    this.getSheets();
-    this.page = 1;
-    this.haqEntry.answers = form.getEditList();
-    if (this.haqEntry.answers == null)
-      this.haqEntry.answers = [];
-    this.answer = form.getMappingList();
-    
+
+      this.getSheets();
+      this.page = 1;
+      this.haqEntry.answers = form.getEditList();
+      if (this.haqEntry.answers == null)
+        this.haqEntry.answers = [];
+      this.answer = form.getMappingList();
+
   }
 
   ionViewCanEnter(): boolean {
@@ -220,7 +226,7 @@ export class EHaqNewEntryPage {
                                       .catch(() => this.navCtrl.setRoot(LogoutPage))
                                   }
                                 },
-                                err => console.log("Error saving entry")
+                                err => this.displayErrorSavingToast()
                               );;
                             }
                           }
@@ -239,7 +245,7 @@ export class EHaqNewEntryPage {
     else {
       this.translate.get('haq.alertError').subscribe(
         errorTitle => {
-          this.translate.get('haq.errorMessage').subscribe(
+          this.translate.get('haq.errorMessage2').subscribe(
             errorMessage => {
               this.translate.get('button.ok').subscribe(
                 okBtn => {
@@ -336,5 +342,22 @@ export class EHaqNewEntryPage {
       index = 0;
     });
     return filledOut;
+  }
+
+  displayErrorSavingToast(){
+    this.translate.get("error.storage").subscribe(errorMessage => {
+      let toast = this.toastCtrl.create({
+        message: errorMessage,
+        showCloseButton: true,
+        duration: 3000,
+        position: 'top'
+      });
+
+      toast.onDidDismiss(() => {
+        console.log('Dismissed toast');
+      });
+
+      toast.present();
+    })
   }
 }

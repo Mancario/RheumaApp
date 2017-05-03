@@ -1,4 +1,4 @@
-import {Injectable} from "@angular/core";
+import { Injectable } from "@angular/core";
 import { SecureStorage, SecureStorageObject } from '@ionic-native/secure-storage';
 
 const KEY = "CREDS";

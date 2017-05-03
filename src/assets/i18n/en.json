@@ -14,7 +14,8 @@
       "delete":       "Delete",
       "yes":          "Yes",
       "no":           "No",
-      "refresh":      "Refresh list"
+      "refresh":      "Refresh list",
+      "close":        "Close"
   },
 
   "login": {
@@ -64,7 +65,8 @@
       "confirmDel":   "Confirm delete",
       "deleteMess":   "Do you want to delete entry for date: ",
       "confirmOver":  "Confirm override",
-      "overrideMess": "Do you want to override existing pain entry for date: "
+      "overrideMess": "Do you want to override existing pain entry for date: ",
+      "saved":        "Entry saved"
   },
 
   "haq": {
@@ -81,9 +83,12 @@
       "alt3":         "With MUCH difficulty",
       "alt4":         "UNABLE to do",
       "alertError":   "Error",
-      "errorMessage": "You need to fill out every question before you can move on to the next page..",
+      "errorMessage": "You need to answer at least one question per category before you can move on to the next page..",
+      "errorMessage2":"You need to answer at least one question per category before you can complete the questionnaire",
       "alertSubmit":  "Submit form",
-      "submitMess":   "Do you want to finish this HAQ-form?"
+      "submitMess":   "Do you want to finish this HAQ-form?",
+      "cancelSubmit": "Cancel",
+      "cancelMess":   "Do you want to abort this questionnaire?"
   },
 
   "home": {
@@ -109,6 +114,13 @@
   },
 
   "settings": {
+
+  },
+
+  "error": {
+      "network":      "Your internet connection appears to be offline. You can still enter data and it will be synced when you are online again.",
+      "storage":      "There was an error storing entry",
+      "unvalid":      "You have not entered any information"
 
   },
 

@@ -23,11 +23,17 @@ export class PainDiaryPage {
   paindiaries: Observable<DiaryEntryList>;
   diaries: DiaryEntry[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-    private authService: AuthService, public diaryService: DiaryService,
-    private alertCtrl: AlertController, private translate: TranslateService) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public diaryService: DiaryService,
+    private authService: AuthService,
+    private alertCtrl: AlertController,
+    private translate: TranslateService) {
+
       this.getDiary();
-      console.log("Constructor of Pain Diary called")
+
+      this.diaryService.updates$.subscribe(_ => this.getDiary())
      }
 
   ionViewCanEnter(): boolean {
@@ -45,41 +51,24 @@ export class PainDiaryPage {
   }
 
   deleteEntry(entry: DiaryEntry){
-    console.log("Called deleteEntry step 1");
-
-    this.translate.get('pain.confirmDel').subscribe(
-      deleteTitle => {
-        this.translate.get('pain.deleteMess').subscribe(
-          deleteMessage => {
-            this.translate.get('button.cancel').subscribe(
-              cancelBtn => {
-                this.translate.get('button.delete').subscribe(
-                  deleteBtn => {
+    this.translate.get('pain.confirmDel').subscribe(deleteTitle => {
+        this.translate.get('pain.deleteMess').subscribe(deleteMessage => {
+            this.translate.get('button.cancel').subscribe(cancelBtn => {
+                this.translate.get('button.delete').subscribe(deleteBtn => {
                     let alert = this.alertCtrl.create({
-                    title: deleteTitle,
-                    message: deleteMessage + entry.date + "?",
-                    buttons: [
-                      {
-                        text: cancelBtn,
-                        role: 'cancel',
-                        handler: () => {
-                          console.log('Cancel clicked');
-                        }
-                      },
-                      {
-                        text: deleteBtn,
-                        handler: () => {
-                          console.log('Delete clicked');
-                          this.diaryService.deleteEntry(entry)
-                            .subscribe(
-                              res =>{
-                                if(res){
-                                  this.navCtrl.setRoot(this.navCtrl.getActive().component);
-                                }else{
-
-                                }
-                              },
-                              err => console.log("Error deleting entry")
+                      title: deleteTitle,
+                      message: deleteMessage + entry.date + "?",
+                      buttons: [
+                        {text: cancelBtn, role: 'cancel', handler: () => {}},
+                        {text: deleteBtn, handler: () => {
+                            console.log('Delete clicked');
+                            this.diaryService.deleteEntry(entry.date).subscribe(res => {
+                              if(res){
+                                console.log("I'm redirecting now")
+                                this.navCtrl.setRoot(this.navCtrl.getActive().component);
+                              }
+                            },
+                            err => console.log("Error deleting entry")
                             );
                           }
                         }
