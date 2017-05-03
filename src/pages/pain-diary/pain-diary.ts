@@ -62,6 +62,7 @@ export class PainDiaryPage {
                             console.log('Delete clicked');
                             this.diaryService.deleteEntry(entry.date).subscribe(res => {
                               if(res){
+                                console.log("I'm redirecting now")
                                 this.navCtrl.setRoot(this.navCtrl.getActive().component);
                               }
                             },

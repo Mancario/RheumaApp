@@ -242,24 +242,22 @@ export class DiaryService {
     public deleteEntry(date: string): Observable<boolean> {
         console.log("Called deleteEntry with date: " + date)
 
-        //let promise = this.getEntry(date).then(entry =>{
-          return Observable.fromPromise(this.getEntry(date).then(entry =>{
+        let promise = this.getEntry(date).then(entry =>{
           entry.deleted = true
           console.log("DeleteEntry found entry:", entry)
-          this.saveEntry(entry)
+          return this.saveEntry(entry)
             .toPromise()
             .then(_ => this._storage.ready())
             .then(_ => this._storage.get(DIARY_STORAGE_LIST))
             .then((dates: any) => {
               const removed = dates.filter(date => date !== entry.date)
+              console.log("Now its really deleted")
               return this._storage.set(DIARY_STORAGE_LIST, removed)
             })
-        })).map(_ => true)
+        })
 
-
-
-        //return Observable.fromPromise(promise)
-        //  .map(_ => true)
+        return Observable.fromPromise(promise)
+          .map(_ => true)
 
     }
 
