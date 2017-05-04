@@ -6,7 +6,7 @@ import { API_URL} from '../../environments/environment';
 import { AuthService } from "../../security/auth.service";
 import { Storage } from '@ionic/storage';
 import { IWakeMeUp, NetworkService } from '../../services/network.service'
-import { Subject}     from 'rxjs/Subject';
+import { Subject} from 'rxjs/Subject';
 
 
 
@@ -188,7 +188,6 @@ export class DiaryService implements IWakeMeUp {
         return Observable.fromPromise(promise)
           .map(_ => true)
 
-
     }
 
     public saveEntryToServer(entry: DiaryEntry): Observable<boolean> {
@@ -260,6 +259,8 @@ export class DiaryService implements IWakeMeUp {
                   return this.deleteEntryOnServer(entry)
                 else
                   return this.saveEntryToServer(entry)
+                    .do(_ => console.log("Conflict handling saved entry", _))
+                    .catch(this.handleUpdateError(entry))
               })
               const savePromises = saveObservables.map(obs => obs.toPromise())
               return Promise.all(savePromises)
@@ -268,15 +269,16 @@ export class DiaryService implements IWakeMeUp {
 
         updates
           .then(updatedList => {
-              console.log("This is the result of the updates", updatedList)
+              console.log("This is the result of the diary-updates", updatedList)
               console.log("Attention: setting to empty list, but should remove single entries instead");
               return this._storage.set(DIARY_STORAGE_PENDING_UPDATES, [])
           })
           .then(_ => {
-            console.log("Pending updates DONE")
+            console.log("Pending diary-updates DONE")
             this.syncInProgress = false
           })
           .catch(err => {
+              this.syncInProgress = false
               console.log("#### Error in wakeUpSync: Updates threw error", err)
           })
       })
@@ -345,7 +347,7 @@ export class DiaryService implements IWakeMeUp {
         ]
       });
       alert.present();
-      return obs
+      return obs.do(result => console.log("HandleError Observable received:", result))
     }
 
     private handleUpdateError(entry: DiaryEntry): (error: Response) => Observable<boolean> {

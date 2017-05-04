@@ -60,10 +60,6 @@ export class EHAQPage {
     this.eHAQdiaries = this._haqService.listEntries(this.query);
     this.eHAQdiaries.forEach(element => {
       this.results = element.results;
-      this.results.forEach(entry => {
-        entry.score = entry.score *10;
-      });
-
     });
   }
 
@@ -101,7 +97,7 @@ export class EHAQPage {
                         text: deleteBtn,
                         handler: () => {
                           console.log('Delete clicked');
-                          this._haqService.deleteEntry(entry)
+                          this._haqService.deleteEntry(entry.date)
                             .subscribe(
                               res =>{
                                 if(res){

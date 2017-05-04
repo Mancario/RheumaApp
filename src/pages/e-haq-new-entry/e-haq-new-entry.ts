@@ -22,7 +22,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class EHaqNewEntryPage {
 
-  haqEntry: HAQEntry = { date: new Date().toISOString().substr(0, 10), answers: [] };
+  haqEntry: HAQEntry = { date: new Date().toISOString().substr(0, 10), answers: [], deleted: false, lastModified: 0 };
   answer: any;
   private date = {
     today: new Date().toISOString().substr(0, 10)
@@ -219,7 +219,7 @@ export class EHaqNewEntryPage {
                             text: submitBtn,
                             handler: () => {
 
-                              this.haqService.saveEntry(this.haqEntry).subscribe(
+                              this.haqService.addEntry(this.haqEntry).subscribe(
                                 res => {
                                   if (res) {
                                     this.navCtrl.setRoot(EHAQPage)
