@@ -23,19 +23,27 @@ import { HaqAnswerForm } from "../e-haq-new-entry/e-haq-new-entry-form"
 export class EHAQPage {
   private query: HAQQuery = { offset: 0, count: 10 };
   eHAQdiaries: Observable<HAQEntryList>;
-  results: HAQEntry[];  
+  results: HAQEntry[];
 
   diaries: Array<{ date: string, value: string, painvalue: number }>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-    private authService: AuthService, private _http: Http, private translate: TranslateService,
-    private _haqService: HAQService,  private alertCtrl: AlertController, private form: HaqAnswerForm) {
-    this.getDiary();
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private authService: AuthService,
+    private _http: Http,
+    private translate: TranslateService,
+    private _haqService: HAQService,
+    private alertCtrl: AlertController,
+    private form: HaqAnswerForm) {
+      this.getDiary();
+      console.log("HAQ Overview constructed")
 
-    this.diaries = [];
+      this.diaries = [];
   }
 
   ionViewCanEnter(): boolean {
+    console.log("Can enter HAQ Overview: " + this.authService.isLoggedIn())
     return this.authService.isLoggedIn();
   }
 
@@ -51,11 +59,11 @@ export class EHAQPage {
   getDiary() {
     this.eHAQdiaries = this._haqService.listEntries(this.query);
     this.eHAQdiaries.forEach(element => {
-      this.results = element.results; 
+      this.results = element.results;
       this.results.forEach(entry => {
-        entry.score = entry.score *10; 
-      }); 
-          
+        entry.score = entry.score *10;
+      });
+
     });
   }
 
@@ -111,8 +119,8 @@ export class EHAQPage {
     );
   }
   editEntry(entry: HAQEntry){
-    this.form.setList(entry.answers, entry.date); 
+    this.form.setList(entry.answers, entry.date);
     this.navCtrl.setRoot(EHaqNewEntryPage)
-      .catch(() => this.navCtrl.setRoot(LogoutPage)) 
+      .catch(() => this.navCtrl.setRoot(LogoutPage))
   }
 }

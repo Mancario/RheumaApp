@@ -3,6 +3,7 @@ import { Http, Response, URLSearchParams, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { API_URL } from '../../environments/environment';
 import { AuthService } from "../../security/auth.service";
+import { HaqSheetForm } from './haq-sheet'
 
 export interface HAQSheet {
     pages: HAQPage[];
@@ -48,18 +49,14 @@ const HAQ_API_URL = API_URL + "/haq";
 
 @Injectable()
 export class HAQService {
-    private diaryEntry : HAQEntry; 
-    public constructor(private _http: Http, private authService: AuthService) { }
+    private diaryEntry : HAQEntry;
+    public constructor(
+      private _http: Http,
+      private authService: AuthService,
+      private haqSheetForm: HaqSheetForm) { }
 
     public sheet(): Observable<HAQSheet> {
-        const headers: Headers = new Headers();
-
-        headers.append('Content-Type', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.authService.loggedInUser().authToken);
-
-        return this._http.get(HAQ_API_URL + "/sheet", { headers, withCredentials: true})
-            .map(res => res ? res.json() : null)
-            .catch(this.handleError);
+        return Observable.of(this.haqSheetForm.sheet)
     }
 
     public listEntries(query: HAQQuery): Observable<HAQEntryList> {
@@ -157,5 +154,7 @@ export class HAQService {
         errorMessage = 'Serverfehler: ' + (error.statusText ? error.statusText : error);
         return Observable.throw(errorMessage);
     }
+
+
 
 }

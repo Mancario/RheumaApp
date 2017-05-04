@@ -37,6 +37,7 @@ import { SecureStorage } from "@ionic-native/secure-storage";
 import { NativeStorage } from "@ionic-native/native-storage";
 import { NetworkService } from '../services/network.service'
 import { Network } from '@ionic-native/network';
+import { HaqSheetForm } from '../pages/e-haq/haq-sheet'
 
 
 export function createTranslateLoader(http: Http) {
@@ -107,6 +108,7 @@ export function createTranslateLoader(http: Http) {
     HAQService,
     DiaryService,
     HaqAnswerForm,
+    HaqSheetForm,
     Network, // Ionic service
     NetworkService // Our service
 
