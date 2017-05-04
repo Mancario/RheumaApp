@@ -193,7 +193,6 @@ export class DiaryService implements IWakeMeUp {
     }
 
     public saveEntryToServer(entry: DiaryEntry): Observable<boolean> {
-        //entry.lastModified = undefined
         const body: string = JSON.stringify(entry)
         const headers: Headers = new Headers()
         headers.append('Content-Type', 'application/json')
@@ -249,10 +248,13 @@ export class DiaryService implements IWakeMeUp {
 
       this.syncInProgress = true
       console.log("Updating server now")
+
       this._storage.ready().then(() => {
         const updates = this._storage.get(DIARY_STORAGE_PENDING_UPDATES).then((dates:any) => {
+
           const all = dates.map(date => this._storage.get(DIARY_STORAGE_PREFIX + date))
-          Promise.all(all)
+
+          return Promise.all(all)
             .then((entries: DiaryEntry[]) => {
               const saveObservables = entries.map(entry =>{
                 if(entry.deleted)
@@ -263,14 +265,20 @@ export class DiaryService implements IWakeMeUp {
               const savePromises = saveObservables.map(obs => obs.toPromise())
               return Promise.all(savePromises)
             })
-
         })
 
         updates
-          .then(updatedList => this._storage.set(DIARY_STORAGE_PENDING_UPDATES, []))
+          .then(updatedList => {
+              console.log("This is the result of the updates", updatedList)
+              console.log("Attention: setting to empty list, but should remove single entries instead");
+              return this._storage.set(DIARY_STORAGE_PENDING_UPDATES, [])
+          })
           .then(_ => {
             console.log("Pending updates DONE")
             this.syncInProgress = false
+          })
+          .catch(err => {
+              console.log("#### Error in wakeUpSync: Updates threw error", err)
           })
       })
     }
@@ -354,7 +362,7 @@ export class DiaryService implements IWakeMeUp {
 
     private handleError(error: Response) {
         // in a real world app, we may send the error to some remote logging infrastructure
-        // instead of just logging it to the consolew
+        // instead of just logging it to the console
 
         if (error.status === 404)
             return Observable.throw('Eintrag nicht gefunden.');
