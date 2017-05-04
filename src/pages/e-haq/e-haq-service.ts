@@ -4,6 +4,8 @@ import { Observable } from 'rxjs/Observable';
 import { API_URL } from '../../environments/environment';
 import { AuthService } from "../../security/auth.service";
 import { HaqSheetForm } from './haq-sheet'
+import { Storage } from '@ionic/storage';
+
 
 export interface HAQSheet {
     pages: HAQPage[];
@@ -46,6 +48,9 @@ export interface HAQQuery {
 }
 
 const HAQ_API_URL = API_URL + "/haq";
+const HAQ_STORAGE_PREFIX = "HAQ:";
+const HAQ_STORAGE_LIST = HAQ_STORAGE_PREFIX + "LIST";
+const HAQ_STORAGE_PENDING_UPDATES = "HAQ_PENDING"
 
 @Injectable()
 export class HAQService {
@@ -53,21 +58,22 @@ export class HAQService {
     public constructor(
       private _http: Http,
       private authService: AuthService,
-      private haqSheetForm: HaqSheetForm) { }
+      private haqSheetForm: HaqSheetForm,
+      private _storage: Storage) { }
 
     public sheet(): Observable<HAQSheet> {
         return Observable.of(this.haqSheetForm.sheet)
     }
 
-    public listEntries(query: HAQQuery): Observable<HAQEntryList> {
+    public refreshAllEntries(): Observable<HAQEntryList> {
         const headers: Headers = new Headers();
         const params = new URLSearchParams();
 
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', 'Bearer ' + this.authService.loggedInUser().authToken);
 
-        params.set('offset', "" + (query.offset || 0));
-        params.set('count', "" + query.count);
+        params.set('offset', '0');
+        params.set('count', '10000');
 
         return this._http
             .get(HAQ_API_URL, {
@@ -76,26 +82,51 @@ export class HAQService {
                 search: params,
             })
             .map(res => res.json())
-            .catch(this.handleError);
-    }
+            .do(entries => {
+              console.log("Hello following entries: ", entries)
 
-    public listAllEntries(): Observable<HAQEntryList> {
-        const headers: Headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.authService.loggedInUser().authToken);
+              this._storage.ready().then(()=>{
+                const dates = entries.results.map(r => r.date)
+                console.log("Mapped dates", dates);
 
+                this._storage.set(HAQ_STORAGE_LIST, dates)
 
-        return this._http
-            .get(HAQ_API_URL, {
-                headers,
-                withCredentials: true,
+                entries.results.forEach(entry => this._storage.set(HAQ_STORAGE_PREFIX + entry.date, entry))
+
+              })
 
             })
-            .map(res => res.json())
             .catch(this.handleError);
     }
 
+    public listEntries(query: HAQQuery): Observable<HAQEntryList>{
 
+      let totalCount = 0
+
+      const promise = this._storage.ready()
+        .then(() => this._storage.get(HAQ_STORAGE_LIST))
+        .then((list: any) => {
+          // list is an array of date strings
+          let dateList = <string[]>list || [];
+          console.log("Retrieved list:", dateList);
+          const count = query.count || 21
+          const offset = query.offset || 0
+          totalCount = list ? (<string[]>list).length : 0
+          dateList = dateList.slice(offset, Math.min(dateList.length, offset + count))
+
+          // obtain a list of promise for each date entry
+          const all = dateList.map(date => this._storage.get(HAQ_STORAGE_PREFIX + date))
+          return Promise.all(all)
+
+      })
+
+      // promise is a Promise<DiaryEntry[]>
+
+      return Observable.fromPromise(promise)
+        .map(l => <HAQEntryList>({
+          totalCount, results: l
+        }) )
+    }
 
 
     public viewEntry(date: string): Observable<HAQEntry> {

@@ -67,6 +67,14 @@ export class EHAQPage {
     });
   }
 
+  forceUpdate(){
+    this._haqService.refreshAllEntries()
+      .subscribe(list => {
+        list.results.forEach(result => result.score = result.score*10)
+        this.results = list.results
+      })
+  }
+
    deleteEntry(entry: HAQEntry){
     console.log("Called deleteEntry step 1");
 

@@ -13,6 +13,10 @@
 
 
 <ion-content padding>
+
+  <button ion-button color="light" block class="actionbutton" (click)="forceUpdate()">{{ 'button.refresh' | translate }}</button>
+
+
   <ion-list>
      <div *ngFor="let p of results">
     <ion-card class="card" >
@@ -23,10 +27,10 @@
             {{p.date}}
           </button>
         </div>
-        <div class="header-right-button">         
+        <div class="header-right-button">
           <button ion-button large clear color="dark" class="headerbutton">
             <ion-icon ios="md-create" md="md-create" (click)="editEntry(p)"> </ion-icon>
-          </button> 
+          </button>
           <button ion-button large clear color="dark" class="headerbutton">
             <ion-icon name="trash" (click) = "deleteEntry(p)"> </ion-icon>
           </button>

@@ -5,7 +5,6 @@ import { Observable}     from 'rxjs/Observable';
 import { API_URL} from '../../environments/environment';
 import { AuthService } from "../../security/auth.service";
 import { Storage } from '@ionic/storage';
-import { NativeStorage } from '@ionic-native/native-storage';
 import { IWakeMeUp, NetworkService } from '../../services/network.service'
 import { Subject}     from 'rxjs/Subject';
 
