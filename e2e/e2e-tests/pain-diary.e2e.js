@@ -16,21 +16,10 @@ describe('Pain Diary:', function() {
 
   let button, pwd, usr, menu, el;
 
-    beforeEach(function() {
-      jasmine.addMatchers(matchers);
 
+    beforeAll(function(){
       browser.get('http://localhost:8100');
       browser.sleep(700);
-
-/*
-      if(browser.getTitle() == homeTitle){
-        menu = element(by.id(m));
-        menu.click();
-        browser.sleep(500);
-        button = element.all(by.className('menubutton')).get(8);
-        button.click();
-        browser.sleep(700);
-      } */
 
       // Enter username
       usr = element.all(by.name(u)).first().all(by.tagName(i)).first();
@@ -44,6 +33,21 @@ describe('Pain Diary:', function() {
       button = element(by.name(l));
       button.click();
 
+      // Navigate to PainDiary
+      menu = element(by.id(m));
+      menu.click();
+      browser.sleep(500);
+      button = element.all(by.className('menubutton')).get(2);
+      button.click();
+      browser.sleep(1000);
+
+    })
+
+    beforeEach(function() {
+      jasmine.addMatchers(matchers);
+
+      browser.get('http://localhost:8100');
+      browser.sleep(700);
       // Navigate to PainDiary
       menu = element(by.id(m));
       menu.click();

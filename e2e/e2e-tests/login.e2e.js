@@ -50,6 +50,15 @@ describe('Login:', function() {
       button.click();
 
       expect(browser.getTitle()).toEqual(homeTitle);
+
+      // Log out
+      menu = element(by.id(m));
+      menu.click();
+      browser.sleep(500);
+      button = element.all(by.className('menubutton')).get(8);
+      button.click();
+      browser.sleep(700);
+      expect(browser.getTitle()).toEqual(loginTitle);
     });
 
 
@@ -94,5 +103,6 @@ describe('Login:', function() {
 
       expect(browser.getTitle()).toEqual(loginTitle);
     });
+
 
 });
