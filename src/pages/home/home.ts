@@ -41,9 +41,6 @@ export class HomePage {
     private haqService: HAQService,
     private _diaryService: DiaryService) {
 
-    this.flag = "../../assets/img/flag-green.png";
-    this.laboratoryDate = "22.04.2017 (Suggestion)";
-    this.rheumatologistDate = "20.05.2017";
     this.graph = "1"; // shows segment 1 (graph 1)
     var temp = new Date();
     temp.setMonth(temp.getMonth() - 3);
