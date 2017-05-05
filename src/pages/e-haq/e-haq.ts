@@ -64,12 +64,24 @@ export class EHAQPage {
   }
 
   forceUpdate(){
-    this._haqService.refreshAllEntries()
-      .subscribe(list => {
-        if(list !== null){
-          this.results = list.results
-        }
-      })
+      let spinner = document.getElementById("spinner")
+      let icon = document.getElementById("syncIcon")
+      icon.style.display = 'none'
+      spinner.style.display = 'block'
+
+      this._haqService.refreshAllEntries()
+        .subscribe(list => {
+          if(list !== null){
+            this.results = list.results
+
+          }else{
+            console.log("Did not refresh since app is offline")
+          }
+
+          icon.style.display = 'block'
+          spinner.style.display = 'none'
+
+        })
   }
 
   getScore(entry: HAQEntry): any{

@@ -15,7 +15,8 @@
 
     <ion-buttons end>
       <button id="syncButton" end ion-button clear (click)="forceUpdate()">
-        <ion-icon class="syncIcon" color="dark" name="sync"></ion-icon>
+        <ion-icon class="syncIcon" id="syncIcon" color="dark" name="sync"></ion-icon>
+        <ion-spinner id="spinner" style="display:none;" name="ios" paused="false"></ion-spinner>
       </button>
     </ion-buttons>
   </ion-navbar>

@@ -86,10 +86,23 @@ export class PainDiaryPage {
   }
 
   forceUpdate(){
+    let spinner = document.getElementById("spinner")
+    let icon = document.getElementById("syncIcon")
+    icon.style.display = 'none'
+    spinner.style.display = 'block'
+
     this.diaryService.refreshAllEntries()
       .subscribe(list => {
-        if(list !== null)
+        if(list !== null){
           this.diaries = list.results
+
+        }else{
+          console.log("Did not refresh since app is offline")
+        }
+
+        icon.style.display = 'block'
+        spinner.style.display = 'none'
+
       })
   }
 
@@ -112,28 +125,6 @@ export class PainDiaryPage {
     }
 
   }
-
-/*
-  extendEntry(entry){
-    let info = document.getElementById(entry.date);
-    let exp = document.getElementById("extendbutton");
-    let comp = document.getElementById("compressbutton");
-
-    if(info.style.display === 'none'){
-      console.log("Extend entry: " + entry.date);
-      info.style.display = 'block';
-      exp.style.display = 'none';
-      comp.style.display = 'block'
-
-    }else{
-      console.log("Compress entry: " + entry.date);
-      info.style.display = 'none';
-      exp.style.display = 'block';
-      comp.style.display = 'none'
-    }
-
-  }
-*/
 
   getDiary() {
     this.paindiaries = this.diaryService.listEntries(this.query);
