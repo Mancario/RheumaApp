@@ -68,6 +68,11 @@ export class DiaryService implements IWakeMeUp {
     }
 
     public refreshAllEntries(): Observable<DiaryEntryList> {
+        if(!this._network.connected){
+          console.log("Return from DIARY-refresh due to unconnected")
+          return Observable.of(null)
+        }
+
         const headers: Headers = new Headers();
         headers.append('Authorization', 'Bearer ' + this._authService.loggedInUser().authToken);
 
@@ -82,7 +87,6 @@ export class DiaryService implements IWakeMeUp {
             })
             .map(res => res.json())
             .do(entries => {
-              console.log("Hello following entries: ", entries)
 
               this._storage.ready().then(()=>{
                 const dates = entries.results.map(r => r.date)
@@ -360,6 +364,7 @@ export class DiaryService implements IWakeMeUp {
           return this.handleError(error)
        }
     }
+
 
     private handleError(error: Response) {
         // in a real world app, we may send the error to some remote logging infrastructure

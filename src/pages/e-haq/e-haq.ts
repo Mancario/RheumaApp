@@ -66,8 +66,9 @@ export class EHAQPage {
   forceUpdate(){
     this._haqService.refreshAllEntries()
       .subscribe(list => {
-        list.results.forEach(result => result.score = result.score*10)
-        this.results = list.results
+        if(list !== null){
+          this.results = list.results
+        }
       })
   }
 

@@ -37,8 +37,8 @@ export class PainDiaryPage {
      }
 
   ionViewCanEnter(): boolean {
-    //return this.authService.isLoggedIn();
-    return true;
+    return this.authService.isLoggedIn();
+    //return true;
   }
 
   ionViewDidLoad() {
@@ -87,7 +87,10 @@ export class PainDiaryPage {
 
   forceUpdate(){
     this.diaryService.refreshAllEntries()
-      .subscribe(list => this.diaries = list.results)
+      .subscribe(list => {
+        if(list !== null)
+          this.diaries = list.results
+      })
   }
 
   editEntry(entry: DiaryEntry){

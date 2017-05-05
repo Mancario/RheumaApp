@@ -82,6 +82,11 @@ export class HAQService implements IWakeMeUp {
     }
 
     public refreshAllEntries(): Observable<HAQEntryList> {
+        if(!this._network.connected){
+          console.log("Return from HAQ-refresh due to unconnected")
+          return Observable.of(null)
+        }
+
         const headers: Headers = new Headers();
         const params = new URLSearchParams();
 
@@ -102,11 +107,13 @@ export class HAQService implements IWakeMeUp {
 
               this._storage.ready().then(()=>{
                 const dates = entries.results.map(r => r.date)
-                console.log("Mapped dates", dates);
 
                 this._storage.set(HAQ_STORAGE_LIST, dates)
 
-                entries.results.forEach(entry => this._storage.set(HAQ_STORAGE_PREFIX + entry.date, entry))
+                entries.results.forEach(entry => {
+                  entry.score = entry.score*10
+                  this._storage.set(HAQ_STORAGE_PREFIX + entry.date, entry)
+                })
 
               })
 
