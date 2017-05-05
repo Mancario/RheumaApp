@@ -80,10 +80,10 @@ export class EHaqNewEntryPage {
     this.setOptions().subscribe(
       value => {
         this.answersheet = [
-          { text: this.alternatives.alt1, scr: "../../assets/img/happy.png", value: 0, checked: false },
-          { text: this.alternatives.alt2, scr: "../../assets/img/smiley-neutral.png", value: 1, checked: false },
-          { text: this.alternatives.alt3, scr: "../../assets/img/smiley-sad.png", value: 2, checked: false },
-          { text: this.alternatives.alt4, scr: "../../assets/img/smiley-very-sad.png", value: 3, checked: false },
+          { text: this.alternatives.alt1, scr: "assets/img/happy.png", value: 0, checked: false },
+          { text: this.alternatives.alt2, scr: "assets/img/smiley-neutral.png", value: 1, checked: false },
+          { text: this.alternatives.alt3, scr: "assets/img/smiley-sad.png", value: 2, checked: false },
+          { text: this.alternatives.alt4, scr: "assets/img/smiley-very-sad.png", value: 3, checked: false },
         ];
       }
     )
