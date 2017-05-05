@@ -43,7 +43,7 @@ export class NetworkService {
       // watch network for a connection
       this.network.onConnect().subscribe(() => {
         console.log('network connected!'); 
-        this.disconnectToast.dismiss()
+        if(this.disconnectToast) this.disconnectToast.dismiss()
         this.createReconnectionToast()
         this.reconnectToast.present()
         // We just got a connection but we need to wait briefly

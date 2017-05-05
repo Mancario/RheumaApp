@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
 import { EHaqNewEntryPage } from '../e-haq-new-entry/e-haq-new-entry';
 import { AuthService } from "../../security/auth.service";
 import { LogoutPage } from '../logout/logout';
@@ -24,12 +24,13 @@ export class EHAQPage {
   private query: HAQQuery = { offset: 0, count: 10 };
   eHAQdiaries: Observable<HAQEntryList>;
   results: HAQEntry[];
-
   diaries: Array<{ date: string, value: string, painvalue: number }>;
+  isLoading = false
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    public toastCtrl: ToastController,
     private authService: AuthService,
     private _http: Http,
     private translate: TranslateService,
@@ -64,10 +65,7 @@ export class EHAQPage {
   }
 
   forceUpdate(){
-      let spinner = document.getElementById("spinner")
-      let icon = document.getElementById("syncIcon")
-      icon.style.display = 'none'
-      spinner.style.display = 'block'
+      this.isLoading = true
 
       this._haqService.refreshAllEntries()
         .subscribe(list => {
@@ -76,12 +74,26 @@ export class EHAQPage {
 
           }else{
             console.log("Did not refresh since app is offline")
+            this.presentOfflineToast()
           }
 
-          icon.style.display = 'block'
-          spinner.style.display = 'none'
+          this.isLoading = false
 
         })
+  }
+
+  presentOfflineToast(){
+    this.translate.get("error.offline").subscribe(networkMessage => {
+      let toast = this.toastCtrl.create({
+        message: networkMessage,
+        duration: 2000,
+        position: 'bottom'
+      });
+      toast.onDidDismiss(() => {
+        console.log('Dismissed toast');
+      });
+      toast.present()
+    })
   }
 
   getScore(entry: HAQEntry): any{

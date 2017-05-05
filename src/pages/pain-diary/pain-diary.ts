@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
 import { AuthService } from "../../security/auth.service";
 import { LogoutPage } from '../logout/logout';
 import { NewEntryPage } from '../new-entry/new-entry';
@@ -22,10 +22,12 @@ export class PainDiaryPage {
   query: DiaryQuery = { offset: 0, count: 10 };
   paindiaries: Observable<DiaryEntryList>;
   diaries: DiaryEntry[];
+  isLoading = false
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    public toastCtrl: ToastController,
     public diaryService: DiaryService,
     private authService: AuthService,
     private alertCtrl: AlertController,
@@ -86,10 +88,7 @@ export class PainDiaryPage {
   }
 
   forceUpdate(){
-    let spinner = document.getElementById("spinner")
-    let icon = document.getElementById("syncIcon")
-    icon.style.display = 'none'
-    spinner.style.display = 'block'
+    this.isLoading = true
 
     this.diaryService.refreshAllEntries()
       .subscribe(list => {
@@ -98,12 +97,26 @@ export class PainDiaryPage {
 
         }else{
           console.log("Did not refresh since app is offline")
+          this.presentOfflineToast()
         }
 
-        icon.style.display = 'block'
-        spinner.style.display = 'none'
+        this.isLoading = false
 
       })
+  }
+
+  presentOfflineToast(){
+    this.translate.get("error.offline").subscribe(networkMessage => {
+      let toast = this.toastCtrl.create({
+        message: networkMessage,
+        duration: 2000,
+        position: 'bottom'
+      });
+      toast.onDidDismiss(() => {
+        console.log('Dismissed toast');
+      });
+      toast.present()
+    })
   }
 
   editEntry(entry: DiaryEntry){
