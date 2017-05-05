@@ -72,6 +72,14 @@ export class EHAQPage {
       })
   }
 
+  getScore(entry: HAQEntry): any{
+    if(entry.score == null){
+      return "Uncalculated"
+    }
+
+    return (entry.score/10).toFixed(2)
+  }
+
    deleteEntry(entry: HAQEntry){
     console.log("Called deleteEntry step 1");
 

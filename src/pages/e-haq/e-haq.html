@@ -7,16 +7,19 @@
     <button id="menuToggle" ion-button menuToggle>
       <ion-icon color="dark" name="menu"></ion-icon>
     </button>
-    <ion-title>{{ 'haq.title' | translate }}</ion-title>
+
+    <ion-title class="pageTitle">{{ 'haq.title' | translate }}</ion-title>
+
+    <ion-buttons end>
+      <button id="syncButton" end ion-button clear (click)="forceUpdate()">
+        <ion-icon class="syncIcon" color="dark" name="sync"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
-
-  <button ion-button color="light" block class="actionbutton" (click)="forceUpdate()">{{ 'button.refresh' | translate }}</button>
-
-
   <ion-list>
      <div *ngFor="let p of results">
     <ion-card class="card" >
@@ -39,7 +42,7 @@
       <ion-card-content>
         <div class="labelcontainer">
           <ion-label>{{ 'haq.result' | translate }}</ion-label>
-          <button ion-button small color="primary">{{ (p.score/10).toFixed(2) }} </button>
+          <button ion-button small color="primary">{{ getScore(p) }}</button>
         </div>
         <ion-item>
           <ion-range max="30" mode="wp" color="primary"
