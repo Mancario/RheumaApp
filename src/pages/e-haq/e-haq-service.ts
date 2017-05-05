@@ -60,7 +60,7 @@ const HAQ_STORAGE_PENDING_UPDATES = "HAQ_PENDING"
 @Injectable()
 export class HAQService implements IWakeMeUp {
     private diaryEntry : HAQEntry;
-    private syncInProgress = true;
+    private syncInProgress = false;
     public updates$ = new Subject<void>()
     public constructor(
       public alertCtrl: AlertController,
@@ -247,7 +247,7 @@ export class HAQService implements IWakeMeUp {
         return
       }
 
-      this.syncInProgress = true
+      //this.syncInProgress = true
       console.log("Updating server now")
       this._storage.ready().then(() => {
         console.log("Retrieving new HAQ-updates")

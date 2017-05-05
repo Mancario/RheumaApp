@@ -244,7 +244,7 @@ export class DiaryService implements IWakeMeUp {
         return
       }
 
-      this.syncInProgress = true
+      //this.syncInProgress = true
       console.log("Updating server now")
 
       this._storage.ready().then(() => {

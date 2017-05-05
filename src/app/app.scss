@@ -30,7 +30,12 @@ $SIDEMENU_TRANSPARENCY: rgba(255, 255, 255, 0.4);
 .content{
   background: url(../../assets/img/background.png) center;
   background-size: cover;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
+
+
 
 .menu{
   background: none;
