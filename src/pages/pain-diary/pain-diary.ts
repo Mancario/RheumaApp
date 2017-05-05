@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
 import { AuthService } from "../../security/auth.service";
 import { LogoutPage } from '../logout/logout';
 import { NewEntryPage } from '../new-entry/new-entry';
@@ -22,10 +22,12 @@ export class PainDiaryPage {
   query: DiaryQuery = { offset: 0, count: 10 };
   paindiaries: Observable<DiaryEntryList>;
   diaries: DiaryEntry[];
+  isLoading = false
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    public toastCtrl: ToastController,
     public diaryService: DiaryService,
     private authService: AuthService,
     private alertCtrl: AlertController,
@@ -37,8 +39,8 @@ export class PainDiaryPage {
      }
 
   ionViewCanEnter(): boolean {
-    //return this.authService.isLoggedIn();
-    return true;
+    return this.authService.isLoggedIn();
+    //return true;
   }
 
   ionViewDidLoad() {
@@ -86,8 +88,35 @@ export class PainDiaryPage {
   }
 
   forceUpdate(){
+    this.isLoading = true
+
     this.diaryService.refreshAllEntries()
-      .subscribe(list => this.diaries = list.results)
+      .subscribe(list => {
+        if(list !== null){
+          this.diaries = list.results
+
+        }else{
+          console.log("Did not refresh since app is offline")
+          this.presentOfflineToast()
+        }
+
+        this.isLoading = false
+
+      })
+  }
+
+  presentOfflineToast(){
+    this.translate.get("error.offline").subscribe(networkMessage => {
+      let toast = this.toastCtrl.create({
+        message: networkMessage,
+        duration: 2000,
+        position: 'bottom'
+      });
+      toast.onDidDismiss(() => {
+        console.log('Dismissed toast');
+      });
+      toast.present()
+    })
   }
 
   editEntry(entry: DiaryEntry){
@@ -109,28 +138,6 @@ export class PainDiaryPage {
     }
 
   }
-
-/*
-  extendEntry(entry){
-    let info = document.getElementById(entry.date);
-    let exp = document.getElementById("extendbutton");
-    let comp = document.getElementById("compressbutton");
-
-    if(info.style.display === 'none'){
-      console.log("Extend entry: " + entry.date);
-      info.style.display = 'block';
-      exp.style.display = 'none';
-      comp.style.display = 'block'
-
-    }else{
-      console.log("Compress entry: " + entry.date);
-      info.style.display = 'none';
-      exp.style.display = 'block';
-      comp.style.display = 'none'
-    }
-
-  }
-*/
 
   getDiary() {
     this.paindiaries = this.diaryService.listEntries(this.query);

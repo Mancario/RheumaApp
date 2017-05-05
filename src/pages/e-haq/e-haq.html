@@ -7,7 +7,15 @@
     <button id="menuToggle" ion-button menuToggle>
       <ion-icon color="dark" name="menu"></ion-icon>
     </button>
-    <ion-title>{{ 'haq.title' | translate }}</ion-title>
+
+    <ion-title class="pageTitle">{{ 'haq.title' | translate }}</ion-title>
+
+    <ion-buttons end>
+      <button id="syncButton" end ion-button clear (click)="forceUpdate()">
+        <ion-icon class="syncIcon" *ngIf="!isLoading" id="syncIcon" color="dark" name="sync"></ion-icon>
+        <ion-spinner id="spinner" *ngIf="isLoading" name="ios" paused="false"></ion-spinner>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -23,10 +31,10 @@
             {{p.date}}
           </button>
         </div>
-        <div class="header-right-button">         
+        <div class="header-right-button">
           <button ion-button large clear color="dark" class="headerbutton">
             <ion-icon ios="md-create" md="md-create" (click)="editEntry(p)"> </ion-icon>
-          </button> 
+          </button>
           <button ion-button large clear color="dark" class="headerbutton">
             <ion-icon name="trash" (click) = "deleteEntry(p)"> </ion-icon>
           </button>
@@ -35,7 +43,7 @@
       <ion-card-content>
         <div class="labelcontainer">
           <ion-label>{{ 'haq.result' | translate }}</ion-label>
-          <button ion-button small color="primary">{{ (p.score/10).toFixed(2) }} </button>
+          <button ion-button small color="primary">{{ getScore(p) }}</button>
         </div>
         <ion-item>
           <ion-range max="30" mode="wp" color="primary"

@@ -5,9 +5,8 @@ import { Observable}     from 'rxjs/Observable';
 import { API_URL} from '../../environments/environment';
 import { AuthService } from "../../security/auth.service";
 import { Storage } from '@ionic/storage';
-import { NativeStorage } from '@ionic-native/native-storage';
 import { IWakeMeUp, NetworkService } from '../../services/network.service'
-import { Subject}     from 'rxjs/Subject';
+import { Subject} from 'rxjs/Subject';
 
 
 
@@ -69,6 +68,11 @@ export class DiaryService implements IWakeMeUp {
     }
 
     public refreshAllEntries(): Observable<DiaryEntryList> {
+        if(!this._network.connected){
+          console.log("Return from DIARY-refresh due to unconnected")
+          return Observable.of(null)
+        }
+
         const headers: Headers = new Headers();
         headers.append('Authorization', 'Bearer ' + this._authService.loggedInUser().authToken);
 
@@ -83,7 +87,6 @@ export class DiaryService implements IWakeMeUp {
             })
             .map(res => res.json())
             .do(entries => {
-              console.log("Hello following entries: ", entries)
 
               this._storage.ready().then(()=>{
                 const dates = entries.results.map(r => r.date)
@@ -189,11 +192,9 @@ export class DiaryService implements IWakeMeUp {
         return Observable.fromPromise(promise)
           .map(_ => true)
 
-
     }
 
     public saveEntryToServer(entry: DiaryEntry): Observable<boolean> {
-        //entry.lastModified = undefined
         const body: string = JSON.stringify(entry)
         const headers: Headers = new Headers()
         headers.append('Content-Type', 'application/json')
@@ -247,30 +248,42 @@ export class DiaryService implements IWakeMeUp {
         return
       }
 
-      this.syncInProgress = true
+      //this.syncInProgress = true
       console.log("Updating server now")
+
       this._storage.ready().then(() => {
         const updates = this._storage.get(DIARY_STORAGE_PENDING_UPDATES).then((dates:any) => {
+
           const all = dates.map(date => this._storage.get(DIARY_STORAGE_PREFIX + date))
-          Promise.all(all)
+
+          return Promise.all(all)
             .then((entries: DiaryEntry[]) => {
               const saveObservables = entries.map(entry =>{
                 if(entry.deleted)
                   return this.deleteEntryOnServer(entry)
                 else
                   return this.saveEntryToServer(entry)
+                    .do(_ => console.log("Conflict handling saved entry", _))
+                    .catch(this.handleUpdateError(entry))
               })
               const savePromises = saveObservables.map(obs => obs.toPromise())
               return Promise.all(savePromises)
             })
-
         })
 
         updates
-          .then(updatedList => this._storage.set(DIARY_STORAGE_PENDING_UPDATES, []))
+          .then(updatedList => {
+              console.log("This is the result of the diary-updates", updatedList)
+              console.log("Attention: setting to empty list, but should remove single entries instead");
+              return this._storage.set(DIARY_STORAGE_PENDING_UPDATES, [])
+          })
           .then(_ => {
-            console.log("Pending updates DONE")
+            console.log("Pending diary-updates DONE")
             this.syncInProgress = false
+          })
+          .catch(err => {
+              this.syncInProgress = false
+              console.log("#### Error in wakeUpSync: Updates threw error", err)
           })
       })
     }
@@ -338,7 +351,7 @@ export class DiaryService implements IWakeMeUp {
         ]
       });
       alert.present();
-      return obs
+      return obs.do(result => console.log("HandleError Observable received:", result))
     }
 
     private handleUpdateError(entry: DiaryEntry): (error: Response) => Observable<boolean> {
@@ -352,9 +365,10 @@ export class DiaryService implements IWakeMeUp {
        }
     }
 
+
     private handleError(error: Response) {
         // in a real world app, we may send the error to some remote logging infrastructure
-        // instead of just logging it to the consolew
+        // instead of just logging it to the console
 
         if (error.status === 404)
             return Observable.throw('Eintrag nicht gefunden.');

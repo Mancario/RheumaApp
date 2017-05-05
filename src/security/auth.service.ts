@@ -52,13 +52,6 @@ export class AuthService {
 
 
     public login(username: string, password: string): Observable<AuthUser> {
-/*
-        const loggedIn = this.loggedInUser();
-        if (loggedIn) {
-            return Observable.of(loggedIn);
-        }
-        */
-
         const headers: Headers = new Headers();
         headers.append('Content-Type', 'application/json');
 
@@ -66,8 +59,7 @@ export class AuthService {
             username,
             password,
         });
-        //this.isLoggedIn();
-        //console.log("Logging in with: " + JSON.parse(credentials).username + " : " + JSON.parse(credentials).password);
+
         console.log("Logging in with: " + credentials);
 
         return this._http
@@ -91,13 +83,9 @@ export class AuthService {
             this._cached = null;
             this._localStorageService.store(AuthService._key, null);
         }
-
-        //console.log("Stored user exp: " + (jwtDecode(this.retrieveFromStore().authToken)/*.exp - Math.round(new Date().getTime() / 1000)*/));
     }
 
     public storeCredentials(credentials): void {
-
-        //console.log("Storing creds");
         if (credentials) {
           this._storeCredentialsService.store(credentials);
         } else {
@@ -126,35 +114,8 @@ export class AuthService {
 
           console.log("Locally stored creds: ", creds);
 
-
-
-
         })
         .map(creds => JSON.parse(creds))
-
-
-
-
-
-/*
-      this._storeCredentialsService.retrieve().then((creds) =>{
-        console.log("Creds received: " + creds);
-
-        if(creds != null){
-          console.log("Re-logging in with: " + creds);
-          this.login(JSON.parse(creds).username, JSON.parse(creds).password);
-        }
-      });
-*/
-
-      //console.log("Creds received: " + creds);
-
-      // if(creds){
-      //   console.log("Re-logging in with: " + creds);
-      //   return this.login(JSON.parse(creds).username, JSON.parse(creds).password);
-      //   //return null;
-      // }
-
     }
 
 

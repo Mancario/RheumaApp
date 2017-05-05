@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
 import { EHaqNewEntryPage } from '../e-haq-new-entry/e-haq-new-entry';
 import { AuthService } from "../../security/auth.service";
 import { LogoutPage } from '../logout/logout';
@@ -23,19 +23,28 @@ import { HaqAnswerForm } from "../e-haq-new-entry/e-haq-new-entry-form"
 export class EHAQPage {
   private query: HAQQuery = { offset: 0, count: 10 };
   eHAQdiaries: Observable<HAQEntryList>;
-  results: HAQEntry[];  
-
+  results: HAQEntry[];
   diaries: Array<{ date: string, value: string, painvalue: number }>;
+  isLoading = false
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-    private authService: AuthService, private _http: Http, private translate: TranslateService,
-    private _haqService: HAQService,  private alertCtrl: AlertController, private form: HaqAnswerForm) {
-    this.getDiary();
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public toastCtrl: ToastController,
+    private authService: AuthService,
+    private _http: Http,
+    private translate: TranslateService,
+    private _haqService: HAQService,
+    private alertCtrl: AlertController,
+    private form: HaqAnswerForm) {
+      this.getDiary();
+      console.log("HAQ Overview constructed")
 
-    this.diaries = [];
+      this.diaries = [];
   }
 
   ionViewCanEnter(): boolean {
+    console.log("Can enter HAQ Overview: " + this.authService.isLoggedIn())
     return this.authService.isLoggedIn();
   }
 
@@ -51,12 +60,48 @@ export class EHAQPage {
   getDiary() {
     this.eHAQdiaries = this._haqService.listEntries(this.query);
     this.eHAQdiaries.forEach(element => {
-      this.results = element.results; 
-      this.results.forEach(entry => {
-        entry.score = entry.score *10; 
-      }); 
-          
+      this.results = element.results;
     });
+  }
+
+  forceUpdate(){
+      this.isLoading = true
+
+      this._haqService.refreshAllEntries()
+        .subscribe(list => {
+          if(list !== null){
+            this.results = list.results
+
+          }else{
+            console.log("Did not refresh since app is offline")
+            this.presentOfflineToast()
+          }
+
+          this.isLoading = false
+
+        })
+  }
+
+  presentOfflineToast(){
+    this.translate.get("error.offline").subscribe(networkMessage => {
+      let toast = this.toastCtrl.create({
+        message: networkMessage,
+        duration: 2000,
+        position: 'bottom'
+      });
+      toast.onDidDismiss(() => {
+        console.log('Dismissed toast');
+      });
+      toast.present()
+    })
+  }
+
+  getScore(entry: HAQEntry): any{
+    if(entry.score == null){
+      return "Uncalculated"
+    }
+
+    return (entry.score/10).toFixed(2)
   }
 
    deleteEntry(entry: HAQEntry){
@@ -85,7 +130,7 @@ export class EHAQPage {
                         text: deleteBtn,
                         handler: () => {
                           console.log('Delete clicked');
-                          this._haqService.deleteEntry(entry)
+                          this._haqService.deleteEntry(entry.date)
                             .subscribe(
                               res =>{
                                 if(res){
@@ -111,8 +156,8 @@ export class EHAQPage {
     );
   }
   editEntry(entry: HAQEntry){
-    this.form.setList(entry.answers, entry.date); 
+    this.form.setList(entry.answers, entry.date);
     this.navCtrl.setRoot(EHaqNewEntryPage)
-      .catch(() => this.navCtrl.setRoot(LogoutPage)) 
+      .catch(() => this.navCtrl.setRoot(LogoutPage))
   }
 }

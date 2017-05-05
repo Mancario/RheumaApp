@@ -10,7 +10,7 @@ describe('Home', function () {
     let homeTitle = "Home";
     let reportTitle = "Generate Report";
     let diaryTitle = "Pain Diary";
-    let haqTitle = "eHAQ overview";
+    let haqTitle = "eHAQ Overview";
     let guideTitle = "User Guide";
     let settingsTitle = "Settings";
 
@@ -18,7 +18,7 @@ describe('Home', function () {
         browser.get('http://localhost:8100');
 
         // if user is not logged in, the user needs to login first
-        // if (browser.getTitle() == login) { // adding disease 
+        // if (browser.getTitle() == login) { // adding disease
 
         usr = element.all(by.name(u)).first().all(by.tagName(i)).first();
         usr.sendKeys("Alex");
@@ -36,7 +36,7 @@ describe('Home', function () {
     it('should have correct title', function () {
         browser.sleep(500);
         expect(browser.getTitle() == homeTitle);
-    }); 
+    });
 
     it('should give access to eHAQ overview', function () {
         menu = element(by.id(m));
@@ -67,10 +67,10 @@ describe('Home', function () {
         browser.sleep(700);
         expect(browser.getTitle()).toEqual(reportTitle);
     });
-   
-   
+
+
     it('should give access to user guide', function () {
-        menu =""; 
+        menu ="";
         menu = element(by.id(m));
         menu.click();
         browser.sleep(1500);
@@ -78,7 +78,7 @@ describe('Home', function () {
         button.click();
         browser.sleep(700);
         expect(browser.getTitle()).toEqual(guideTitle);
-    }); 
+    });
 
 
     it('should give access to settings', function () {
@@ -104,18 +104,8 @@ describe('Home', function () {
         browser.sleep(1500);
         expect(browser.getTitle()).toEqual(reportTitle);
     });
-    
-    it('should logout of the app', function () {
-        menu = element(by.id(m));
-        menu.click();
-        browser.sleep(1500);
-        button = element.all(by.className('menubutton')).get(8);
-        button.click();
-        browser.sleep(1700);
-        expect(browser.getTitle()).toEqual('Login');
-       
-    }); 
-    
+
+
     it('should show the pain diary graph, and not the eHAQ graph', function () {
         expect(element(by.id("graph1")).isPresent()).toBe(true);
         expect(element(by.id("graph2")).isPresent()).toBe(false);
@@ -129,4 +119,16 @@ describe('Home', function () {
         expect(element(by.id("graph2")).isPresent()).toBe(true);
 
     });
-}); 
+
+    afterEach(function(){
+      // Log out
+      menu = element(by.id(m));
+      menu.click();
+      browser.sleep(500);
+      button = element.all(by.className('menubutton')).get(8);
+      button.click();
+      browser.sleep(700);
+      expect(browser.getTitle()).toEqual(loginTitle);
+    })
+
+});

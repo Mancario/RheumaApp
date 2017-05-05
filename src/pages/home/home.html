@@ -15,7 +15,7 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding style="background: url(../../assets/img/background.png) no-repeat center;background-size:cover;" class="manual-ios-statusbar-padding"
+<ion-content padding class="manual-ios-statusbar-padding"
   class="content">
 
   <ion-card class="card">
@@ -53,20 +53,6 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-card class="card" style="visibility: hidden; display: none;">
-    <ion-row>
-      <ion-col col-5>
-        <div class="statusheader"> {{ 'home.status' | translate }}</div>
-        <div class="flagdiv"> <img src={{flag}} class="flag" /></div>
-      </ion-col>
-      <ion-col col-7>
-        <div class="appointmentheader"> {{ 'home.nextApp' | translate }} </div>
-        <div class="appointmenttext">
-          {{ 'home.lab' | translate }} <br> {{laboratoryDate}} <br><br> {{ 'home.rheuma' | translate }} <br>{{rheumatologistDate}}
-        </div>
-      </ion-col>
-    </ion-row>
-  </ion-card>
 
   <div class="bottombutttons">
 

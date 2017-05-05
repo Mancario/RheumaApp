@@ -8,7 +8,7 @@ describe('Navigation:', function() {
   let reportTitle = "Generate Report";
   let diaryTitle = "Pain Diary";
   let painEntryTitle = "New Entry";
-  let haqTitle = "eHAQ overview";
+  let haqTitle = "eHAQ Overview";
   let haqEntryTitle = "New eHAQ";
   let dasTitle = "eDAS";
   let bloodTitle = "Blood Test";
@@ -131,5 +131,17 @@ describe('Navigation:', function() {
       expect(browser.getTitle()).toEqual(settingsTitle);
 
     });
+
+
+    afterEach(function(){
+      // Log out
+      menu = element(by.id(m));
+      menu.click();
+      browser.sleep(500);
+      button = element.all(by.className('menubutton')).get(8);
+      button.click();
+      browser.sleep(700);
+      expect(browser.getTitle()).toEqual(loginTitle);
+    })
 
 });

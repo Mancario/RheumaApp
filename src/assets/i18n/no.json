@@ -120,7 +120,11 @@
   "error": {
     "network":      "Du er uten internetttilkobling. Du kan fortsatt bruke appen, all data vil synkroniseres når du får nettilgang igjen.",
     "storage":      "Det var et problem ved lagring av innlegg",
-    "unvalid":      "Du har ikke tastet inn noe informasjon"
+    "unvalid":      "Du har ikke tastet inn noe informasjon",
+    "reconnect":    "Du er nå koblet på internett igjen",
+    "offline":      "Synkroniserte ikke siden du er uten nett"
+
+
 
   }
 }

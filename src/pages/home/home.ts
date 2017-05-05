@@ -11,7 +11,7 @@ import { AuthService } from "../../security/auth.service";
 import { API_URL } from "../../environments/environment";
 import { TranslateService } from '@ngx-translate/core';
 import { DiaryService, DiaryEntry } from '../pain-diary/pain-diary-service'
-import { HAQEntry } from "../e-haq/e-haq-service"
+import { HAQEntry, HAQService } from "../e-haq/e-haq-service"
 
 /*
   Generated class for the Home page.
@@ -38,117 +38,46 @@ export class HomePage {
     private _http: Http,
     private _authService: AuthService,
     private translate: TranslateService,
+    private haqService: HAQService,
     private _diaryService: DiaryService) {
 
-      this.flag = "../../assets/img/flag-green.png";
-      this.laboratoryDate = "22.04.2017 (Suggestion)";
-      this.rheumatologistDate = "20.05.2017";
-      this.graph = "1"; // shows segment 1 (graph 1)
-      var temp = new Date();
-      temp.setMonth(temp.getMonth() - 3);
-      this.dateLimit = temp;
-
-
+    this.graph = "1"; // shows segment 1 (graph 1)
+    var temp = new Date();
+    temp.setMonth(temp.getMonth() - 3);
+    this.dateLimit = temp;
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HomePage');
-    // This should be done after a network test
-    this.presentNoNetworkToast()
   }
+
   ionViewCanEnter(): any {
     var loggedIn = this._authService.isLoggedIn();
     if (!loggedIn) {
       this.navCtrl.setRoot(LogoutPage);
     } else {
-      this.getGraphInfo();
+      this.haqService.refreshAllEntries().subscribe(_ => {})
+      this._diaryService.refreshAllEntries().subscribe(_ => {})
+      this.getGraphInfo()
       return loggedIn;
     }
-  }
-
-  presentNoNetworkToast() {
-
-    this.translate.get("error.network").subscribe(networkMessage => {
-        this.translate.get("button.close").subscribe(closeBtn => {
-          let toast = this.toastCtrl.create({
-            message: networkMessage,
-            showCloseButton: true,
-            closeButtonText: closeBtn,
-            position: 'bottom'
-          });
-
-          toast.onDidDismiss(() => {
-            console.log('Dismissed toast');
-          });
-
-          toast.present();
-        })
-    })
   }
 
   // buttons for side navigation
   painDiary() {
     this.navCtrl.setRoot(PainDiaryPage).catch(() => this._authService.logout());
   }
+
   generateReport() {
     this.navCtrl.setRoot(GenerateReportPage).catch(() => this._authService.logout());
   }
 
-  // setGraphInfo(list: Array<string>) {
-  //   var ehaq: Array<number> = [];
-  //   var pain: Array<number> = [];
-  //   var fatigue: Array<number> = [];
-  //   var disease: Array<number> = [];
-
-  //   // iterating through all dates and adding them to the right graph
-  //   for (var i = 1; i < list.length; i++) {
-  //     var element = list[i].split(',', 5); // seperating each line into a list of 5 elements
-
-  //     // check valid date
-  //     if ((new Date(element[0])) >= this.dateLimit) {
-
-  //       // adding all eHAQ elements (the 5th element in the list)
-  //       if (((element[4] && element[0]) != null) && ((element[4].localeCompare('') != 0))) {
-  //         this.lineChartLabels2.push(element[0].substring(5));
-  //         ehaq.push(parseFloat(element[4]));
-  //       }
-
-  //       // adding all pain diary elements if the list is not empty or do not contain pain diary data
-  //         this.lineChartLabels1.push(element[0].substring(5));
-
-  //         if (element[1].localeCompare('') == 0) // adding pain
-  //           pain.push(null);
-  //         else
-  //           pain.push(parseFloat(element[1]));
-  //         if (element[2].localeCompare('') == 0) // adding disease
-  //           disease.push(null);
-  //         else
-  //           disease.push(parseFloat(element[2]));
-
-  //         if (element[3].localeCompare('') == 0) // adding fatigue
-  //           fatigue.push(null);
-  //         else
-  //           fatigue.push(parseFloat(element[3]));
-  //       }
-  //     }
-  //   }
-  //   // adding data values
-  //   this.setGraphLabels().subscribe(
-  //     value => {
-  //       this.lineChartData1 =
-  //         [{ data: pain, label: this.graphLabels.label1 },
-  //         { data: disease, label: this.graphLabels.label2 },
-  //         { data: fatigue, label: this.graphLabels.label3 }];
-  //       this.lineChartData2 = [{ data: ehaq, label: this.graphLabels.label4 }];
-  //       this.fixSpacesOnGraphs();
-  //     }
-  //   )
-
-  // }
   setDiaryGraphInfo(list: DiaryEntry[]) {
     var pain: Array<number> = [];
     var fatigue: Array<number> = [];
     var disease: Array<number> = [];
+    list = list.reverse();
+
 
     // adding all pain diary elements to graph
     list.forEach(diary => {
@@ -174,7 +103,6 @@ export class HomePage {
         }
       }
     });
-
     // adding data values
     this.setDiaryGraphLabels().subscribe(
       value => {
@@ -182,25 +110,38 @@ export class HomePage {
           [{ data: pain, label: this.graphLabels.label1 },
           { data: disease, label: this.graphLabels.label2 },
           { data: fatigue, label: this.graphLabels.label3 }];
-        this.fixSpacesOnGraphs();
+        this.fixSpacesOnDiaryGraph();
       }
     )
-
   }
 
   setHAQGraphInfo(list: HAQEntry[]) {
+    list = list.reverse();
+    var ehaq: Array<number> = [];
+    list.forEach(entry => {
+      if ((new Date(entry.date)) >= this.dateLimit) {
+        this.lineChartLabels2.push(entry.date.substring(5));
+        var score = entry.score / 10
+        ehaq.push(parseFloat(score.toFixed(2)));
+      }
+    })
+    // adding data values
+    this.setHAQGraphLabels().subscribe(
+      value => {
+        this.lineChartData2 = [{ data: ehaq, label: this.graphLabels.label4 }];
+        this.fixSpacesOnHAQGraph();
+      }
+    )
+    console.log("haq graph data: ", this.lineChartData2)
   }
 
   setDiaryGraphLabels(): Observable<string | Object> {
-
     this.translate.get('pain.pain').subscribe(
       value => this.graphLabels.label1 = value
     );
-
     this.translate.get('pain.disease').subscribe(
       value => this.graphLabels.label2 = value
     );
-
     this.translate.get('pain.fatigue').subscribe(
       value => this.graphLabels.label3 = value
     );
@@ -208,18 +149,14 @@ export class HomePage {
 
   }
   setHAQGraphLabels(): Observable<string | Object> {
-
     this.translate.get('home.haq').subscribe(
       value => this.graphLabels.label4 = value
     );
-
-    // This is for the method returning after the previous 4
-    // async tasks are complete. I did not at the moment know
-    // of a different approuch.
     return this.translate.get('home.haq');
   }
 
-  fixSpacesOnGraphs() {
+  fixSpacesOnHAQGraph() {
+    console.log("fix spaces")
     // haq
     if (this.lineChartLabels2.length >= 30) {
       for (var i = 0; i < this.lineChartLabels2.length; i++) {
@@ -233,6 +170,9 @@ export class HomePage {
           this.lineChartLabels2[i] = '';
       }
     }
+  }
+  fixSpacesOnDiaryGraph() {
+
     // Pain
     if (this.lineChartLabels1.length >= 30) {
       for (var i = 0; i < this.lineChartLabels1.length; i++) {
@@ -250,55 +190,26 @@ export class HomePage {
 
   // Graph info from database
   public getGraphInfo() {
-    var object = this.getChart();
-    object.forEach(value => {
+    var painDiary = this.getChartFromDiary();
+    painDiary.forEach(value => {
       this.setDiaryGraphInfo(value);
+    });
+    var haq = this.getChartFromHAQ();
+    haq.forEach(value => {
+      this.setHAQGraphInfo(value);
     });
   }
 
   // get charts from database
-  public getChart(): Observable<DiaryEntry[]> {
+  public getChartFromDiary(): Observable<DiaryEntry[]> {
     return this._diaryService.listEntries({ offset: 0, count: 90 })
       .map(list => list.results)
-
-  }
-  /*
-    public getChart(): Observable<string> {
-      const headers: Headers = new Headers();
-      headers.append('Authorization', 'Bearer ' + this._authService.loggedInUser().authToken);
-
-      var params = new URLSearchParams();
-      var object =
-        this._http.get(API_URL + '/chart/csv', {
-          headers,
-          search: params,
-        })
-          .map(res => res.text())
-          .catch(this.handleError);
-      return object;
-    }
-    */
-
-  private handleError(error: Response) {
-    // in a real world app, we may send the error to some remote logging infrastructure
-    // instead of just logging it to the console
-    if (error.status === 404) return Observable.throw('Eintrag nicht gefunden.');
-    if (error.status === 403)
-      return Observable.throw('Sie sind derzeit nicht angemeldet oder Sie haben keine Berechtigung, diese Seite aufzurufen.');
-    if (error.status === 401) return Observable.throw('Permission denied.');
-    console.error(error);
-    let errorMessage: string = null;
-    if (error.json) {
-      try {
-        errorMessage = error.json().error;
-      } catch (e) {
-        errorMessage = 'Server error: ' + (error.statusText ? error.statusText : error);
-      }
-    }
-    return Observable.throw(errorMessage);
   }
 
-
+  public getChartFromHAQ(): Observable<HAQEntry[]> {
+    return this.haqService.listEntries({ offset: 0, count: 90 })
+      .map(list => list.results)
+  }
 
   // lineChar for Pain diary graph -  need setup data for the graphs to work
   public lineChartData1: Array<any> =
@@ -306,7 +217,6 @@ export class HomePage {
   { data: [0], label: 'disease activity' },
   { data: [0], label: 'fatigue' }];
   public lineChartLabels1: Array<any> = [];
-
 
   // lineChart for eHAQ graph
   public lineChartData2: Array<any> = [{ data: [0], label: 'eHAQ' }];

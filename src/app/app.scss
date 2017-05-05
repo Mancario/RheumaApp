@@ -28,9 +28,14 @@ $SIDEMENU_TRANSPARENCY: rgba(255, 255, 255, 0.4);
 }
 */
 .content{
-  background: url(../../assets/img/background.png) center;
+  background: url(../assets/img/background.png) center;
+  background-size: cover;
+  background-color: transparent;
+  background-repeat: no-repeat;
   background-size: cover;
 }
+
+
 
 .menu{
   background: none;
@@ -44,6 +49,15 @@ $SIDEMENU_TRANSPARENCY: rgba(255, 255, 255, 0.4);
   border: none;
   font-size: 1.3em;
 }
+
+#syncButton{
+  ion-icon{
+    border: none;
+    font-size: 1.8em;
+  }
+}
+
+
 
 
 .navbar{
