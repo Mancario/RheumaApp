@@ -114,6 +114,13 @@
   },
 
   "settings": {
+    "selectLanguage" :  "Select language:",
+    "en" :              "English",
+    "de" :              "German",
+    "no" :              "Norwegian",
+    "monthsChoosen":    "How many months should be shown on the graph on the dashboard?",
+    "graph" :           "Graph settings",
+    "notification" :    "Notifications"
 
   },
 

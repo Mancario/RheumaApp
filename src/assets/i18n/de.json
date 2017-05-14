@@ -1,7 +1,6 @@
 {
   "appTitle" :        "Rheuma Online",
 
-
   "ANZIEHEN_KOERPERFLEGE": "Anziehen & Körperpflege",
   "DIFF_SELBST_ANZIEHEN": "sich selbst anziehen, einschließlich Schuhe binden und Knöpfe schließen?",
   "DIFF_HAARE_WASCHEN": "sich die Haare waschen?",
@@ -57,6 +56,66 @@
   "DIFF_BESORGUNGEN_MACHEN_EINKAUFEN": "Besorgungen machen und einkaufen?",
   "DIFF_AUTO_EIN_AUSSTEIGEN": "in ein Auto ein- und aussteigen?",
   "DIFF_HAUSARBEITEN_GARTENARBEITEN": "Hausarbeiten oder Gartenarbeiten erledigen (z.B. Staubsaugen oder Unkraut jäten)?",
-  "HILFE_BESORGUNGEN_HAUSARBEITEN": "Besorgungen und Hausarbeiten"
+  "HILFE_BESORGUNGEN_HAUSARBEITEN": "Besorgungen und Hausarbeiten",
 
+
+  "settings": {
+    "selectLanguage" :  "Sprache wählen:",
+    "en" :              "Wnglisch",
+    "de" :              "Deutsch",
+    "no" :              "Norwegisch", 
+    "monthsChoosen":    "Wie viele Monate sollten auf dem Schaubild auf dem Armaturenbrett angezeigt werden?",
+    "graph" :           "Grafikeinstellungen",
+    "notification" :    "Benachrichtigungen"
+  },
+
+  "button": {
+    "ok":           "OK",
+    "cancel":       "Stornieren",
+    "register":     "Neu registrieren",
+    "reset":        "Passwort zurücksetzen",
+    "back":         "Zurück",
+    "finish":       "Fertig",
+    "next":         "Nächster",
+    "submit":       "Einreichen",
+    "override":     "Überschreiben",
+    "delete":       "Löschen",
+    "yes":          "Ja",
+    "no":           "Nein",
+    "refresh":      "Liste aktualisieren",
+    "close":        "schließen"
+  }, 
+
+  "menu": {
+    "title":        "Menü",
+    "home":         "Zuhause",
+    "report":       "Bericht generieren",
+    "pain":         "Schmerztagebuch",
+    "newPain":      "Neu schmerztagebuch",
+    "haq":          "eHAQ",
+    "newHaq":       "Neu eHAQ",
+    "das":          "eDAS",
+    "blood":        "Bluttest",
+    "guide":        "Benutzerhandbuch",
+    "settings":     "Einstellungen",
+    "logOut":       "Ausloggen"
+  },
+
+    "pain": {
+    "pain":         "Schmerzen",
+    "disease":      "Krankheitsaktivität",
+    "fatigue":      "Müdigkeit",
+    "prednis":      "Prednisolonedosis (mg)",
+    "prednisNew":   "Prednisolonedosis: ",
+    "other":        "Zusätzliche Medikamente:",
+    "tender":       "Schmerzende Gelenke:",
+    "comments":     "Sonstige Anmerkungen:",
+    "extend":       "Bericht verlängern",
+
+    "confirmDel":   "Confirm delete",
+    "deleteMess":   "Do you want to delete entry for date: ",
+    "confirmOver":  "Confirm override",
+    "overrideMess": "Do you want to override existing pain entry for date: ",
+    "saved":        "Entry saved"
+    }
 }

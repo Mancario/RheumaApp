@@ -114,7 +114,13 @@
   },
 
   "settings": {
-
+    "selectLanguage" :  "Velg språk:",
+    "en" :              "Engelsk",
+    "de" :              "Tysk",
+    "no" :              "Norsk", 
+    "monthsChoosen" :   "Hvor mange måneder skal grafen på dashboardet fremvise?",
+    "graph" :           "Grafinnstillinger",
+    "notification" :    "Notifications"
   },
 
   "error": {

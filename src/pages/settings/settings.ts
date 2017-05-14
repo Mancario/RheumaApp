@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { AuthService } from "../../security/auth.service";
-
+import { TranslateService } from '@ngx-translate/core';
 
 /*
   Generated class for the Settings page.
@@ -14,11 +14,18 @@ import { AuthService } from "../../security/auth.service";
   templateUrl: 'settings.html'
 })
 export class SettingsPage {
+  language: string;
+  months: number;
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private authService: AuthService,
+    private translate: TranslateService) {
+    this.language = this.translate.currentLang;
+    this.months = 3;
+  }
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-    private authService: AuthService) {}
-
-  ionViewCanEnter(): boolean{
+  ionViewCanEnter(): boolean {
     return this.authService.isLoggedIn();
   }
 
@@ -26,4 +33,7 @@ export class SettingsPage {
     console.log('ionViewDidLoad SettingsPage');
   }
 
+  changeLanguage() {
+    this.translate.use(this.language);
+  }
 }
