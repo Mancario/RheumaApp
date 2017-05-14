@@ -62,12 +62,12 @@ export class MyApp {
       value =>{
         this.pages = [
           { icon: "home",  title: this.home, component: HomePage },
-          { icon: "print", title: this.report, component: GenerateReportPage },
+         // { icon: "print", title: this.report, component: GenerateReportPage },
           { icon: "pulse",title: this.pain, component: PainDiaryPage },
           { icon: "man",title: this.haq, component: EHAQPage },
-          { icon: "body",title: this.das, component: EDASPage },
-          { icon: "medkit",title: this.blood, component: BloodTestPage },
-          { icon: "help-circle",title: this.guide, component: UserGuidePage },
+          //{ icon: "body",title: this.das, component: EDASPage },
+         // { icon: "medkit",title: this.blood, component: BloodTestPage },
+          //{ icon: "help-circle",title: this.guide, component: UserGuidePage },
           { icon: "settings",title: this.settings, component: SettingsPage },
           { icon: "exit",title: this.logOut, component: LogoutPage }
 
