@@ -48,13 +48,22 @@ page-login {
 
   .linkbutton{
     margin-top: 0;
-    margin-bottom: 25%;
   }
 
   .actionbuttoncontainer{
-    position:absolute;
-    width: 80%;
-    bottom: 10%;
+    margin-top: 45%;
+  }
+
+  @media (max-height: 1070px) {
+    .actionbuttoncontainer{
+      margin-top: 35%;
+    }
+  }
+
+  @media (max-height: 570px) {
+    .actionbuttoncontainer{
+      margin-top: 20%;
+    }
   }
 
   @media (max-height: 540px) {
