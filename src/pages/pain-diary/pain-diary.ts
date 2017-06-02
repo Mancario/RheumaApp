@@ -93,7 +93,7 @@ export class PainDiaryPage {
     this.diaryService.refreshAllEntries()
       .subscribe(list => {
         if(list !== null){
-          this.diaries = list.results
+          this.getDiary()
 
         }else{
           console.log("Did not refresh since app is offline")
