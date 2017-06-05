@@ -90,47 +90,101 @@
       "cancelSubmit": "Avbryt",
       "cancelMess":   "Ønsker du å avbryte utfylling av skjema?"
   },
+    "ANZIEHEN_KOERPERFLEGE": "Påkledning & Stell",
+    "DIFF_SELBST_ANZIEHEN": "Kle på deg selv, inkludert knytte skolisser og knapper?",
+    "DIFF_HAARE_WASCHEN": "Ta Shampoo i håret ditt?",
+    "HILFSMITTEL_ZUM_ANZIEHEN": "Enheter som brukes til påkledning (knapphake, glidelåssprekk, osv.)",
+    "HILFE_ANZIEHEN_KOERPERPFLEGE": "Påkledning og stell",
 
-  "home": {
-    "haqGraph":     "Grafen viser resultatene fra eHAQ-undersøkelsene de siste tre månedene.",
-    "diaryGraph":   "Grafen viser resultatene fra smertedagboken de siste tre månedene.",
-    "status":       "STATUS",
-    "nextApp":      "NESTE TIME",
-    "lab":          "Laboratorium: ",
-    "rheuma":       "Reuvmatolog: ",
-    "haq":          "eHAQ"
-  },
+    "AUFSTEHEN": "Stå opp",
+    "DIFF_STUHL_AUFSTEHEN": "Stå opp fra en rett stol?",
+    "DIFF_BETT_LEGEN_AUFSTEHEN": "Gå inn og ut av sengen din?",
+    "HILFSMITTEL_ANGEPASSTER_STUHL": "Spesiell eller oppbygget stol",
+    "HILFE_AUFSTEHEN": "Stå opp",
 
-  "report": {
+    "ESSEN": "Spising",
+    "DIFF_FLEISCH_SCHNEIDEN": "Skjære ditt eget kjøtt?",
+    "DIFF_TASSE_GLAS_MUND": "Løfte en full kopp eller glass opp til munnen din?",
+    "DIFF_MILCHKARTON_OEFFNEN": "Åpne en ny melkekartong?",
+    "HILFSMITTEL_ANGEPASST": "Bygget opp eller spesialutstyr",
+    "HILFE_ESSEN": "Spising",
 
-  },
+    "GEHEN": "Gåing",
+    "DIFF_GEHEN_AUF_EBENEM_UNTERGRUND": "Gå utendørs på flatt terreng?",
+    "DIFF_FUENF_TREPPENSTUFEN_HOCHGEHEN": "Gå opp fem steg?",
+    "HILFSMITTEL_GEHSTOCK": "Stokk",
+    "HILFSMITTEL_GEHHILFE_ROLLATOR": "Rullator",
+    "HILFSMITTEL_KRUECKEN": "Krykker",
+    "HILFSMITTEL_ROLLSTUHL": "Rullestol",
+    "HILFE_GEHEN": "Gåing",
 
-  "blood": {
+    "HYGIENE": "Hygiene",
+    "DIFF_WASCHEN_ABTROCKNEN": "Vaske og tørke kroppen din?",
+    "DIFF_VOLLBAD_NEHMEN": "Ta deg et bad i badekaret?",
+    "DIFF_TOILETTE_SETZEN_AUFSTEHEN": "Gå av og på toalettet?",
+    "HILFSMITTEL_TOILETTENSITZ": "Hevet toalettsete",
+    "HILFSMITTEL_BADEWANNENSITZ": "Badekar sete",
+    "HILFSMITTEL_BADEWANNENHANDGRIFF": "Badekar håndtak",
+    "HILFSMITTEL_LANGER_HANDGRIFF_BADEZIMMER": "Lang håndterte apperater på badet",
+    "HILFE_HYGIENE": "Hygiene",
 
-  },
+    "NACH_ETWAS_GREIFEN": "Rekke",
+    "DIFF_SCHWEREN_GEGENSTAND_AUFHEBEN": "Nå og få ned en 5 pund gjenstand (for eksempel en pose med sukker) fra hodet ditt?",
+    "DIFF_BUECKEN_KLEIDUNGSSTUECK_AUFHEBEN": "Bøye deg ned for å plukke opp klær fra gulvet?",
+    "HILFSMITTEL_LANGER_HANDGRIFF_GREIFHILFE": "Lang håndterte apperater for rekkevidde",
+    "HILFE_NACH_ETWAS_GREIFEN": "Rekke",
 
-  "guide": {
+    "GREIFEN_UND_OEFFNEN": "Grep",
+    "DIFF_AUTOTUER_OEFFNEN": "Åpne bildører?",
+    "DIFF_KONSERVENGLAESER_OEFFNEN": "Åpne tidligere åpnede glass/krukker?",
+    "DIFF_WASSERHAEHNE_AUF_ZUDREHEN": "Slå av og på kraner?",
+    "HILFSMITTEL_OEFFNER_SCHRAUBVERSCHLUESSE": "Krukkeåpner (for glass åpnet tidligere)",
+    "HILFE_GREIFEN_UND_OEFFNEN": "Griping og åpning av ting",
 
-  },
-
-  "settings": {
-    "selectLanguage" :  "Velg språk:",
-    "en" :              "Engelsk",
-    "de" :              "Tysk",
-    "no" :              "Norsk", 
-    "monthsChoosen" :   "Hvor mange måneder skal grafen på dashboardet fremvise?",
-    "graph" :           "Grafinnstillinger",
-    "notification" :    "Notifications"
-  },
-
-  "error": {
-    "network":      "Du er uten internetttilkobling. Du kan fortsatt bruke appen, all data vil synkroniseres når du får nettilgang igjen.",
-    "storage":      "Det var et problem ved lagring av innlegg",
-    "unvalid":      "Du har ikke tastet inn noe informasjon",
-    "reconnect":    "Du er nå koblet på internett igjen",
-    "offline":      "Synkroniserte ikke siden du er uten nett"
+    "ANDERE_TAETIGKEITEN": "Aktiviteter",
+    "DIFF_BESORGUNGEN_MACHEN_EINKAUFEN": "Gjøre ærender og handle?",
+    "DIFF_AUTO_EIN_AUSSTEIGEN": "Gå inn og ut av en bil?",
+    "DIFF_HAUSARBEITEN_GARTENARBEITEN": "Gjøre oppgaver som støvsuging eller hagearbeid?",
+    "HILFE_BESORGUNGEN_HAUSARBEITEN": "Ærender og oppgaver",
 
 
+    "home": {
+        "haqGraph":     "Grafen viser resultatene fra eHAQ-undersøkelsene de siste valgte månedene.",
+        "diaryGraph":   "Grafen viser resultatene fra smertedagboken de siste valgte månedene.",
+        "status":       "STATUS",
+        "nextApp":      "NESTE TIME",
+        "lab":          "Laboratorium: ",
+        "rheuma":       "Reuvmatolog: ",
+        "haq":          "eHAQ"
+    },
 
-  }
+    "settings": {
+        "selectLanguage" :  "Velg språk",
+        "en" :              "Engelsk",
+        "de" :              "Tysk",
+        "no" :              "Norsk", 
+        "monthsChoosen" :   "Hvor mange måneder skal grafen på dashboardet fremvise?",
+        "graph" :           "Grafinnstillinger",
+        "notification" :    "Notifikasjoner"
+    },
+
+    "error": {
+        "network":      "Du er uten internetttilkobling. Du kan fortsatt bruke appen, all data vil synkroniseres når du får nettilgang igjen.",
+        "storage":      "Det var et problem ved lagring av innlegg",
+        "unvalid":      "Du har ikke tastet inn noe informasjon",
+        "reconnect":    "Du er nå koblet på internett igjen",
+        "offline":      "Synkroniserte ikke siden du er uten nett"
+    },
+
+    "report": {
+
+    },
+
+    "blood": {
+
+    },
+
+    "guide": {
+
+    }
 }

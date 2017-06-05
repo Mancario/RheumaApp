@@ -44,16 +44,14 @@
 
         <ion-item>
           <ion-label text-wrap>{{ 'settings.monthsChoosen' | translate }}</ion-label>
-          <ion-select [(ngModel)]="months">
-            <ion-option value="1">1</ion-option>
+          <ion-select [(ngModel)]="months" (ngModelChange)=changeGraphSetting()>
+            <ion-option value="1" >1</ion-option>
             <ion-option value="2">2</ion-option>
             <ion-option value="3">3</ion-option>
           </ion-select>
         </ion-item>
       </ion-list>
-      <ion-label> <b> {{ 'settings.notification' | translate }} </b></ion-label>
-      <ion-label> Comming soon </ion-label>
-
+     
     </ion-card-content>
   </ion-card>
 </ion-content>

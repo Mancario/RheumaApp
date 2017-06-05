@@ -12,7 +12,8 @@ import { API_URL } from "../../environments/environment";
 import { TranslateService } from '@ngx-translate/core';
 import { DiaryService, DiaryEntry } from '../pain-diary/pain-diary-service'
 import { HAQEntry, HAQService } from "../e-haq/e-haq-service"
-
+import { EHAQPage } from "../e-haq/e-haq"
+import { Storage } from '@ionic/storage';
 /*
   Generated class for the Home page.
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
@@ -30,21 +31,27 @@ export class HomePage {
   graphList;
   dateLimit;
   graphLabels = { label1: String, label2: String, label3: String, label4: String };
+  months; 
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public toastCtrl: ToastController,
     private _http: Http,
+    private storage: Storage,
     private _authService: AuthService,
     private translate: TranslateService,
     private haqService: HAQService,
     private _diaryService: DiaryService) {
-
-    this.graph = "1"; // shows segment 1 (graph 1)
-    var temp = new Date();
-    temp.setMonth(temp.getMonth() - 3);
-    this.dateLimit = temp;
+    this.storage.ready().then(() => {
+      this.storage.get("graphMonths").then((val) => {
+        this.months = val;
+        this.graph = "1"
+        var temp = new Date();
+        temp.setMonth(temp.getMonth() - val);
+        this.dateLimit = temp;
+      })
+    })
   }
 
   ionViewDidLoad() {
@@ -56,9 +63,10 @@ export class HomePage {
     if (!loggedIn) {
       this.navCtrl.setRoot(LogoutPage);
     } else {
-      this.haqService.refreshAllEntries().subscribe(_ => {})
-      this._diaryService.refreshAllEntries().subscribe(_ => {})
-      this.getGraphInfo()
+      this.haqService.refreshAllEntries().subscribe(_ => { })
+      this._diaryService.refreshAllEntries().subscribe(_ => { })
+      this.getGraphInfo();
+
       return loggedIn;
     }
   }
@@ -68,8 +76,8 @@ export class HomePage {
     this.navCtrl.setRoot(PainDiaryPage).catch(() => this._authService.logout());
   }
 
-  generateReport() {
-    this.navCtrl.setRoot(GenerateReportPage).catch(() => this._authService.logout());
+  haq() {
+    this.navCtrl.setRoot(EHAQPage).catch(() => this._authService.logout());
   }
 
   setDiaryGraphInfo(list: DiaryEntry[]) {
@@ -132,7 +140,7 @@ export class HomePage {
         this.fixSpacesOnHAQGraph();
       }
     )
-    console.log("haq graph data: ", this.lineChartData2)
+    //console.log("haq graph data: ", this.lineChartData2)
   }
 
   setDiaryGraphLabels(): Observable<string | Object> {
@@ -156,7 +164,6 @@ export class HomePage {
   }
 
   fixSpacesOnHAQGraph() {
-    console.log("fix spaces")
     // haq
     if (this.lineChartLabels2.length >= 30) {
       for (var i = 0; i < this.lineChartLabels2.length; i++) {
@@ -226,9 +233,15 @@ export class HomePage {
   public lineChartOptions: any = {
     pointDot: false,
     responsive: true,
-    innerHeight: 100,
-    pointDotRadius: 3
+    pointDotRadius: 3,
+    spanGaps: true,
+
+
   };
+  public xaxis: any = {
+    setStep: 5,
+    distance: 4
+  }
   public maxTextLines: number = 3;
   public lineChartColors: Array<any> = [
     { // blue
