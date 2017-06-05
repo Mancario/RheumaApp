@@ -17,6 +17,9 @@ import { Observable }     from 'rxjs/Observable';
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { NetworkService } from '../services/network.service'
+import {API_URL} from '../environments/environment';
+import {Http, Response, Headers} from "@angular/http";
+
 
 
 
@@ -48,7 +51,8 @@ export class MyApp {
               private _splashScreen: SplashScreen,
               private _authService: AuthService,
               private translate: TranslateService,
-              private _network: NetworkService) {
+              private _network: NetworkService,
+              private _http: Http) {
 
     this.initializeApp();
 
@@ -74,6 +78,11 @@ export class MyApp {
         ];
       }
     );
+
+    // Set connection status
+    console.log("Checking network...")
+    this.testConnection()
+
   }
 
   initializeApp() {
@@ -125,6 +134,35 @@ export class MyApp {
     );
 
     return this.translate.get('menu.logOut');
+  }
+
+  // Perhaps it would be better to implement a /heartbeat accesspoint to
+  // the backend that always returns 200 OK, and use this instead of empty login
+  // to test internet connection.
+  testConnection(): void{
+    let password = "" // Empty password for testing connection
+    let username = "" // Empty username for testing connection
+
+    const LOGIN_API_URL = API_URL + '/auth/login';
+
+    const headers: Headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    const credentials: string = JSON.stringify({
+        username,
+        password,
+    });
+
+    this._http.post(LOGIN_API_URL, credentials, {headers,})
+        .subscribe(() =>{
+          // Received status 200 OK
+          this._network.setConnected(true)
+
+        }, (err) => {
+          // Received some error
+          this._network.setConnected(false)
+        });
+
   }
 
   openPage(page) {
