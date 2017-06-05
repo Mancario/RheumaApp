@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, AlertController } from 'ionic-angular';
+import { Nav, Platform} from 'ionic-angular';
 
 import { HomePage } from '../pages/home/home';
 import { BloodTestPage } from '../pages/blood-test/blood-test';
@@ -45,7 +45,6 @@ export class MyApp {
     private _authService: AuthService,
     private translate: TranslateService,
     private storage: Storage,
-    public alertCtrl: AlertController,
     private _network: NetworkService) {
 
     this.initializeApp();
@@ -74,10 +73,8 @@ export class MyApp {
     );
     this.storage.ready().then(() => {
       this.storage.get("graphMonths").then((val) => {
-        console.log("the value: ", val);
         if (val == null || val == undefined) {
           this.storage.set("graphMonths", 3)
-          console.log("Setting the graphMonths value" )
         }
       }
       )
