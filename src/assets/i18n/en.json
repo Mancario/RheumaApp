@@ -1,187 +1,193 @@
 {
-  "appTitle" :        "Rheuma Online",
+    "appTitle" :        "Rheuma Online",
 
-  "button": {
-      "ok":           "OK",
-      "cancel":       "Cancel",
-      "register":     "Register",
-      "reset":        "Reset Password",
-      "back":         "Back",
-      "finish":       "Finish",
-      "next":         "Next",
-      "submit":       "Submit",
-      "override":     "Override",
-      "delete":       "Delete",
-      "yes":          "Yes",
-      "no":           "No",
-      "refresh":      "Refresh list",
-      "close":        "Close"
+    "button": {
+        "ok":           "OK",
+        "cancel":       "Cancel",
+        "register":     "Register",
+        "reset":        "Reset Password",
+        "back":         "Back",
+        "finish":       "Finish",
+        "next":         "Next",
+        "submit":       "Submit",
+        "override":     "Override",
+        "delete":       "Delete",
+        "yes":          "Yes",
+        "no":           "No",
+        "refresh":      "Refresh list",
+        "close":        "Close"
   },
 
-  "login": {
-      "username":     "Username",
-      "password":     "Password",
-      "confirm":      "Confirm password",
-      "email":        "Email",
-      "enterEmail":   "Enter your email",
-      "forgotten":    "Forgotten Password?",
-      "forgottenH1":  "Forgotten your password?",
-      "instructions": "Enter your email below to receive password reset instructions",
-      "signIn":       "Log in",
-      "register":     "Register new user",
-      "terms1":       "I have read and agree with the ",
-      "terms2":       "terms of use",
-      "error1":       "Wrong username or password",
-      "error2":       "Error logging in",
-      "error3":       "Server error logging in: ",
-      "loggingOut":   "Logging out"
+    "login": {
+        "username":     "Username",
+        "password":     "Password",
+        "confirm":      "Confirm password",
+        "email":        "Email",
+        "enterEmail":   "Enter your email",
+        "forgotten":    "Forgotten Password?",
+        "forgottenH1":  "Forgotten your password?",
+        "instructions": "Enter your email below to receive password reset instructions",
+        "signIn":       "Log in",
+        "register":     "Register new user",
+        "terms1":       "I have read and agree with the ",
+        "terms2":       "terms of use",
+        "error1":       "Wrong username or password",
+        "error2":       "Error logging in",
+        "error3":       "Server error logging in: ",
+        "loggingOut":   "Logging out"
   },
 
-  "menu": {
-      "title":        "Menu",
-      "home":         "Home",
-      "report":       "Generate Report",
-      "pain":         "Pain Diary",
-      "newPain":      "New Entry",
-      "haq":          "eHAQ",
-      "newHaq":       "New eHAQ",
-      "das":          "eDAS",
-      "blood":        "Blood Test",
-      "guide":        "User Guide",
-      "settings":     "Settings",
-      "logOut":       "Log Out"
+    "menu": {
+        "title":        "Menu",
+        "home":         "Home",
+        "report":       "Generate Report",
+        "pain":         "Pain Diary",
+        "newPain":      "New Entry",
+        "haq":          "eHAQ",
+        "newHaq":       "New eHAQ",
+        "das":          "eDAS",
+        "blood":        "Blood Test",
+        "guide":        "User Guide",
+        "settings":     "Settings",
+        "logOut":       "Log Out"
   },
 
-  "pain": {
-      "pain":         "Pain",
-      "disease":      "Disease activity",
-      "fatigue":      "Fatigue",
-      "prednis":      "Prednisolone taken (mg)",
-      "prednisNew":   "Prednisolone taken: ",
-      "other":        "Other medications:",
-      "tender":       "Tender joints:",
-      "comments":     "Other remarks:",
-      "extend":       "Extend report",
-      "confirmDel":   "Confirm delete",
-      "deleteMess":   "Do you want to delete entry for date: ",
-      "confirmOver":  "Confirm override",
-      "overrideMess": "Do you want to override existing pain entry for date: ",
-      "saved":        "Entry saved"
+    "pain": {
+        "pain":         "Pain",
+        "disease":      "Disease activity",
+        "fatigue":      "Fatigue",
+        "prednis":      "Prednisolone taken (mg)",
+        "prednisNew":   "Prednisolone taken: ",
+        "other":        "Other medications:",
+        "tender":       "Tender joints:",
+        "comments":     "Other remarks:",
+        "extend":       "Extend report",
+        "confirmDel":   "Confirm delete",
+        "deleteMess":   "Do you want to delete entry for date: ",
+        "confirmOver":  "Confirm override",
+        "overrideMess": "Do you want to override existing pain entry for date: ",
+        "saved":        "Entry saved"
   },
 
-  "haq": {
-      "title":        "eHAQ Overview",
-      "result":       "Result",
-      "qHealth":      "Questions on health status",
-      "selDate":      "Select date:",
-      "introText1":   "We would like to hear from you about how your illness affects your ability to manage in your daily life. ",
-      "introText2":   "Please select the answer that best describes what you could do IN THE LAST WEEK normally:",
-      "toolsText":    "Please seelct all the tools you have used for the above activities:",
-      "helpText":     "Please select all activities where you have needed ordinary help from another person.",
-      "alt1":         "Without ANY difficulty",
-      "alt2":         "With SOME difficulty",
-      "alt3":         "With MUCH difficulty",
-      "alt4":         "UNABLE to do",
-      "alertError":   "Error",
-      "errorMessage": "You need to answer at least one question per category before you can move on to the next page..",
-      "errorMessage2":"You need to answer at least one question per category before you can complete the questionnaire",
-      "alertSubmit":  "Submit form",
-      "submitMess":   "Do you want to finish this HAQ-form?",
-      "cancelSubmit": "Cancel",
-      "cancelMess":   "Do you want to abort this questionnaire?"
+    "haq": {
+        "title":        "eHAQ Overview",
+        "result":       "Result",
+        "qHealth":      "Questions on health status",
+        "selDate":      "Select date:",
+        "introText1":   "We would like to hear from you about how your illness affects your ability to manage in your daily life. ",
+        "introText2":   "Please select the answer that best describes what you could do IN THE LAST WEEK normally:",
+        "toolsText":    "Please seelct all the tools you have used for the above activities:",
+        "helpText":     "Please select all activities where you have needed ordinary help from another person.",
+        "alt1":         "Without ANY difficulty",
+        "alt2":         "With SOME difficulty",
+        "alt3":         "With MUCH difficulty",
+        "alt4":         "UNABLE to do",
+        "alertError":   "Error",
+        "errorMessage": "You need to answer at least one question per category before you can move on to the next page..",
+        "errorMessage2":"You need to answer at least one question per category before you can complete the questionnaire",
+        "alertSubmit":  "Submit form",
+        "submitMess":   "Do you want to finish this HAQ-form?",
+        "cancelSubmit": "Cancel",
+        "cancelMess":   "Do you want to abort this questionnaire?"
   },
 
-  "home": {
-      "haqGraph":     "The graph displays the eHAQ result from the last 3 months.",
-      "diaryGraph":   "The graph displays the pain diary result from the last 3 months.",
-      "status":       "STATUS",
-      "nextApp":      "NEXT APPOINTMENT",
-      "lab":          "Laboratory: ",
-      "rheuma":       "Rheumatologist: ",
-      "haq":          "eHAQ"
+    "home": {
+        "haqGraph":     "The graph displays the eHAQ result from the last chosen months.",
+        "diaryGraph":   "The graph displays the pain diary result from the last chosen months.",
+        "status":       "STATUS",
+        "nextApp":      "NEXT APPOINTMENT",
+        "lab":          "Laboratory: ",
+        "rheuma":       "Rheumatologist: ",
+        "haq":          "eHAQ"
   },
 
-  "report": {
-
-  },
-
-  "blood": {
-
-  },
-
-  "guide": {
-
-  },
-
-  "settings": {
+    "settings": {
+        "selectLanguage" :  "Select language",
+        "en" :              "English",
+        "de" :              "German",
+        "no" :              "Norwegian",
+        "monthsChoosen":    "How many months should be shown on the graph on the dashboard?",
+        "graph" :           "Graph settings",
+        "notification" :    "Notifications"
 
   },
 
-  "error": {
-      "network":      "Your internet connection appears to be offline. You can still enter data and it will be synced when you are online again.",
-      "storage":      "There was an error storing entry",
-      "unvalid":      "You have not entered any information",
-      "reconnect":    "You are now connected to internet",
-      "offline":      "Did not sync because you are offline"
+    "error": {
+        "network":      "Your internet connection appears to be offline. You can still enter data and it will be synced when you are online again.",
+        "storage":      "There was an error storing entry",
+        "unvalid":      "You have not entered any information",
+        "reconnect":    "You are now connected to internet",
+        "offline":      "Did not sync because you are offline"
 
   },
 
 
-  "ANZIEHEN_KOERPERFLEGE": "Dressing & Grooming",
-  "DIFF_SELBST_ANZIEHEN": "Dress yourself, including shoelaces and buttons?",
-  "DIFF_HAARE_WASCHEN": "Shampoo your hair?",
-  "HILFSMITTEL_ZUM_ANZIEHEN": "Devices used for Dressing (button hook, zipper pull, etc.)",
-  "HILFE_ANZIEHEN_KOERPERPFLEGE": "Dressing and grooming",
+    "ANZIEHEN_KOERPERFLEGE": "Dressing & Grooming",
+    "DIFF_SELBST_ANZIEHEN": "Dress yourself, including shoelaces and buttons?",
+    "DIFF_HAARE_WASCHEN": "Shampoo your hair?",
+    "HILFSMITTEL_ZUM_ANZIEHEN": "Devices used for Dressing (button hook, zipper pull, etc.)",
+    "HILFE_ANZIEHEN_KOERPERPFLEGE": "Dressing and grooming",
 
-  "AUFSTEHEN": "Arising",
-  "DIFF_STUHL_AUFSTEHEN": "Stand up from a straight chair?",
-  "DIFF_BETT_LEGEN_AUFSTEHEN": "Get in and out of bed?",
-  "HILFSMITTEL_ANGEPASSTER_STUHL": "Special or built up chair",
-  "HILFE_AUFSTEHEN": "Arising",
+    "AUFSTEHEN": "Arising",
+    "DIFF_STUHL_AUFSTEHEN": "Stand up from a straight chair?",
+    "DIFF_BETT_LEGEN_AUFSTEHEN": "Get in and out of bed?",
+    "HILFSMITTEL_ANGEPASSTER_STUHL": "Special or built up chair",
+    "HILFE_AUFSTEHEN": "Arising",
 
-  "ESSEN": "Eating",
-  "DIFF_FLEISCH_SCHNEIDEN": "Cut your own meat?",
-  "DIFF_TASSE_GLAS_MUND": "Lift a full cup or glass to your mouth?",
-  "DIFF_MILCHKARTON_OEFFNEN": "Open a new milk carton?",
-  "HILFSMITTEL_ANGEPASST": "Built up or special utensils",
-  "HILFE_ESSEN": "Eating",
+    "ESSEN": "Eating",
+    "DIFF_FLEISCH_SCHNEIDEN": "Cut your own meat?",
+    "DIFF_TASSE_GLAS_MUND": "Lift a full cup or glass to your mouth?",
+    "DIFF_MILCHKARTON_OEFFNEN": "Open a new milk carton?",
+    "HILFSMITTEL_ANGEPASST": "Built up or special utensils",
+    "HILFE_ESSEN": "Eating",
 
-  "GEHEN": "Walking",
-  "DIFF_GEHEN_AUF_EBENEM_UNTERGRUND": "Walk outdoors on flat ground?",
-  "DIFF_FUENF_TREPPENSTUFEN_HOCHGEHEN": "Climb up five steps?",
-  "HILFSMITTEL_GEHSTOCK": "Cane",
-  "HILFSMITTEL_GEHHILFE_ROLLATOR": "Walker",
-  "HILFSMITTEL_KRUECKEN": "Crutches",
-  "HILFSMITTEL_ROLLSTUHL": "Wheelchair",
-  "HILFE_GEHEN": "Walking",
+    "GEHEN": "Walking",
+    "DIFF_GEHEN_AUF_EBENEM_UNTERGRUND": "Walk outdoors on flat ground?",
+    "DIFF_FUENF_TREPPENSTUFEN_HOCHGEHEN": "Climb up five steps?",
+    "HILFSMITTEL_GEHSTOCK": "Cane",
+    "HILFSMITTEL_GEHHILFE_ROLLATOR": "Walker",
+    "HILFSMITTEL_KRUECKEN": "Crutches",
+    "HILFSMITTEL_ROLLSTUHL": "Wheelchair",
+    "HILFE_GEHEN": "Walking",
 
-  "HYGIENE": "Hygiene",
-  "DIFF_WASCHEN_ABTROCKNEN": "Wash and dry your body?",
-  "DIFF_VOLLBAD_NEHMEN": "Take a tub bath?",
-  "DIFF_TOILETTE_SETZEN_AUFSTEHEN": "Get on and off the toilet?",
-  "HILFSMITTEL_TOILETTENSITZ": "Raised toilet seat",
-  "HILFSMITTEL_BADEWANNENSITZ": "Bathtub seat",
-  "HILFSMITTEL_BADEWANNENHANDGRIFF": "Bathtub bar",
-  "HILFSMITTEL_LANGER_HANDGRIFF_BADEZIMMER": "Long-handled appliances in bathroom",
-  "HILFE_HYGIENE": "Hygiene",
+    "HYGIENE": "Hygiene",
+    "DIFF_WASCHEN_ABTROCKNEN": "Wash and dry your body?",
+    "DIFF_VOLLBAD_NEHMEN": "Take a tub bath?",
+    "DIFF_TOILETTE_SETZEN_AUFSTEHEN": "Get on and off the toilet?",
+    "HILFSMITTEL_TOILETTENSITZ": "Raised toilet seat",
+    "HILFSMITTEL_BADEWANNENSITZ": "Bathtub seat",
+    "HILFSMITTEL_BADEWANNENHANDGRIFF": "Bathtub bar",
+    "HILFSMITTEL_LANGER_HANDGRIFF_BADEZIMMER": "Long-handled appliances in bathroom",
+    "HILFE_HYGIENE": "Hygiene",
 
-  "NACH_ETWAS_GREIFEN": "Reach",
-  "DIFF_SCHWEREN_GEGENSTAND_AUFHEBEN": "Reach and get down a 5 pound object (such as a bag of sugar) from above your head?",
-  "DIFF_BUECKEN_KLEIDUNGSSTUECK_AUFHEBEN": "Bend down to pick up clothing from the floor?",
-  "HILFSMITTEL_LANGER_HANDGRIFF_GREIFHILFE": "Long-handled appliances for reach",
-  "HILFE_NACH_ETWAS_GREIFEN": "Reach",
+    "NACH_ETWAS_GREIFEN": "Reach",
+    "DIFF_SCHWEREN_GEGENSTAND_AUFHEBEN": "Reach and get down a 5 pound object (such as a bag of sugar) from above your head?",
+    "DIFF_BUECKEN_KLEIDUNGSSTUECK_AUFHEBEN": "Bend down to pick up clothing from the floor?",
+    "HILFSMITTEL_LANGER_HANDGRIFF_GREIFHILFE": "Long-handled appliances for reach",
+    "HILFE_NACH_ETWAS_GREIFEN": "Reach",
 
-  "GREIFEN_UND_OEFFNEN": "Grip",
-  "DIFF_AUTOTUER_OEFFNEN": "Open car doors?",
-  "DIFF_KONSERVENGLAESER_OEFFNEN": "Open previously opened jars?",
-  "DIFF_WASSERHAEHNE_AUF_ZUDREHEN": "Turn faucets on and off?",
-  "HILFSMITTEL_OEFFNER_SCHRAUBVERSCHLUESSE": "Jar opener (for jars previously opened)",
-  "HILFE_GREIFEN_UND_OEFFNEN": "Gripping and opening things",
+    "GREIFEN_UND_OEFFNEN": "Grip",
+    "DIFF_AUTOTUER_OEFFNEN": "Open car doors?",
+    "DIFF_KONSERVENGLAESER_OEFFNEN": "Open previously opened jars?",
+    "DIFF_WASSERHAEHNE_AUF_ZUDREHEN": "Turn faucets on and off?",
+    "HILFSMITTEL_OEFFNER_SCHRAUBVERSCHLUESSE": "Jar opener (for jars previously opened)",
+    "HILFE_GREIFEN_UND_OEFFNEN": "Gripping and opening things",
 
-  "ANDERE_TAETIGKEITEN": "Activities",
-  "DIFF_BESORGUNGEN_MACHEN_EINKAUFEN": "Run errands and shop?",
-  "DIFF_AUTO_EIN_AUSSTEIGEN": "Get in and out of a car?",
-  "DIFF_HAUSARBEITEN_GARTENARBEITEN": "Do chores such as vacuuming or yard work?",
-  "HILFE_BESORGUNGEN_HAUSARBEITEN": "Errands and chores"
+    "ANDERE_TAETIGKEITEN": "Activities",
+    "DIFF_BESORGUNGEN_MACHEN_EINKAUFEN": "Run errands and shop?",
+    "DIFF_AUTO_EIN_AUSSTEIGEN": "Get in and out of a car?",
+    "DIFF_HAUSARBEITEN_GARTENARBEITEN": "Do chores such as vacuuming or yard work?",
+    "HILFE_BESORGUNGEN_HAUSARBEITEN": "Errands and chores",
 
+    "report": {
+
+    },
+
+    "blood": {
+
+    },
+
+    "guide": {
+
+    }
 }

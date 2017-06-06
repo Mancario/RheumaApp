@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform} from 'ionic-angular';
 
 import { HomePage } from '../pages/home/home';
 import { BloodTestPage } from '../pages/blood-test/blood-test';
@@ -13,16 +13,13 @@ import { SettingsPage } from '../pages/settings/settings';
 import { UserGuidePage } from '../pages/user-guide/user-guide';
 import { AuthService } from '../security/auth.service';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable }     from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { NetworkService } from '../services/network.service'
+import { Storage } from '@ionic/storage';
 import {API_URL} from '../environments/environment';
 import {Http, Response, Headers} from "@angular/http";
-
-
-
-
 
 @Component({
   templateUrl: 'app.html'
@@ -42,17 +39,16 @@ export class MyApp {
   private settings;
   private logOut;
 
-
-
-  pages: Array<{icon: string, title: string, component: any}>;
+  pages: Array<{ icon: string, title: string, component: any }>;
 
   constructor(public platform: Platform,
-              private _statusBar: StatusBar,
-              private _splashScreen: SplashScreen,
-              private _authService: AuthService,
-              private translate: TranslateService,
-              private _network: NetworkService,
-              private _http: Http) {
+    private _statusBar: StatusBar,
+    private _splashScreen: SplashScreen,
+    private _authService: AuthService,
+    private translate: TranslateService,
+    private storage: Storage,
+    private _network: NetworkService,
+    private _http: Http) {
 
     this.initializeApp();
 
@@ -63,26 +59,33 @@ export class MyApp {
     translate.use('en');
 
     this.setTitles().subscribe(
-      value =>{
+      value => {
         this.pages = [
-          { icon: "home",  title: this.home, component: HomePage },
-          { icon: "print", title: this.report, component: GenerateReportPage },
-          { icon: "pulse",title: this.pain, component: PainDiaryPage },
-          { icon: "man",title: this.haq, component: EHAQPage },
-          { icon: "body",title: this.das, component: EDASPage },
-          { icon: "medkit",title: this.blood, component: BloodTestPage },
-          { icon: "help-circle",title: this.guide, component: UserGuidePage },
-          { icon: "settings",title: this.settings, component: SettingsPage },
-          { icon: "exit",title: this.logOut, component: LogoutPage }
+          { icon: "home", title: this.home, component: HomePage },
+          // { icon: "print", title: this.report, component: GenerateReportPage },
+          { icon: "pulse", title: this.pain, component: PainDiaryPage },
+          { icon: "man", title: this.haq, component: EHAQPage },
+          //{ icon: "body",title: this.das, component: EDASPage },
+          // { icon: "medkit",title: this.blood, component: BloodTestPage },
+          //{ icon: "help-circle",title: this.guide, component: UserGuidePage },
+          { icon: "settings", title: this.settings, component: SettingsPage },
+          { icon: "exit", title: this.logOut, component: LogoutPage }
 
         ];
       }
     );
+    this.storage.ready().then(() => {
+      this.storage.get("graphMonths").then((val) => {
+        if (val == null || val == undefined) {
+          this.storage.set("graphMonths", 3)
+        }
+      }
+      )
+    })
 
     // Set connection status
     console.log("Checking network...")
     this.testConnection()
-
   }
 
   initializeApp() {
@@ -94,7 +97,8 @@ export class MyApp {
     });
   }
 
-  setTitles(): Observable<string|Object>{
+
+  setTitles(): Observable<string | Object> {
     this.translate.get('menu.home').subscribe(
       value => this.home = value
     );

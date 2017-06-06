@@ -18,4 +18,40 @@
 
 <ion-content padding>
 
+  <ion-card class="card">
+
+    <ion-card-content>
+
+      <ion-list radio-group [(ngModel)]="language">
+        <ion-label> <b>{{ 'settings.selectLanguage' | translate }} </b> </ion-label>
+        <ion-item>
+          <ion-label>{{ 'settings.en' | translate }}</ion-label>
+          <ion-radio id="en" class="extendToggle" checked="false" (click)="changeLanguage()" value="en"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>{{ 'settings.de' | translate }}</ion-label>
+          <ion-radio id="de" class="extendToggle" checked="false" (click)="changeLanguage()" value="de"></ion-radio>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>{{ 'settings.no' | translate }}</ion-label>
+          <ion-radio id="no" class="extendToggle" checked="false" (click)="changeLanguage()" value="no"></ion-radio>
+        </ion-item>
+      </ion-list>
+
+      <ion-list>
+        <ion-label> <b> {{ 'settings.graph' | translate }} </b></ion-label>
+
+        <ion-item>
+          <ion-label text-wrap>{{ 'settings.monthsChoosen' | translate }}</ion-label>
+          <ion-select [(ngModel)]="months" (ngModelChange)=changeGraphSetting()>
+            <ion-option value="1" >1</ion-option>
+            <ion-option value="2">2</ion-option>
+            <ion-option value="3">3</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+     
+    </ion-card-content>
+  </ion-card>
 </ion-content>

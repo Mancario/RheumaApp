@@ -35,16 +35,18 @@
       <div class="col-md-6" [ngSwitch]="graph" id="graphcanvas">
         <!-- You will need to comment out these two canvas for npm testing -->
         <div *ngSwitchCase='2' id="graph2">
-          <canvas baseChart height="250px" [datasets]="lineChartData2" [labels]="lineChartLabels2" [options]="lineChartOptions" [colors]="lineChartColors"
+          <canvas class="small" baseChart height="250px" [datasets]="lineChartData2" [labels]="lineChartLabels2" [options]="lineChartOptions" [colors]="lineChartColors"
             [legend]="lineChartLegend" [chartType]="lineChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
           </canvas>
+          
           {{ 'home.haqGraph' | translate }}
         </div>
 
         <div *ngSwitchCase='1' id="graph1">
-          <canvas baseChart height="250px" [datasets]="lineChartData1" [labels]="lineChartLabels1" [options]="lineChartOptions" [colors]="lineChartColors"
-            [legend]="lineChartLegend" [chartType]="lineChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+          <canvas baseChart class="small" height="250px" [datasets]="lineChartData1" [labels]="lineChartLabels1" [options]="lineChartOptions" [colors]="lineChartColors"
+            [legend]="lineChartLegend" [chartType]="lineChartType"  (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
           </canvas>
+         
           {{ 'home.diaryGraph' | translate }}
         </div>
 
@@ -61,9 +63,9 @@
         {{ 'menu.pain' | translate }}
     </button>
 
-    <button ion-button color="light" id="reportButton" class="actionbutton" (click)="generateReport()">
-      <ion-icon padding name="print"> </ion-icon>
-       {{ 'menu.report' | translate }}
+    <button ion-button color="light" id="reportButton" class="actionbutton" (click)="haq()">
+      <ion-icon padding name="man"> </ion-icon>
+       {{ 'menu.haq' | translate }}
     </button>
   </div>
 </ion-content>
