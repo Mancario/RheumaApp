@@ -130,7 +130,7 @@ export class HAQService implements IWakeMeUp {
         .then((list: any) => {
           // list is an array of date strings
           let dateList = <string[]>list || [];
-          console.log("Retrieved list:", dateList);
+         // console.log("Retrieved list:", dateList);
           const count = query.count || 21
           const offset = query.offset || 0
           totalCount = list ? (<string[]>list).length : 0

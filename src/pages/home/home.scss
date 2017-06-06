@@ -1,19 +1,39 @@
+ /*@media only screen and (min-width: 725px){
+        #canvas{
+            height: 500px;    
+            max-height: 400px; 
+            min-height: 150px; 
+            max-width: 500;
+        }
+        canvas{
+            height: 500px; 
+        }
+    }
+     @media only screen and (max-width: 724px){
+        #canvas{
+            height: 250px; 
+            width: 100%; 
+        }
+        canvas{
+            height: 250px; 
+        }
+
+     }   */
 page-home {
+
+    .small{
+        display: block;
+    }
+  
     .graph-buttons{
           text-align: center;         
     }
-   
-    canvas{
-        max-height: 400px; 
-        min-height: 150px; 
-    }
-       
-   .card{
-       padding: 0%; 
-       margin-top: 0%; 
-       border-top: 0%; 
-    width: 98%;
-    margin: 2% auto;  
+    .card{
+        padding: 0%; 
+        margin-top: 0%; 
+        border-top: 0%; 
+        width: 98%;
+        margin: 2% auto;  
   }
   
     .logoutButton{
@@ -33,39 +53,6 @@ page-home {
           position: center; 
     }
     
-    .statusheader{
-        text-align: center;
-        position: left;
-        font-weight: bold;
-        font-size: 1.1em; 
-
-   }
-    .flagdiv{
-        margin: 0 auto;
-    }
-    .flag{
-        width: 70%;
-        height: 70%;
-        max-height: 100px; 
-        max-width: 100px; 
-        display: block;
-        position: center; 
-        margin: 0 auto; 
-    }
-
-    .appointmentheader{
-        position: top; 
-        font-weight: bold;
-        font-size: 1.1em; 
-
-    }
-    .appointmenttext{
-        font-size: 0.85 em; 
-        position: left !important; 
-        margin: 0 auto;
-        padding-top: 1%; 
-    }
-
     .bottombutttons button{  
         width: 98%;  
         margin: 3% auto; 
