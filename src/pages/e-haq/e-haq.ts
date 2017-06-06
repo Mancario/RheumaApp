@@ -70,7 +70,7 @@ export class EHAQPage {
       this._haqService.refreshAllEntries()
         .subscribe(list => {
           if(list !== null){
-            this.results = list.results
+            this.getDiary()
 
           }else{
             console.log("Did not refresh since app is offline")

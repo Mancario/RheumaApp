@@ -23,14 +23,6 @@ export class NetworkService {
       public toastCtrl: ToastController,
       private translate: TranslateService) {
 
-      console.log("Current network:", this.network.type)
-      this.connected = !this.network.type || this.network.type != 'none'
-      console.log("Initial Network status:" + this.connected)
-      if(!this.connected) {
-        this.createDisconnectionToast()
-        this.disconnectToast.present()
-      }
-
       // watch network for a disconnect
       this.network.onDisconnect().subscribe(() => {
         this.connected = false
@@ -38,7 +30,6 @@ export class NetworkService {
         this.createDisconnectionToast()
         this.disconnectToast.present()
       });
-
 
       // watch network for a connection
       this.network.onConnect().subscribe(() => {
@@ -54,6 +45,16 @@ export class NetworkService {
           this.listeners.forEach(l => l.wakeMeUp())
         }, 3000);
       });
+    }
+
+    public setConnected(val: boolean){
+      this.connected = val
+      console.log('Initial network status: ' + val);
+      if(val === false){
+        console.log("val is false")
+        this.createDisconnectionToast()
+        this.disconnectToast.present()
+      }
     }
 
     public createReconnectionToast() {
